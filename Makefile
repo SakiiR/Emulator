@@ -4,7 +4,7 @@ RM = rm -rf
 
 LDFLAGS +=  
 
-CFLAGS += -Iinc -W -Werror -Wall
+CFLAGS += -Iinc -W -Werror -Wall -g3
 
 SRCS = $(shell find src/ -type f -name "*.c")
 

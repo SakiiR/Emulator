@@ -12,8 +12,6 @@ static void        init_options(t_opts *options)
 {
   options->card_path = NULL;
   options->card_fd = 0;
-  options->card_content = NULL;
-  options->card_size = 0;
 }
 
 static void         help(const char *prog)
@@ -43,7 +41,6 @@ void                verb_options(const t_opts *options)
   printf("Options: %p\n", options);
   printf("\tCard Path    : %s\n", options->card_path);
   printf("\tCard Fd      : %d\n", options->card_fd);
-  printf("\tCard Content : %.10s [...]\n", options->card_content);
   printf("#############\n");
 }
 

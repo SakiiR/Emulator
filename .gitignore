@@ -1,2 +1,4 @@
 bin/
 .clang
+*.o
+.gdb_history
