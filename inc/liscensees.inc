@@ -59,3 +59,4 @@
 {"97", "Kaneko"},
 {"99", "Pack in soft"},
 {"A4", "Konami (Yu-Gi-Oh!)"},
+{{0}, NULL}
