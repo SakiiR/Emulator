@@ -254,4 +254,4 @@
 {0xfc, &unimplemented_instruction},
 {0xfd, &unimplemented_instruction},
 {0xfe, &unimplemented_instruction},
-{0xff, &unimplemented_instruction}
+{0xff, &unimplemented_instruction},
