@@ -3,6 +3,8 @@
 
 # include <stdint.h>
 
+# define MEMORY_SIZE (0xFFFF)
+
 typedef struct              s_cc
 {
   uint8_t                   z:1;    
