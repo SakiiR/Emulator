@@ -3,11 +3,24 @@
 #include "instructions.h"
 #include "cpu.h"
 #include "resource.h"
+#include "card.h"
 
 /**
  * Launch the loop()
  */
-int             emulate()
+int             emulate(t_card *card)
 {
+  t_cpustate   state;
+  uint8_t       opcode;
+
+  state.memory = (uint8_t *)card->content;
+  state.pc = ENTRY_POINT;
+  while (1)
+  {
+    opcode = state.memory[state.pc];
+    if (search_instruction(opcode, &state) == RETURN_FAILURE)
+      return RETURN_FAILURE;
+    printf("[+] DEBUG: executing at 0x%04x, instruction 0x%02x\n", state.pc, opcode);
+  }
   return RETURN_SUCCESS;
 }
