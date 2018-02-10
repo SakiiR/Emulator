@@ -1,6 +1,8 @@
 #ifndef RESOURCE_H_
 # define RESOURCE_H_
 
+# include <stdio.h>
+# include <stdlib.h>
 # include "card.h"
 
 # define RETURN_FAILURE (1)

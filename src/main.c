@@ -3,6 +3,7 @@
 #include "resource.h"
 #include "opts.h"
 #include "card.h"
+#include "cpu.h"
 
 int             main(int argc, char **argv)
 {
@@ -16,5 +17,7 @@ int             main(int argc, char **argv)
     if (read_card(&card) == RETURN_FAILURE)
       return RETURN_FAILURE;
     verb_card(&card);
+    if (emulate(&card) == RETURN_FAILURE)
+      return RETURN_FAILURE;
     return RETURN_SUCCESS;
 }
