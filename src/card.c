@@ -145,9 +145,10 @@ static unsigned char    compute_checksum(t_card *card)
   return x;
 }
 
-void                verb_card(t_card *card)
+void                    verb_card(t_card *card)
 {
-  int               checksum = compute_checksum(card);
+  int                   checksum = compute_checksum(card);
+
   printf("####### Card Information ########\n");
   printf("\tcontent      :");
   display_nbyte(card->content, 0x10);
