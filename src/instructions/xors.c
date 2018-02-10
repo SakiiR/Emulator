@@ -6,7 +6,7 @@
 /**
  * Xor A with A 
  */
-int                 instruction_xor_a(t_cpustate *state)
+int                 i_xor_a(t_cpustate *state)
 {
   state->a ^= state->a;
   ++state->pc;

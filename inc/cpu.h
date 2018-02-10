@@ -2,10 +2,12 @@
 # define CPU_H_
 
 # include <stdint.h>
+# include "memory.h"
 # include "card.h"
 
 # define ENTRY_POINT (0x0100)
 # define MEMORY_SIZE (0xFFFF)
+# define DEFAULT_SP  (0x0000) /* Invalid */
 
 typedef struct              s_flags
 {
@@ -27,11 +29,11 @@ typedef struct              s_cpustate {
   uint8_t                   l;    
   uint16_t                  sp;    
   uint16_t                  pc;    
-  uint8_t                   *memory;    
+  t_memory                  memory;    
   struct s_flags            flags;    
   uint8_t                   int_enable;    
 }                           t_cpustate;    
 
-int             emulate(t_card *card);
+int                         emulate(t_card *card);
 
 #endif /* !CPU_H_ */

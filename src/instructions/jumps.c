@@ -6,8 +6,8 @@
 /**
  * Jump to next word
  */
-int                 instruction_jp_nn(t_cpustate *state)
+int                 i_jp_nn(t_cpustate *state)
 {
-  state->pc = read_16(&state->memory[state->pc + 1]);
+  state->pc = read_16(&state->memory.start[state->pc + 1]);
   return RETURN_SUCCESS;
 }

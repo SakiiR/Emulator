@@ -17,6 +17,11 @@ int             main(int argc, char **argv)
     if (read_card(&card) == RETURN_FAILURE)
       return RETURN_FAILURE;
     verb_card(&card);
+    if (card.card_type.id != CTYPE_ROMONLY)
+    {
+      fprintf(stderr, "[-] Sorry, only ROM_Only CB can be run on this emulator .. \n");
+      return RETURN_FAILURE;
+    }
     if (emulate(&card) == RETURN_FAILURE)
       return RETURN_FAILURE;
     return RETURN_SUCCESS;
