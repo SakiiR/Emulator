@@ -5,41 +5,41 @@
 
 # include "cpu.h"
 
-typedef struct      s_instruction
+typedef int                 (t_ihandler)(struct s_cpustate *state);
+
+typedef struct              s_instruction
 {
-  unsigned int      opcode;
-  const char        operation[16];
-  int               (*handler)(struct s_cpustate *state);
-  unsigned char     cycle_count;
-  unsigned char     size;
-}                   t_instruction;
+  const char                operation[0xff];
+  t_ihandler                *handler;
+  unsigned char             cycle_count;
+  unsigned char             size;
+}                           t_instruction;
 
 
 extern const t_instruction	g_instructions[0xFF + 1];
 
-int                 unimplemented_instruction(t_cpustate *state);
-int                 search_instruction(uint8_t opcode, t_cpustate *state);
+int                         unimplemented_instruction(t_cpustate *state);
+int                         search_instruction(uint8_t opcode, t_cpustate *state);
 
-/* Instructions handlers */
-/* NOP */
-int                 i_nop(t_cpustate *state);
+t_ihandler                  i_nop;
+t_ihandler                  i_ld16_bc_nn;
+t_ihandler                  i_ld16_hl_nn;
+t_ihandler                  i_xor_a;
+t_ihandler                  i_rst_38;
+
+t_ihandler                  i_ld8_b_n;
+t_ihandler                  i_ld8_c_n;
+t_ihandler                  i_ld8_d_n;
+t_ihandler                  i_ld8_e_n;
+t_ihandler                  i_ld8_h_n;
+t_ihandler                  i_ld8_l_n;
 
 /* Jumps */
-int                 i_jp_nn(t_cpustate *state);
-
-/* 8-bits Loads*/
-/* LD nn,n */
-
-/* 16-bits Loads */
-/* LD n, nn*/
-
-int                 i_ld16_bc_nn(t_cpustate *state); /* 0x01 */
-int                 i_ld16_hl_nn(t_cpustate *state); /* 0x21 */
-
-/* ALU */
-int                 i_xor_a(t_cpustate *state);   /* 0xaf */
-
-/* Restarts */
-int                 i_rst_38(t_cpustate *state); /* 0xff */
+t_ihandler                  i_jp_nn;
+t_ihandler                  i_jp_nz_nn;
+t_ihandler                  i_jp_z_nn;
+t_ihandler                  i_jp_nc_nn;
+t_ihandler                  i_jp_c_nn;
 
 #endif /* !INSTRUCTIONS_H_ */
+
