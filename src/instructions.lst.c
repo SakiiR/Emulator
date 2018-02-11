@@ -181,7 +181,7 @@ const t_instruction     g_instructions[] = {
 
   /* 2. LD SP, HL */
   /* Description: Put HL into Stack Pointer (SP) */
-  [0xf9] = { "LD SP, HL", &unimplemented_instruction, 8, 1},
+  [0xf9] = { "LD SP, HL", &i_ld16_sp_hl, 8, 1},
 
   /* 3. LD HL, SP+n */
   /* Description: Same as: LDHL SP, n */

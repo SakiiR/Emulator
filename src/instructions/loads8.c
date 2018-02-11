@@ -86,7 +86,7 @@ int                 i_ld8_a_l(t_cpustate *state)
 
 int                 i_ld8_a_hl(t_cpustate *state)
 {
-  state->a = read_byte(state, get_hl(state));
+  state->a = read_byte(state, state->hl);
   return RETURN_SUCCESS;
 }
 
@@ -128,7 +128,7 @@ int                 i_ld8_b_l(t_cpustate *state)
 
 int                 i_ld8_b_hl(t_cpustate *state)
 {
-  state->b = read_byte(state, get_hl(state));
+  state->b = read_byte(state, state->hl);
   return RETURN_SUCCESS;
 }
 
@@ -170,7 +170,7 @@ int                 i_ld8_c_l(t_cpustate *state)
 
 int                 i_ld8_c_hl(t_cpustate *state)
 {
-  state->c = read_byte(state, get_hl(state));
+  state->c = read_byte(state, state->hl);
   return RETURN_SUCCESS;
 }
 
@@ -212,7 +212,7 @@ int                 i_ld8_d_l(t_cpustate *state)
 
 int                 i_ld8_d_hl(t_cpustate *state)
 {
-  state->d = read_byte(state, get_hl(state));
+  state->d = read_byte(state, state->hl);
   return RETURN_SUCCESS;
 }
 
@@ -254,7 +254,7 @@ int                 i_ld8_e_l(t_cpustate *state)
 
 int                 i_ld8_e_hl(t_cpustate *state)
 {
-  state->e = read_byte(state, get_hl(state));
+  state->e = read_byte(state, state->hl);
   return RETURN_SUCCESS;
 }
 
@@ -296,7 +296,7 @@ int                 i_ld8_h_l(t_cpustate *state)
 
 int                 i_ld8_h_hl(t_cpustate *state)
 {
-  state->h = read_byte(state, get_hl(state));
+  state->h = read_byte(state, state->hl);
   return RETURN_SUCCESS;
 }
 
@@ -338,50 +338,50 @@ int                 i_ld8_l_l(t_cpustate *state)
 
 int                 i_ld8_l_hl(t_cpustate *state)
 {
-  write_byte(state, get_hl(state), state->l);
+  write_byte(state, state->hl, state->l);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_b(t_cpustate *state)
 {
-  write_byte(state, get_hl(state), state->b);
+  write_byte(state, state->hl, state->b);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_c(t_cpustate *state)
 {
 
-  write_byte(state, get_hl(state), state->c);
+  write_byte(state, state->hl, state->c);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_d(t_cpustate *state)
 {
-  write_byte(state, get_hl(state), state->d);
+  write_byte(state, state->hl, state->d);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_e(t_cpustate *state)
 {
-  write_byte(state, get_hl(state), state->e);
+  write_byte(state, state->hl, state->e);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_h(t_cpustate *state)
 {
-  write_byte(state, get_hl(state), state->h);
+  write_byte(state, state->hl, state->h);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_l(t_cpustate *state)
 {
-  write_byte(state, get_hl(state), state->l);
+  write_byte(state, state->hl, state->l);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_n(t_cpustate *state)
 {
-  write_byte(state, get_hl(state), state->op8);
+  write_byte(state, state->hl, state->op8);
   return RETURN_SUCCESS;
 }
 
@@ -389,13 +389,13 @@ int                 i_ld8_hl_n(t_cpustate *state)
 
 int                 i_ld8_a_bc(t_cpustate *state)
 {
-  state->a = read_byte(state, get_bc(state));
+  state->a = read_byte(state, state->bc);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_a_de(t_cpustate *state)
 {
-  state->a = read_byte(state, get_de(state));
+  state->a = read_byte(state, state->de);
   return RETURN_SUCCESS;
 }
 
@@ -451,20 +451,20 @@ int                 i_ld8_l_a(t_cpustate *state)
 
 int                 i_ld8_bc_a(t_cpustate *state)
 {
-  write_byte(state, get_bc(state), state->a);
+  write_byte(state, state->bc, state->a);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_de_a(t_cpustate *state)
 {
-  write_byte(state, get_de(state), state->a);
+  write_byte(state, state->de, state->a);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_a(t_cpustate *state)
 {
 
-  write_byte(state, get_hl(state), state->a);
+  write_byte(state, state->hl, state->a);
   return RETURN_SUCCESS;
 }
 
@@ -489,29 +489,29 @@ int                 i_ld8_cp_a(t_cpustate *state)
 
 int                 i_ldd8_a_hl(t_cpustate *state)
 {
-  state->a = read_byte(state, get_hl(state));
-  dec_hl(state);
+  state->a = read_byte(state, state->hl);
+  --state->hl;
   return RETURN_SUCCESS;
 }
 
 int                 i_ldd8_hl_a(t_cpustate *state)
 {
-  write_byte(state, get_hl(state), state->a);
-  dec_hl(state);
+  write_byte(state, state->hl, state->a);
+  --state->hl;
   return RETURN_SUCCESS;
 }
 
 int                 i_ldi8_a_hl(t_cpustate *state)
 {
-  state->a = read_byte(state, get_hl(state));
-  inc_hl(state);
+  state->a = read_byte(state, state->hl);
+  ++state->hl;
   return RETURN_SUCCESS;
 }
 
 int                 i_ldi8_hl_a(t_cpustate *state)
 {
-  write_byte(state, get_hl(state), state->a);
-  inc_hl(state);
+  write_byte(state, state->hl, state->a);
+  ++state->hl;
   return RETURN_SUCCESS;
 }
 
