@@ -3,29 +3,31 @@
 #include "cpu.h"
 #include "resource.h"
 
+static void         get_operands(t_cpustate *state)
+{
+  state->op8 = read_8(&state->memory.start[state->pc + 1]);
+  state->op16 = read_16(&state->memory.start[state->pc + 1]);
+}
+
 int                 search_instruction(uint8_t opcode, t_cpustate *state)
 {
-  unsigned int      i = 0;
   int               ret = RETURN_SUCCESS;
+  t_instruction     instruction = g_instructions[opcode];
 
-  for (i = 0 ; i <= 0xff ; ++i)
-  {
-    if (opcode == g_instructions[i].opcode)
-    {
-      ret = g_instructions[i].handler(state);
-      state->pc += g_instructions[i].size;
-      return ret;
-    }
-  }
-  fprintf(stderr, "[-] Failed to find instruction 0x%x\n", opcode);
-  return RETURN_FAILURE;
+  get_operands(state);
+  ret = instruction.handler(state);
+  state->pc += instruction.size;
+  return ret;
 }
 
 
 int                 unimplemented_instruction(t_cpustate *state)
 {
-    fprintf(stderr, "[-] Unimplemented Instruction at 0x%04x (0x%02x)\n", state->pc, state->memory.start[state->pc]);
-    return RETURN_FAILURE;
+  fprintf(stderr, "[-] Unimplemented Instruction at 0x%04x (%s) (0x%02x)\n",
+      state->pc,
+      g_instructions[state->memory.start[state->pc]].operation,
+      state->memory.start[state->pc]);
+  return RETURN_FAILURE;
 }
 
 int                 i_nop(t_cpustate *state)
