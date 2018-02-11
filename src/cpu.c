@@ -20,7 +20,6 @@ int             emulate(t_card *card)
   while (1)
   {
     opcode = state.memory.start[state.pc];
-    printf("[+] DEBUG: executing at 0x%04x, instruction 0x%02x\n", state.pc, opcode);
     if (search_instruction(opcode, &state) == RETURN_FAILURE)
       return RETURN_FAILURE;
   }

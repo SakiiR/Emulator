@@ -5,8 +5,8 @@
 # include "memory.h"
 # include "card.h"
 
-# define REGISTER_SET (1)
-# define REGISTER_RESET (1)
+# define BIT_SET (1)
+# define BIT_RESET (1)
 # define ENTRY_POINT (0x0100)
 # define MEMORY_SIZE (0xFFFF)
 # define DEFAULT_SP  (0x0000) /* Invalid */

@@ -3,21 +3,6 @@
 #include "cpu.h"
 #include "memory.h"
 
-uint8_t                 read_8(uint8_t *memory)
-{
-  return memory[0];
-}
-
-uint16_t                read_16(uint8_t *memory)
-{
-  return memory[1] << 8 | memory[0];
-}
-
-uint32_t                read_32(uint8_t *memory)
-{
-  return memory[0] | (memory[1] << 8) | (memory[2] << 16) | (memory[3] << 24);
-}
-
 /**
  * Init memory pointers and mapping
  */

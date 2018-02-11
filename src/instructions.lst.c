@@ -19,95 +19,96 @@ const t_instruction     g_instructions[] = {
   /* Description: Put value r2 into r1 */
   /* Use with:  */
   /*     r1, r2 = A,B,C,D,E,H,L,(HL) */
-  [0x7f] = { "LD A, A",         &unimplemented_instruction, 4, 1},
-  [0x78] = { "LD A, B",         &unimplemented_instruction, 4, 1},
-  [0x79] = { "LD A, C",         &unimplemented_instruction, 4, 1},
-  [0x7a] = { "LD A, D",         &unimplemented_instruction, 4, 1},
-  [0x7b] = { "LD A, E",         &unimplemented_instruction, 4, 1},
-  [0x7c] = { "LD A, H",         &unimplemented_instruction, 4, 1},
-  [0x7d] = { "LD A, L",         &unimplemented_instruction, 4, 1},
-  [0x7e] = { "LD A, (HL)",      &unimplemented_instruction, 8, 1},
-  [0x40] = { "LD B, B",         &unimplemented_instruction, 4, 1},
-  [0x41] = { "LD B, C",         &unimplemented_instruction, 4, 1},
-  [0x42] = { "LD B, D",         &unimplemented_instruction, 4, 1},
-  [0x43] = { "LD B, E",         &unimplemented_instruction, 4, 1},
-  [0x44] = { "LD B, H",         &unimplemented_instruction, 4, 1},
-  [0x45] = { "LD B, L",         &unimplemented_instruction, 4, 1},
-  [0x46] = { "LD B, (HL)",      &unimplemented_instruction, 8, 1},
-  [0x48] = { "LD C, B",         &unimplemented_instruction, 4, 1},
-  [0x49] = { "LD C, C",         &unimplemented_instruction, 4, 1},
-  [0x4a] = { "LD C, D",         &unimplemented_instruction, 4, 1},
-  [0x4b] = { "LD C, E",         &unimplemented_instruction, 4, 1},
-  [0x4c] = { "LD C, H",         &unimplemented_instruction, 4, 1},
-  [0x4d] = { "LD C, L",         &unimplemented_instruction, 4, 1},
-  [0x4e] = { "LD C, (HL)",      &unimplemented_instruction, 8, 1},
-  [0x50] = { "LD D, B",         &unimplemented_instruction, 4, 1},
-  [0x51] = { "LD D, C",         &unimplemented_instruction, 4, 1},
-  [0x52] = { "LD D, D",         &unimplemented_instruction, 4, 1},
-  [0x53] = { "LD D, E",         &unimplemented_instruction, 4, 1},
-  [0x54] = { "LD D, H",         &unimplemented_instruction, 4, 1},
-  [0x55] = { "LD D, L",         &unimplemented_instruction, 4, 1},
-  [0x56] = { "LD D, (HL)",      &unimplemented_instruction, 8, 1},
-  [0x58] = { "LD E, B",         &unimplemented_instruction, 4, 1},
-  [0x59] = { "LD E, C",         &unimplemented_instruction, 4, 1},
-  [0x5a] = { "LD E, D",         &unimplemented_instruction, 4, 1},
-  [0x5b] = { "LD E, E",         &unimplemented_instruction, 4, 1},
-  [0x5c] = { "LD E, H",         &unimplemented_instruction, 4, 1},
-  [0x5d] = { "LD E, L",         &unimplemented_instruction, 4, 1},
-  [0x5e] = { "LD E, (HL)",      &unimplemented_instruction, 8, 1},
-  [0x60] = { "LD H, B",         &unimplemented_instruction, 4, 1},
-  [0x61] = { "LD H, C",         &unimplemented_instruction, 4, 1},
-  [0x62] = { "LD H, D",         &unimplemented_instruction, 4, 1},
-  [0x63] = { "LD H, E",         &unimplemented_instruction, 4, 1},
-  [0x64] = { "LD H, H",         &unimplemented_instruction, 4, 1},
-  [0x65] = { "LD H, L",         &unimplemented_instruction, 4, 1},
-  [0x66] = { "LD H, (HL)",      &unimplemented_instruction, 8, 1},
-  [0x68] = { "LD L, B",         &unimplemented_instruction, 4, 1},
-  [0x69] = { "LD L, C",         &unimplemented_instruction, 4, 1},
-  [0x6a] = { "LD L, D",         &unimplemented_instruction, 4, 1},
-  [0x6b] = { "LD L, E",         &unimplemented_instruction, 4, 1},
-  [0x6c] = { "LD L, H",         &unimplemented_instruction, 4, 1},
-  [0x6d] = { "LD L, L",         &unimplemented_instruction, 4, 1},
-  [0x6e] = { "LD L, (HL)",      &unimplemented_instruction, 8, 1},
-  [0x70] = { "LD (HL), B",      &unimplemented_instruction, 8, 1},
-  [0x71] = { "LD (HL), C",      &unimplemented_instruction, 8, 1},
-  [0x72] = { "LD (HL), D",      &unimplemented_instruction, 8, 1},
-  [0x73] = { "LD (HL), E",      &unimplemented_instruction, 8, 1},
-  [0x74] = { "LD (HL), H",      &unimplemented_instruction, 8, 1},
-  [0x75] = { "LD (HL), L",      &unimplemented_instruction, 8, 1},
-  [0x36] = { "LD (HL), n",      &unimplemented_instruction, 12, 3},
+
+  [0x7f] = { "LD A, A",         &i_ld8_a_a  , 4, 1},
+  [0x78] = { "LD A, B",         &i_ld8_a_b  , 4, 1},
+  [0x79] = { "LD A, C",         &i_ld8_a_c  , 4, 1},
+  [0x7a] = { "LD A, D",         &i_ld8_a_d  , 4, 1},
+  [0x7b] = { "LD A, E",         &i_ld8_a_e  , 4, 1},
+  [0x7c] = { "LD A, H",         &i_ld8_a_h  , 4, 1},
+  [0x7d] = { "LD A, L",         &i_ld8_a_l  , 4, 1},
+  [0x7e] = { "LD A, (HL)",      &i_ld8_a_hl , 8, 1},
+  [0x40] = { "LD B, B",         &i_ld8_b_b  , 4, 1},
+  [0x41] = { "LD B, C",         &i_ld8_b_c  , 4, 1},
+  [0x42] = { "LD B, D",         &i_ld8_b_d  , 4, 1},
+  [0x43] = { "LD B, E",         &i_ld8_b_e  , 4, 1},
+  [0x44] = { "LD B, H",         &i_ld8_b_h  , 4, 1},
+  [0x45] = { "LD B, L",         &i_ld8_b_l  , 4, 1},
+  [0x46] = { "LD B, (HL)",      &i_ld8_b_hl , 8, 1},
+  [0x48] = { "LD C, B",         &i_ld8_c_b  , 4, 1},
+  [0x49] = { "LD C, C",         &i_ld8_c_c  , 4, 1},
+  [0x4a] = { "LD C, D",         &i_ld8_c_d  , 4, 1},
+  [0x4b] = { "LD C, E",         &i_ld8_c_e  , 4, 1},
+  [0x4c] = { "LD C, H",         &i_ld8_c_h  , 4, 1},
+  [0x4d] = { "LD C, L",         &i_ld8_c_l  , 4, 1},
+  [0x4e] = { "LD C, (HL)",      &i_ld8_c_hl , 8, 1},
+  [0x50] = { "LD D, B",         &i_ld8_d_b  , 4, 1},
+  [0x51] = { "LD D, C",         &i_ld8_d_c  , 4, 1},
+  [0x52] = { "LD D, D",         &i_ld8_d_d  , 4, 1},
+  [0x53] = { "LD D, E",         &i_ld8_d_e  , 4, 1},
+  [0x54] = { "LD D, H",         &i_ld8_d_h  , 4, 1},
+  [0x55] = { "LD D, L",         &i_ld8_d_l  , 4, 1},
+  [0x56] = { "LD D, (HL)",      &i_ld8_d_hl , 8, 1},
+  [0x58] = { "LD E, B",         &i_ld8_e_b  , 4, 1},
+  [0x59] = { "LD E, C",         &i_ld8_e_c  , 4, 1},
+  [0x5a] = { "LD E, D",         &i_ld8_e_d  , 4, 1},
+  [0x5b] = { "LD E, E",         &i_ld8_e_e  , 4, 1},
+  [0x5c] = { "LD E, H",         &i_ld8_e_h  , 4, 1},
+  [0x5d] = { "LD E, L",         &i_ld8_e_l  , 4, 1},
+  [0x5e] = { "LD E, (HL)",      &i_ld8_e_hl , 8, 1},
+  [0x60] = { "LD H, B",         &i_ld8_h_b  , 4, 1},
+  [0x61] = { "LD H, C",         &i_ld8_h_c  , 4, 1},
+  [0x62] = { "LD H, D",         &i_ld8_h_d  , 4, 1},
+  [0x63] = { "LD H, E",         &i_ld8_h_e  , 4, 1},
+  [0x64] = { "LD H, H",         &i_ld8_h_h  , 4, 1},
+  [0x65] = { "LD H, L",         &i_ld8_h_l  , 4, 1},
+  [0x66] = { "LD H, (HL)",      &i_ld8_h_hl , 8, 1},
+  [0x68] = { "LD L, B",         &i_ld8_l_b  , 4, 1},
+  [0x69] = { "LD L, C",         &i_ld8_l_c  , 4, 1},
+  [0x6a] = { "LD L, D",         &i_ld8_l_d  , 4, 1},
+  [0x6b] = { "LD L, E",         &i_ld8_l_e  , 4, 1},
+  [0x6c] = { "LD L, H",         &i_ld8_l_h  , 4, 1},
+  [0x6d] = { "LD L, L",         &i_ld8_l_l  , 4, 1},
+  [0x6e] = { "LD L, (HL)",      &i_ld8_l_hl , 8, 1},
+  [0x70] = { "LD (HL), B",      &i_ld8_hl_b , 8, 1},
+  [0x71] = { "LD (HL), C",      &i_ld8_hl_c , 8, 1},
+  [0x72] = { "LD (HL), D",      &i_ld8_hl_d , 8, 1},
+  [0x73] = { "LD (HL), E",      &i_ld8_hl_e , 8, 1},
+  [0x74] = { "LD (HL), H",      &i_ld8_hl_h , 8, 1},
+  [0x75] = { "LD (HL), L",      &i_ld8_hl_l , 8, 1},
+  [0x36] = { "LD (HL), n",      &i_ld8_hl_n , 12, 2},
 
   /* 3. LD A, n */
   /* Description: Put value n into A */
   /* Use with:  */
   /*      n = A,B,C,D,E,H,L,(BC),(DE),(HL),(nn),# */
   /*     nn = two byte immediate value. (LS byte first.) */
-  [0x0a] = { "LD A, (BC)", &unimplemented_instruction, 8, 1},
-  [0x1a] = { "LD A, (DE)", &unimplemented_instruction, 8, 1},
-  [0xfa] = { "LD A, (nn)", &unimplemented_instruction, 16, 1},
-  [0x3e] = { "LD A, #", &unimplemented_instruction, 8, 1},
+  [0x0a] = { "LD A, (BC)", &i_ld8_a_bc    , 8, 1},
+  [0x1a] = { "LD A, (DE)", &i_ld8_a_de    , 8, 1},
+  [0xfa] = { "LD A, (nn)", &i_ld8_a_nn    , 16, 1},
+  [0x3e] = { "LD A, #",    &i_ld8_a_sharp , 8, 1},
 
   /* 4. LD n, A */
   /* Description: Put value A into n */
   /* Use with:  */
   /*      n = A,B,C,D,E,H,L,(BC),(DE),(HL),(nn) */
   /*     nn = two byte immediate value. (LS byte first.) */
-  [0x47] = { "LD B, A",         &unimplemented_instruction, 4, 1},
-  [0x4f] = { "LD C, A",         &unimplemented_instruction, 4, 1},
-  [0x57] = { "LD D, A",         &unimplemented_instruction, 4, 1},
-  [0x5f] = { "LD E, A",         &unimplemented_instruction, 4, 1},
-  [0x67] = { "LD H, A",         &unimplemented_instruction, 4, 1},
-  [0x6f] = { "LD L, A",         &unimplemented_instruction, 4, 1},
-  [0x02] = { "LD (BC), A",      &unimplemented_instruction, 8, 1},
-  [0x12] = { "LD (DE), A",      &unimplemented_instruction, 8, 1},
-  [0x77] = { "LD (HL), A",      &unimplemented_instruction, 8, 1},
-  [0xea] = { "LD (nn), A",      &unimplemented_instruction, 16, 1},
+  [0x47] = { "LD B, A",         &i_ld8_b_a , 4, 1},
+  [0x4f] = { "LD C, A",         &i_ld8_c_a , 4, 1},
+  [0x57] = { "LD D, A",         &i_ld8_d_a , 4, 1},
+  [0x5f] = { "LD E, A",         &i_ld8_e_a , 4, 1},
+  [0x67] = { "LD H, A",         &i_ld8_h_a , 4, 1},
+  [0x6f] = { "LD L, A",         &i_ld8_l_a , 4, 1},
+  [0x02] = { "LD (BC), A",      &i_ld8_bc_a, 8, 1},
+  [0x12] = { "LD (DE), A",      &i_ld8_de_a, 8, 1},
+  [0x77] = { "LD (HL), A",      &i_ld8_hl_a, 8, 1},
+  [0xea] = { "LD (nn), A",      &i_ld8_nn_a, 16, 1},
 
   /* 5. LD A, (C) */
-  [0xf2] = { "LD A, (C)",       &unimplemented_instruction, 8, 1},
+  [0xf2] = { "LD A, ($FF00 + C)",       &i_ld8_a_cp, 8, 1},
 
   /* 6. LD (C), A */
-  [0xe2] = { "LD ($FF00+C), A", &unimplemented_instruction, 8, 1},
+  [0xe2] = { "LD ($FF00+C), A", &i_ld8_cp_a, 8, 1},
 
   /* 7. LD A, (HLD) */
   /* Description: Same as: LDD A, (HL) */
@@ -118,7 +119,7 @@ const t_instruction     g_instructions[] = {
   /* 9. LDD A, (HL) */
   /* Description: Put value at address HL into A. Decrement HL */
   /* Same as: LD A, (HL) - DEC HL */
-  [0x3a] = { "LDD A, (HL)", &unimplemented_instruction, 8, 1},
+  [0x3a] = { "LDD A, (HL)", &i_ldd8_a_hl, 8, 1},
 
   /* 10. LD (HLD), A */
   /* Description: Same as: LDD (HL), A */
@@ -129,7 +130,7 @@ const t_instruction     g_instructions[] = {
   /* 12. LDD (HL), A */
   /* Description: Put A into memory address HL. Decrement HL */
   /* Same as: LD (HL), A - DEC HL */
-  [0x32] = { "LDD (HL), A", &unimplemented_instruction, 8, 1},
+  [0x32] = { "LDD (HL), A", &i_ldd8_hl_a, 8, 1},
 
 
   /* 13. LD A, (HLI) */
@@ -141,7 +142,7 @@ const t_instruction     g_instructions[] = {
   /* 15. LDI A, (HL) */
   /* Description: Put value at address HL into A. Increment HL */
   /* Same as: LD A, (HL) - INC HL */
-  [0x2a] = { "LDI A, (HL)", &unimplemented_instruction, 8, 1},
+  [0x2a] = { "LDI A, (HL)", &i_ldi8_a_hl, 8, 1},
 
   /* 16. LD (HLI), A */
   /* Description: Same as: LDD (HL), A */
@@ -152,7 +153,7 @@ const t_instruction     g_instructions[] = {
   /* 18. LDI (HL), A */
   /* Description: Put A into memory address HL. Increment HL */
   /* Same as: LD (HL), A - INC HL */
-  [0x22] = { "LDI (HL), A", &unimplemented_instruction, 8, 1},
+  [0x22] = { "LDI (HL), A", &i_ldi8_hl_a, 8, 1},
 
   /* 19. LDH (n), A */
   /* Description: Put A into memory address $FF00+n */
@@ -162,19 +163,21 @@ const t_instruction     g_instructions[] = {
   /* 20. LDH A, (n) */
   /* Description: Put memory address $FF00+n into A */
   /* Use with: n = one byte immediate value */
-  [0xf0] = { "LD A, ($FF00+n)", &unimplemented_instruction, 12, 1},
+  [0xf0] = { "LD A, ($FF00+n)", &unimplemented_instruction, 12, 2},
   
+
   /* 3.3.2 - 16 Bits Loads */
   
+
   /* 1. LD n, nn */
-  /* Description: Put valie nn into n */
+  /* Description: Put value nn into n */
   /* Use With:  */
   /* n = BC, DE, HL, SP */
   /* nn = 16 bit immediate value */
   [0x01] = { "LD BC, nn", &i_ld16_bc_nn, 12, 3},
-  [0x11] = { "LD DE, nn", &unimplemented_instruction, 12, 3},
+  [0x11] = { "LD DE, nn", &i_ld16_de_nn, 12, 3},
   [0x21] = { "LD HL, nn", &i_ld16_hl_nn, 12, 3},
-  [0x31] = { "LD SP, nn", &unimplemented_instruction, 12, 3},
+  [0x31] = { "LD SP, nn", &i_ld16_sp_nn, 12, 3},
 
   /* 2. LD SP, HL */
   /* Description: Put HL into Stack Pointer (SP) */
@@ -195,6 +198,7 @@ const t_instruction     g_instructions[] = {
   /*     C - Set or reset according to operation. */
   [0xf8] = { "LDHL SP, n", &unimplemented_instruction, 12, 1},
  
+
   /* 5. LD (nn), SP */
   /* Description: */
   /*     Put Stack Pointer (SP) at address n. */
@@ -481,18 +485,6 @@ const t_instruction     g_instructions[] = {
 
   /* 3.3.5 Miscellaneous */
 
-  /* 1. SWAP n */
-  /* Description: */
-  /*     Swap upper & lower nibles of n. */
-  /* Use with: */
-  /*     n = A, B, C, D, E, H, L, (HL). */
-  /* Flags affected: */
-  /*     Z - Set if result is zero. */
-  /*     N - Reset. */
-  /*     H - Reset. */
-  /*     C - Reset. */
-
-  /* TODO: ???? */
 
   /* 2. DAA */
   /* Description: */
@@ -526,7 +518,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Reset. */
   /*     C - Complemented */
-  [0x3f] = { "CCF", &unimplemented_instruction, 4, 1},
+  [0x3f] = { "CCF", &i_ccf, 4, 1},
 
   /* 5. SCF */
   /* Description: */
@@ -546,15 +538,13 @@ const t_instruction     g_instructions[] = {
   /* Description: */
   /*     Power down PU until an interrupt occurs. */
   /*     Use this when ever possible to reduce energy consumption. */
-  [0x76] = { "HALT", &unimplemented_instruction, 4, 1},
+  [0x76] = { "HALT", &i_halt, 4, 1},
 
   /* 8. STOP */
   /* Description: */
   /*     Halt CPU & LCD display until button pressed. */
-  [0x10] = { "STOP", &unimplemented_instruction, 4, 2},
+  [0x10] = { "STOP", &i_stop, 4, 2},
   
-  /* TODO: ???? */
-
   /* 9. DI */
   /* Description: */
   /*     This instruction disables interrupts but not immediately. */
@@ -609,198 +599,6 @@ const t_instruction     g_instructions[] = {
   /*     H - Reset. */
   /*     C - Contains old bit 0 data. */
   [0x1f] = { "RRA", &unimplemented_instruction, 4, 1},
-
-  /* 5. RLC n */
-  /* Description: */
-  /*     Rotate n left. Old bit 7 to Carry flag. */
-  /* Use with: */
-  /*     n = A,B,C,D,E,H,L,(HL) */
-  /* Flags affected: */
-  /*     Z - Set if result is zero. */
-  /*     N - Reset. */
-  /*     H - Reset. */
-  /*     C - Contains old bit 7 data. */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-
-  /* 6. RL n */
-  /* Description: */
-  /*     Rotate n left through Carry flag. */
-  /* Use with: */
-  /*     n = A,B,C,D,E,H,L,(HL) */
-  /* Flags affected: */
-  /*     Z - Set if result is zero. */
-  /*     N - Reset. */
-  /*     H - Reset. */
-  /*     C - Contains old bit 7 data. */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-
-  /* 7. RRC n */
-  /* Description: */
-  /*     Rotate n right. Old bit 0 to Carry flag. */
-  /* Use with: */
-  /*     n = A,B,C,D,E,H,L,(HL) */
-  /* Flags affected: */
-  /*     Z - Set if result is zero. */
-  /*     N - Reset. */
-  /*     H - Reset. */
-  /*     C - Contains old bit 0 data. */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-
-  /* 8. RRC n */
-  /* Description: */
-  /*     Rotate n right through Carry flag. */
-  /* Use with: */
-  /*     n = A,B,C,D,E,H,L,(HL) */
-  /* Flags affected: */
-  /*     Z - Set if result is zero. */
-  /*     N - Reset. */
-  /*     H - Reset. */
-  /*     C - Contains old bit 0 data. */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-
-  /* 9. SLA n */
-  /* Description: */
-  /*     Shift n left into Carry. LSB of n set to 0. */
-  /* Use with: */
-  /*     n = A,B,C,D,E,H,L,(HL) */
-  /* Flags affected: */
-  /*     Z - Set if result is zero. */
-  /*     N - Reset. */
-  /*     H - Reset. */
-  /*     C - Contains old bit 7 data. */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-
-  /* 10. SRA n */
-  /* Description: */
-  /*     Shift n right into Carry. MSB doesn't change. */
-  /* Use with: */
-  /*     n = A,B,C,D,E,H,L,(HL) */
-  /* Flags affected: */
-  /*     Z - Set if result is zero. */
-  /*     N - Reset. */
-  /*     H - Reset. */
-  /*     C - Contains old bit 0 data. */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-
-  /* 11. SRL n */
-  /* Description: */
-  /*     Shift n right into Carry. MSB set to 0. */
-  /* Use with: */
-  /*     n = A,B,C,D,E,H,L,(HL) */
-  /* Flags affected: */
-  /*     Z - Set if result is zero. */
-  /*     N - Reset. */
-  /*     H - Reset. */
-  /*     C - Contains old bit 0 data. */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-
-  /* 3.3.7 - Bit Opcodes*/
-
-  /* 1. BIT b, r */
-  /* Description: */
-  /*     Test bit b in register r. */
-  /* Use with: */
-  /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
-  /* Flags affected: */
-  /*     Z - Set if bit b of register r is 0. */
-  /*     N - Reset. */
-  /*     H - Set. */
-  /*     C - Not affected. */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-
-  /* 2. SET b, r */
-  /* Description: */
-  /*     Set bit b in register r. */
-  /* Use with: */
-  /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-
-  /* 3. RES b, r */
-  /* Description: */
-  /*     Reset bit b in register r. */
-  /* Use with: */
-  /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
-
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
-  /* TODO: ???? */
 
   /* 3.3.8 - Jumps */
 
@@ -860,7 +658,7 @@ const t_instruction     g_instructions[] = {
   /*     Push address of next instruction onto stack and then jump to address nn. */
   /* Use with: */
   /*     nn = two byte immediate value. (LS byte first). */
-  [0xcd] = { "CALL nn", &unimplemented_instruction, 12, 3},
+  [0xcd] = { "CALL nn", &i_call_nn, 12, 3},
 
 
   /* 2. CALL cc, nn */
@@ -921,7 +719,7 @@ const t_instruction     g_instructions[] = {
   [0xd9] = { "RETI", &unimplemented_instruction, 8, 1},
 
   /* Non-Documented */
-  [0xcb] = { "PREFIX", &unimplemented_instruction, 4, 1},
+  [0xcb] = { "PREFIX", &i_prefix, 4, 1},
 
   [0xd3] = { "", &unimplemented_instruction, 0, 1},
   [0xdb] = { "", &unimplemented_instruction, 0, 1},
@@ -935,4 +733,219 @@ const t_instruction     g_instructions[] = {
   [0xf4] = { "", &unimplemented_instruction, 0, 1},
   [0xfc] = { "", &unimplemented_instruction, 0, 1},
   [0xfd] = { "", &unimplemented_instruction, 0, 1},
+};
+
+const t_instruction     g_instructions_cb[] = {
+
+  /* SWAP n */
+  /* Description: */
+  /*     Swap upper & lower nibles of n. */
+  /* Use with: */
+  /*     n = A, B, C, D, E, H, L, (HL). */
+  /* Flags affected: */
+  /*     Z - Set if result is zero. */
+  /*     N - Reset. */
+  /*     H - Reset. */
+  /*     C - Reset. */
+
+  [0x37] = {"SWAP A",    &unimplemented_instruction, 8, 1},
+  [0x30] = {"SWAP B",    &unimplemented_instruction, 8, 1},
+  [0x31] = {"SWAP C",    &unimplemented_instruction, 8, 1},
+  [0x32] = {"SWAP D",    &unimplemented_instruction, 8, 1},
+  [0x33] = {"SWAP E",    &unimplemented_instruction, 8, 1},
+  [0x34] = {"SWAP H",    &unimplemented_instruction, 8, 1},
+  [0x35] = {"SWAP L",    &unimplemented_instruction, 8, 1},
+  [0x36] = {"SWAP (HL)", &unimplemented_instruction, 16, 1},
+
+  /* RLC n */
+  /* Description: */
+  /*     Rotate n left. Old bit 7 to Carry flag. */
+  /* Use with: */
+  /*     n = A,B,C,D,E,H,L,(HL) */
+  /* Flags affected: */
+  /*     Z - Set if result is zero. */
+  /*     N - Reset. */
+  /*     H - Reset. */
+  /*     C - Contains old bit 7 data. */
+
+  [0x07] = {"RLC A",       &unimplemented_instruction, 8, 1},
+  [0x00] = {"RLC B",       &unimplemented_instruction, 8, 1},
+  [0x01] = {"RLC C",       &unimplemented_instruction, 8, 1},
+  [0x02] = {"RLC D",       &unimplemented_instruction, 8, 1},
+  [0x03] = {"RLC E",       &unimplemented_instruction, 8, 1},
+  [0x04] = {"RLC H",       &unimplemented_instruction, 8, 1},
+  [0x05] = {"RLC L",       &unimplemented_instruction, 8, 1},
+  [0x06] = {"RLC (HL)",    &unimplemented_instruction, 16, 1},
+
+  /* RL n */
+  /* Description: */
+  /*     Rotate n left through Carry flag. */
+  /* Use with: */
+  /*     n = A,B,C,D,E,H,L,(HL) */
+  /* Flags affected: */
+  /*     Z - Set if result is zero. */
+  /*     N - Reset. */
+  /*     H - Reset. */
+  /*     C - Contains old bit 7 data. */
+
+  [0x17] = {"RL A",          &unimplemented_instruction, 8, 1},
+  [0x10] = {"RL B",          &unimplemented_instruction, 8, 1},
+  [0x11] = {"RL C",          &unimplemented_instruction, 8, 1},
+  [0x12] = {"RL D",          &unimplemented_instruction, 8, 1},
+  [0x13] = {"RL E",          &unimplemented_instruction, 8, 1},
+  [0x14] = {"RL H",          &unimplemented_instruction, 8, 1},
+  [0x15] = {"RL L",          &unimplemented_instruction, 8, 1},
+  [0x16] = {"RL (HL)",       &unimplemented_instruction, 16, 1},
+
+  /* RRC n */
+  /* Description: */
+  /*     Rotate n right. Old bit 0 to Carry flag. */
+  /* Use with: */
+  /*     n = A,B,C,D,E,H,L,(HL) */
+  /* Flags affected: */
+  /*     Z - Set if result is zero. */
+  /*     N - Reset. */
+  /*     H - Reset. */
+  /*     C - Contains old bit 0 data. */
+
+  [0x0f] = {"RRC A",          &unimplemented_instruction, 8, 1},
+  [0x08] = {"RRC B",          &unimplemented_instruction, 8, 1},
+  [0x09] = {"RRC C",          &unimplemented_instruction, 8, 1},
+  [0x0a] = {"RRC D",          &unimplemented_instruction, 8, 1},
+  [0x0b] = {"RRC E",          &unimplemented_instruction, 8, 1},
+  [0x0c] = {"RRC H",          &unimplemented_instruction, 8, 1},
+  [0x0d] = {"RRC L",          &unimplemented_instruction, 8, 1},
+  [0x0e] = {"RRC (HL)",       &unimplemented_instruction, 16, 1},
+
+  /* RR n */
+  /* Description: */
+  /*     Rotate n right through Carry flag. */
+  /* Use with: */
+  /*     n = A,B,C,D,E,H,L,(HL) */
+  /* Flags affected: */
+  /*     Z - Set if result is zero. */
+  /*     N - Reset. */
+  /*     H - Reset. */
+  /*     C - Contains old bit 0 data. */
+
+  [0x1f] = {"RR A",          &unimplemented_instruction, 8, 1},
+  [0x18] = {"RR B",          &unimplemented_instruction, 8, 1},
+  [0x19] = {"RR C",          &unimplemented_instruction, 8, 1},
+  [0x1a] = {"RR D",          &unimplemented_instruction, 8, 1},
+  [0x1b] = {"RR E",          &unimplemented_instruction, 8, 1},
+  [0x1c] = {"RR H",          &unimplemented_instruction, 8, 1},
+  [0x1d] = {"RR L",          &unimplemented_instruction, 8, 1},
+  [0x1e] = {"RR (HL)",       &unimplemented_instruction, 16, 1},
+
+  /* SLA n */
+  /* Description: */
+  /*     Shift n left into Carry. LSB of n set to 0. */
+  /* Use with: */
+  /*     n = A,B,C,D,E,H,L,(HL) */
+  /* Flags affected: */
+  /*     Z - Set if result is zero. */
+  /*     N - Reset. */
+  /*     H - Reset. */
+  /*     C - Contains old bit 7 data. */
+
+  [0x27] = {"SLA A",          &unimplemented_instruction, 8, 1},
+  [0x20] = {"SLA B",          &unimplemented_instruction, 8, 1},
+  [0x21] = {"SLA C",          &unimplemented_instruction, 8, 1},
+  [0x22] = {"SLA D",          &unimplemented_instruction, 8, 1},
+  [0x23] = {"SLA E",          &unimplemented_instruction, 8, 1},
+  [0x24] = {"SLA H",          &unimplemented_instruction, 8, 1},
+  [0x25] = {"SLA L",          &unimplemented_instruction, 8, 1},
+  [0x26] = {"SLA (HL)",       &unimplemented_instruction, 16, 1},
+
+  /*  SRA n */
+  /* Description: */
+  /*     Shift n right into Carry. MSB doesn't change. */
+  /* Use with: */
+  /*     n = A,B,C,D,E,H,L,(HL) */
+  /* Flags affected: */
+  /*     Z - Set if result is zero. */
+  /*     N - Reset. */
+  /*     H - Reset. */
+  /*     C - Contains old bit 0 data. */
+
+  [0x2f] = {"SRA A",          &unimplemented_instruction, 8, 1},
+  [0x28] = {"SRA B",          &unimplemented_instruction, 8, 1},
+  [0x29] = {"SRA C",          &unimplemented_instruction, 8, 1},
+  [0x2a] = {"SRA D",          &unimplemented_instruction, 8, 1},
+  [0x2b] = {"SRA E",          &unimplemented_instruction, 8, 1},
+  [0x2c] = {"SRA H",          &unimplemented_instruction, 8, 1},
+  [0x2d] = {"SRA L",          &unimplemented_instruction, 8, 1},
+  [0x2e] = {"SRA (HL)",       &unimplemented_instruction, 16, 1},
+
+  /* SRL n */
+  /* Description: */
+  /*     Shift n right into Carry. MSB set to 0. */
+  /* Use with: */
+  /*     n = A,B,C,D,E,H,L,(HL) */
+  /* Flags affected: */
+  /*     Z - Set if result is zero. */
+  /*     N - Reset. */
+  /*     H - Reset. */
+  /*     C - Contains old bit 0 data. */
+
+  [0x3f] = {"SRL A",          &i_srl_a , 8, 1},
+  [0x38] = {"SRL B",          &i_srl_b , 8, 1},
+  [0x39] = {"SRL C",          &i_srl_c , 8, 1},
+  [0x3a] = {"SRL D",          &i_srl_d , 8, 1},
+  [0x3b] = {"SRL E",          &i_srl_e , 8, 1},
+  [0x3c] = {"SRL H",          &i_srl_h , 8, 1},
+  [0x3d] = {"SRL L",          &i_srl_l , 8, 1},
+  [0x3e] = {"SRL (HL)",       &i_srl_hl, 16, 1},
+
+  /* 3.3.7 - Bit Opcodes */
+
+  /* BIT b, r */
+  /* Description: */
+  /*     Test bit b in register r. */
+  /* Use with: */
+  /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
+  /* Flags affected: */
+  /*     Z - Set if bit b of register r is 0. */
+  /*     N - Reset. */
+  /*     H - Set. */
+  /*     C - Not affected. */
+
+  [0x47] = {"BIT b, A",       &unimplemented_instruction, 8, 1},
+  [0x40] = {"BIT b, B",       &unimplemented_instruction, 8, 1},
+  [0x41] = {"BIT b, C",       &unimplemented_instruction, 8, 1},
+  [0x42] = {"BIT b, D",       &unimplemented_instruction, 8, 1},
+  [0x43] = {"BIT b, E",       &unimplemented_instruction, 8, 1},
+  [0x44] = {"BIT b, H",       &unimplemented_instruction, 8, 1},
+  [0x45] = {"BIT b, L",       &unimplemented_instruction, 8, 1},
+  [0x46] = {"BIT b, (HL)",    &unimplemented_instruction, 16, 1},
+
+  /* SET b, r */
+  /* Description: */
+  /*     Set bit b in register r. */
+  /* Use with: */
+  /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
+
+  [0xc7] = {"SET b, A",       &unimplemented_instruction, 8, 1},
+  [0xc0] = {"SET b, B",       &unimplemented_instruction, 8, 1},
+  [0xc1] = {"SET b, C",       &unimplemented_instruction, 8, 1},
+  [0xc2] = {"SET b, D",       &unimplemented_instruction, 8, 1},
+  [0xc3] = {"SET b, E",       &unimplemented_instruction, 8, 1},
+  [0xc4] = {"SET b, H",       &unimplemented_instruction, 8, 1},
+  [0xc5] = {"SET b, L",       &unimplemented_instruction, 8, 1},
+  [0xc6] = {"SET b, (HL)",    &unimplemented_instruction, 16, 1},
+
+  /* RES b, r */
+  /* Description: */
+  /*     Reset bit b in register r. */
+  /* Use with: */
+  /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
+
+  [0x87] = {"RES b, A",       &unimplemented_instruction, 8, 1},
+  [0x80] = {"RES b, B",       &unimplemented_instruction, 8, 1},
+  [0x81] = {"RES b, C",       &unimplemented_instruction, 8, 1},
+  [0x82] = {"RES b, D",       &unimplemented_instruction, 8, 1},
+  [0x83] = {"RES b, E",       &unimplemented_instruction, 8, 1},
+  [0x84] = {"RES b, H",       &unimplemented_instruction, 8, 1},
+  [0x85] = {"RES b, L",       &unimplemented_instruction, 8, 1},
+  [0x86] = {"RES b, (HL)",    &unimplemented_instruction, 16, 1},
 };
