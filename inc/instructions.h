@@ -1,6 +1,8 @@
 #ifndef INSTRUCTIONS_H_
 # define INSTRUCTIONS_H_
 
+# define SWAP_NIBLES(a)		((((a) & 0x0F) << 4) | (((a) & 0xF0) >> 4))
+
 # include "cpu.h"
 
 typedef struct      s_instruction
