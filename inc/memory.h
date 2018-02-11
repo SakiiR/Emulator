@@ -16,6 +16,6 @@ uint8_t                 read_8(uint8_t *memory);
 uint16_t                read_16(uint8_t *memory);
 uint32_t                read_32(uint8_t *memory);
 
-int                     init_memory(t_memory *memory, t_card *card);
+int                     init_memory(struct s_memory *memory, t_card *card);
 
 #endif /* !MEMORY_H_ */
