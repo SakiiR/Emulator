@@ -463,7 +463,6 @@ int                 i_ld8_de_a(t_cpustate *state)
 
 int                 i_ld8_hl_a(t_cpustate *state)
 {
-
   write_byte(state, state->hl, state->a);
   return RETURN_SUCCESS;
 }
@@ -476,7 +475,6 @@ int                 i_ld8_nn_a(t_cpustate *state)
 
 int                 i_ld8_a_cp(t_cpustate *state)
 {
-
   state->a = read_byte(state, 0xFF00 + state->c);
   return RETURN_SUCCESS;
 }

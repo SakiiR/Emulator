@@ -5,11 +5,9 @@
 # include "memory.h"
 # include "card.h"
 
-# define BIT_SET (1)
-# define BIT_RESET (1)
-# define ENTRY_POINT (0x0100)
-# define MEMORY_SIZE (0xFFFF)
-# define DEFAULT_SP  (0x0000) /* Invalid */
+# define BIT_SET      (1)
+# define BIT_RESET    (0)
+# define MEMORY_SIZE  (0xFFFF)
 
 typedef struct              s_flags
 {
@@ -19,6 +17,40 @@ typedef struct              s_flags
   uint8_t                   c:1;  /* Carry flag */
   uint8_t                   pad:4; /* Padding 4 to lead to 8 bits */ 
 }                           t_flags;
+
+typedef struct              s_hregisters
+{
+  uint8_t                   *TIMA;
+  uint8_t                   *TMA;
+  uint8_t                   *TAC;
+  uint8_t                   *NR10;
+  uint8_t                   *NR11;
+  uint8_t                   *NR12;
+  uint8_t                   *NR14;
+  uint8_t                   *NR21;
+  uint8_t                   *NR22;
+  uint8_t                   *NR24;
+  uint8_t                   *NR30;
+  uint8_t                   *NR31;
+  uint8_t                   *NR32;
+  uint8_t                   *NR33;
+  uint8_t                   *NR41;
+  uint8_t                   *NR42;
+  uint8_t                   *NR43;
+  uint8_t                   *NR50;
+  uint8_t                   *NR51;
+  uint8_t                   *NR52;
+  uint8_t                   *LCDC;
+  uint8_t                   *SCY;
+  uint8_t                   *SCX;
+  uint8_t                   *LYC;
+  uint8_t                   *BGP;
+  uint8_t                   *OBP0;
+  uint8_t                   *OBP1;
+  uint8_t                   *WY;
+  uint8_t                   *WX;
+  uint8_t                   *IE;
+}                           t_hregisters;
 
 typedef struct              s_cpustate {    
   union {
@@ -76,7 +108,9 @@ typedef struct              s_cpustate {
   uint8_t                   int_enable;    
   uint8_t                   op8;
   uint16_t                  op16;
+  struct s_hregisters       hregisters;
 }                           t_cpustate;    
+
 
 int                         emulate(t_card *card);
 
