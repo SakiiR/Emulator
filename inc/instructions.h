@@ -141,6 +141,8 @@ t_ihandler                  i_ld16_bc_nn;
 t_ihandler                  i_ld16_de_nn;
 t_ihandler                  i_ld16_sp_nn;
 t_ihandler                  i_ld16_hl_nn;
+t_ihandler                  i_ld16_sp_hl;
+
 
 /* Jumps */
 t_ihandler                  i_jp_nn;

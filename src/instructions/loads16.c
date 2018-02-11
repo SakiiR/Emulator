@@ -6,13 +6,13 @@
 
 int                 i_ld16_bc_nn(t_cpustate *state)
 {
-  fill_bc(state, state->op16);
+  state->bc = state->op16;
   return RETURN_SUCCESS;
 }
 
 int                 i_ld16_de_nn(t_cpustate *state)
 {
-  fill_de(state, state->op16);
+  state->de = state->op16;
   return RETURN_SUCCESS;
 }
 
@@ -24,6 +24,12 @@ int                 i_ld16_sp_nn(t_cpustate *state)
 
 int                 i_ld16_hl_nn(t_cpustate *state)
 {
-  fill_hl(state, state->op16);
+  state->hl = state->op16;
+  return RETURN_SUCCESS;
+}
+
+int                 i_ld16_sp_hl(t_cpustate *state)
+{
+  state->sp = state->hl;
   return RETURN_SUCCESS;
 }
