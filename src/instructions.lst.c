@@ -240,15 +240,15 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset */
   /*     H - Set if carry from bit 3 */
   /*     C - Set if carry from bit 7 */
-  [0x87] = { "ADD A, A",    &unimplemented_instruction, 4, 1},
-  [0x80] = { "ADD A, B",    &unimplemented_instruction, 4, 1},
-  [0x81] = { "ADD A, C",    &unimplemented_instruction, 4, 1},
-  [0x82] = { "ADD A, D",    &unimplemented_instruction, 4, 1},
-  [0x83] = { "ADD A, E",    &unimplemented_instruction, 4, 1},
-  [0x84] = { "ADD A, H",    &unimplemented_instruction, 4, 1},
-  [0x85] = { "ADD A, L",    &unimplemented_instruction, 4, 1},
-  [0x86] = { "ADD A, (HL)", &unimplemented_instruction, 8, 1},
-  [0xc6] = { "ADD A, #",    &unimplemented_instruction, 8, 2},
+  [0x87] = { "ADD A, A",    &i_add8_a_a    , 4, 1},
+  [0x80] = { "ADD A, B",    &i_add8_a_b    , 4, 1},
+  [0x81] = { "ADD A, C",    &i_add8_a_c    , 4, 1},
+  [0x82] = { "ADD A, D",    &i_add8_a_d    , 4, 1},
+  [0x83] = { "ADD A, E",    &i_add8_a_e    , 4, 1},
+  [0x84] = { "ADD A, H",    &i_add8_a_h    , 4, 1},
+  [0x85] = { "ADD A, L",    &i_add8_a_l    , 4, 1},
+  [0x86] = { "ADD A, (HL)", &i_add8_a_hl   , 8, 1},
+  [0xc6] = { "ADD A, #",    &i_add8_a_sharp, 8, 2},
 
   /* 2.ADC A, n */
   /* Description: */
@@ -260,15 +260,15 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset */
   /*     H - Set if carry from bit 3 */
   /*     C - Set if carry from bit 7 */
-  [0x8f] = { "ADC A, A", &unimplemented_instruction, 4, 1},
-  [0x88] = { "ADC A, B", &unimplemented_instruction, 4, 1},
-  [0x89] = { "ADC A, C", &unimplemented_instruction, 4, 1},
-  [0x8a] = { "ADC A, D", &unimplemented_instruction, 4, 1},
-  [0x8b] = { "ADC A, E", &unimplemented_instruction, 4, 1},
-  [0x8c] = { "ADC A, H", &unimplemented_instruction, 4, 1},
-  [0x8d] = { "ADC A, L", &unimplemented_instruction, 4, 1},
-  [0x8e] = { "ADC A, (HL)", &unimplemented_instruction, 8, 1},
-  [0xce] = { "ADC A, #", &unimplemented_instruction, 8, 1},
+  [0x8f] = { "ADC A, A",    &i_adc8_a_a    , 4, 1},
+  [0x88] = { "ADC A, B",    &i_adc8_a_b    , 4, 1},
+  [0x89] = { "ADC A, C",    &i_adc8_a_c    , 4, 1},
+  [0x8a] = { "ADC A, D",    &i_adc8_a_d    , 4, 1},
+  [0x8b] = { "ADC A, E",    &i_adc8_a_e    , 4, 1},
+  [0x8c] = { "ADC A, H",    &i_adc8_a_h    , 4, 1},
+  [0x8d] = { "ADC A, L",    &i_adc8_a_l    , 4, 1},
+  [0x8e] = { "ADC A, (HL)", &i_adc8_a_hl   , 8, 1},
+  [0xce] = { "ADC A, #",    &i_adc8_a_sharp, 8, 1},
 
   /* SUB n */
   /* Description: */
@@ -401,14 +401,14 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Set if carry from bit 3. */
   /*     C - Not affected */
-  [0x3c] = { "INC A",    &unimplemented_instruction, 4, 1},
-  [0x04] = { "INC B",    &unimplemented_instruction, 4, 1},
-  [0x0c] = { "INC C",    &unimplemented_instruction, 4, 1},
-  [0x14] = { "INC D",    &unimplemented_instruction, 4, 1},
-  [0x1c] = { "INC E",    &unimplemented_instruction, 4, 1},
-  [0x24] = { "INC H",    &unimplemented_instruction, 4, 1},
-  [0x2c] = { "INC L",    &unimplemented_instruction, 4, 1},
-  [0x34] = { "INC (HL)", &unimplemented_instruction, 8, 1},
+  [0x3c] = { "INC A",    &i_inc_a , 4, 1},
+  [0x04] = { "INC B",    &i_inc_b , 4, 1},
+  [0x0c] = { "INC C",    &i_inc_c , 4, 1},
+  [0x14] = { "INC D",    &i_inc_d , 4, 1},
+  [0x1c] = { "INC E",    &i_inc_e , 4, 1},
+  [0x24] = { "INC H",    &i_inc_h , 4, 1},
+  [0x2c] = { "INC L",    &i_inc_l , 4, 1},
+  [0x34] = { "INC (HL)", &i_inc_hl, 8, 1},
 
   /* 10. DEC n */
   /* Description: */
@@ -420,14 +420,14 @@ const t_instruction     g_instructions[] = {
   /*     N - Set. */
   /*     H - Set if no borrow from bit 4. */
   /*     C - Not affected */
-  [0x3d] = { "DEC A",    &unimplemented_instruction, 4,  1},
-  [0x05] = { "DEC B",    &unimplemented_instruction, 4,  1},
-  [0x0d] = { "DEC C",    &unimplemented_instruction, 4,  1},
-  [0x15] = { "DEC D",    &unimplemented_instruction, 4,  1},
-  [0x1d] = { "DEC E",    &unimplemented_instruction, 4,  1},
-  [0x25] = { "DEC H",    &unimplemented_instruction, 4,  1},
-  [0x2d] = { "DEC L",    &unimplemented_instruction, 4,  1},
-  [0x35] = { "DEC (HL)", &unimplemented_instruction, 12, 1},
+  [0x3d] = { "DEC A",    &i_dec_a , 4,  1},
+  [0x05] = { "DEC B",    &i_dec_b , 4,  1},
+  [0x0d] = { "DEC C",    &i_dec_c , 4,  1},
+  [0x15] = { "DEC D",    &i_dec_d , 4,  1},
+  [0x1d] = { "DEC E",    &i_dec_e , 4,  1},
+  [0x25] = { "DEC H",    &i_dec_h , 4,  1},
+  [0x2d] = { "DEC L",    &i_dec_l , 4,  1},
+  [0x35] = { "DEC (HL)", &i_dec_hl, 12, 1},
 
   /* 3.3.4 - 16 Bit Arithmetic */
   
@@ -441,10 +441,10 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Set if carry from bit 11. */
   /*     C - Set if carry from bit 15. */
-  [0x09] = { "ADD HL, BC", &unimplemented_instruction, 8, 1},
-  [0x19] = { "ADD HL, DE", &unimplemented_instruction, 8, 1},
-  [0x29] = { "ADD HL, HL", &unimplemented_instruction, 8, 1},
-  [0x39] = { "ADD HL, CP", &unimplemented_instruction, 8, 1},
+  [0x09] = { "ADD HL, BC", &i_add16_hl_bc, 8, 1},
+  [0x19] = { "ADD HL, DE", &i_add16_hl_de, 8, 1},
+  [0x29] = { "ADD HL, HL", &i_add16_hl_hl, 8, 1},
+  [0x39] = { "ADD HL, SP", &i_add16_hl_sp, 8, 1},
   
 
   /* 2. ADD SP, n */
@@ -457,7 +457,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Set or reset according to operation. */
   /*     C - Set or reset according to operation. */
-  [0xe8] = { "ADD CP, #", &unimplemented_instruction, 16, 2},
+  [0xe8] = { "ADD SP, #", &unimplemented_instruction, 16, 2},
 
   /* 3. INC nn */
   /* Description: */

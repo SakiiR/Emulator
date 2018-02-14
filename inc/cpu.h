@@ -2,21 +2,11 @@
 # define CPU_H_
 
 # include <stdint.h>
+# include "register.h"
 # include "memory.h"
 # include "card.h"
 
-# define BIT_SET      (1)
-# define BIT_RESET    (0)
-# define MEMORY_SIZE  (0xFFFF)
-
-typedef struct              s_flags
-{
-  uint8_t                   z:1;  /* Zero flag */
-  uint8_t                   n:1;  /* Substract flag */
-  uint8_t                   h:1;  /* Half cary flag */  
-  uint8_t                   c:1;  /* Carry flag */
-  uint8_t                   pad:4; /* Padding 4 to lead to 8 bits */ 
-}                           t_flags;
+# define MEMORY_SIZE                  (0xFFFF)
 
 typedef struct              s_hregisters
 {
@@ -63,7 +53,7 @@ typedef struct              s_cpustate {
       uint8_t               a;    
 #endif
     };
-    uint16_t                af;
+    uint16_t                af; /* F is the 8 bits flags register */
   };
   union {
     struct {
@@ -104,7 +94,6 @@ typedef struct              s_cpustate {
   uint16_t                  sp;    
   uint16_t                  pc;    
   t_memory                  memory;    
-  struct s_flags            flags;    
   uint8_t                   int_enable;    
   uint8_t                   op8;
   uint16_t                  op16;

@@ -57,9 +57,7 @@ int                 i_halt(t_cpustate *state)
 
 int                 i_ccf(t_cpustate *state)
 {
-  state->flags.c = !state->flags.c;
-  state->flags.n = BIT_RESET;
-  state->flags.h = BIT_RESET;
+  (void)state;
   return RETURN_SUCCESS;
 }
 
