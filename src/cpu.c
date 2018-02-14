@@ -80,6 +80,14 @@ static void      init_hregisters(t_cpustate *state)
   *state->hregisters.IE    = 0x00;
 }
 
+static void     init_registers(t_cpustate *state)
+{
+  state->af = 0;
+  state->bc = 0;
+  state->de = 0;
+  state->hl = 0;
+}
+
 /**
  * Launch the loop()
  */
@@ -91,6 +99,7 @@ int             emulate(t_card *card)
   init_cpu(&state);
   if (init_memory(&state.memory, card) == RETURN_FAILURE)
     return RETURN_FAILURE;
+  init_registers(&state);
   init_hregisters(&state);
   while (1)
   {

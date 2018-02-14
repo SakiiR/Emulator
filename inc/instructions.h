@@ -143,6 +143,56 @@ t_ihandler                  i_ld16_sp_nn;
 t_ihandler                  i_ld16_hl_nn;
 t_ihandler                  i_ld16_sp_hl;
 
+/* ALU 8 Bits */
+
+/* ADD A, n */
+t_ihandler                  i_add8_a_a    ;
+t_ihandler                  i_add8_a_b    ;
+t_ihandler                  i_add8_a_c    ;
+t_ihandler                  i_add8_a_d    ;
+t_ihandler                  i_add8_a_e    ;
+t_ihandler                  i_add8_a_h    ;
+t_ihandler                  i_add8_a_l    ;
+t_ihandler                  i_add8_a_hl   ;
+t_ihandler                  i_add8_a_sharp;
+
+/* ADC A, n */
+t_ihandler                  i_adc8_a_a    ;
+t_ihandler                  i_adc8_a_b    ;
+t_ihandler                  i_adc8_a_c    ;
+t_ihandler                  i_adc8_a_d    ;
+t_ihandler                  i_adc8_a_e    ;
+t_ihandler                  i_adc8_a_h    ;
+t_ihandler                  i_adc8_a_l    ;
+t_ihandler                  i_adc8_a_hl   ;
+t_ihandler                  i_adc8_a_sharp;
+
+/* INC n */
+t_ihandler                  i_inc_a ;
+t_ihandler                  i_inc_b ;
+t_ihandler                  i_inc_c ;
+t_ihandler                  i_inc_d ;
+t_ihandler                  i_inc_e ;
+t_ihandler                  i_inc_h ;
+t_ihandler                  i_inc_l ;
+t_ihandler                  i_inc_hl;
+
+/* DEC n */
+t_ihandler                  i_dec_a ;
+t_ihandler                  i_dec_b ;
+t_ihandler                  i_dec_c ;
+t_ihandler                  i_dec_d ;
+t_ihandler                  i_dec_e ;
+t_ihandler                  i_dec_h ;
+t_ihandler                  i_dec_l ;
+t_ihandler                  i_dec_hl;
+
+/* ALU 16 Bits */
+
+t_ihandler                  i_add16_hl_bc;
+t_ihandler                  i_add16_hl_de;
+t_ihandler                  i_add16_hl_hl;
+t_ihandler                  i_add16_hl_sp;
 
 /* Jumps */
 t_ihandler                  i_jp_nn;
