@@ -24,7 +24,6 @@ int                         search_instruction(uint8_t opcode, t_cpustate *state
 
 t_ihandler                  i_prefix;
 t_ihandler                  i_nop;
-t_ihandler                  i_xor_a;
 t_ihandler                  i_rst_38;
 
 /* 8 bits loads */
@@ -194,12 +193,28 @@ t_ihandler                  i_add16_hl_de;
 t_ihandler                  i_add16_hl_hl;
 t_ihandler                  i_add16_hl_sp;
 
+t_ihandler                  i_inc_d_bc;
+t_ihandler                  i_inc_d_de;
+t_ihandler                  i_inc_d_hl;
+t_ihandler                  i_inc_d_sp;
+
+t_ihandler                  i_dec_d_bc;
+t_ihandler                  i_dec_d_de;
+t_ihandler                  i_dec_d_hl;
+t_ihandler                  i_dec_d_sp;
+
 /* Jumps */
 t_ihandler                  i_jp_nn;
 t_ihandler                  i_jp_nz_nn;
 t_ihandler                  i_jp_z_nn;
 t_ihandler                  i_jp_nc_nn;
 t_ihandler                  i_jp_c_nn;
+t_ihandler                  i_jp_hl;
+t_ihandler                  i_jp_n;
+t_ihandler                  i_jr_nz_sharp;
+t_ihandler                  i_jr_z_sharp ;
+t_ihandler                  i_jr_nc_sharp;
+t_ihandler                  i_jr_c_sharp ;
 
 /* SRL */
 t_ihandler                  i_srl_a ;
@@ -210,6 +225,50 @@ t_ihandler                  i_srl_e ;
 t_ihandler                  i_srl_h ;
 t_ihandler                  i_srl_l ;
 t_ihandler                  i_srl_hl;
+
+/* xor */
+t_ihandler                  i_xor_a    ;
+t_ihandler                  i_xor_b    ;
+t_ihandler                  i_xor_c    ;
+t_ihandler                  i_xor_d    ;
+t_ihandler                  i_xor_e    ;
+t_ihandler                  i_xor_h    ;
+t_ihandler                  i_xor_l    ;
+t_ihandler                  i_xor_hl   ;
+t_ihandler                  i_xor_sharp;
+
+/* or */
+t_ihandler                  i_or_a    ;
+t_ihandler                  i_or_b    ;
+t_ihandler                  i_or_c    ;
+t_ihandler                  i_or_d    ;
+t_ihandler                  i_or_e    ;
+t_ihandler                  i_or_h    ;
+t_ihandler                  i_or_l    ;
+t_ihandler                  i_or_hl   ;
+t_ihandler                  i_or_sharp;
+
+/* and */
+t_ihandler                  i_and_a    ;
+t_ihandler                  i_and_b    ;
+t_ihandler                  i_and_c    ;
+t_ihandler                  i_and_d    ;
+t_ihandler                  i_and_e    ;
+t_ihandler                  i_and_h    ;
+t_ihandler                  i_and_l    ;
+t_ihandler                  i_and_hl   ;
+t_ihandler                  i_and_sharp;
+
+/* CP */
+t_ihandler                  i_cp_a    ;
+t_ihandler                  i_cp_b    ;
+t_ihandler                  i_cp_c    ;
+t_ihandler                  i_cp_d    ;
+t_ihandler                  i_cp_e    ;
+t_ihandler                  i_cp_h    ;
+t_ihandler                  i_cp_l    ;
+t_ihandler                  i_cp_hl   ;
+t_ihandler                  i_cp_sharp;
 
 /* CCF */
 t_ihandler                  i_ccf;
@@ -222,6 +281,9 @@ t_ihandler                  i_halt;
 
 /* Stop */
 t_ihandler                  i_stop;
+
+/* DI */
+t_ihandler                  i_di;
 
 #endif /* !INSTRUCTIONS_H_ */
 
