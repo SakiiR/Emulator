@@ -320,15 +320,15 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Set. */
   /*     C - Reset. */
-  [0xa7] = { "AND A",    &unimplemented_instruction, 4, 1},
-  [0xa0] = { "AND B",    &unimplemented_instruction, 4, 1},
-  [0xa1] = { "AND C",    &unimplemented_instruction, 4, 1},
-  [0xa2] = { "AND D",    &unimplemented_instruction, 4, 1},
-  [0xa3] = { "AND E",    &unimplemented_instruction, 4, 1},
-  [0xa4] = { "AND H",    &unimplemented_instruction, 4, 1},
-  [0xa5] = { "AND L",    &unimplemented_instruction, 4, 1},
-  [0xa6] = { "AND (HL)", &unimplemented_instruction, 8, 1},
-  [0xe6] = { "AND #",    &unimplemented_instruction, 8, 2},
+  [0xa7] = { "AND A",    &i_and_a    , 4, 1},
+  [0xa0] = { "AND B",    &i_and_b    , 4, 1},
+  [0xa1] = { "AND C",    &i_and_c    , 4, 1},
+  [0xa2] = { "AND D",    &i_and_d    , 4, 1},
+  [0xa3] = { "AND E",    &i_and_e    , 4, 1},
+  [0xa4] = { "AND H",    &i_and_h    , 4, 1},
+  [0xa5] = { "AND L",    &i_and_l    , 4, 1},
+  [0xa6] = { "AND (HL)", &i_and_hl   , 8, 1},
+  [0xe6] = { "AND #",    &i_and_sharp, 8, 2},
 
   /* 6. OR n */
   /* Description: */
@@ -340,15 +340,15 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Reset. */
   /*     C - Reset. */
-  [0xb7] = { "OR A",    &unimplemented_instruction, 4, 1},
-  [0xb0] = { "OR B",    &unimplemented_instruction, 4, 1},
-  [0xb1] = { "OR C",    &unimplemented_instruction, 4, 1},
-  [0xb2] = { "OR D",    &unimplemented_instruction, 4, 1},
-  [0xb3] = { "OR E",    &unimplemented_instruction, 4, 1},
-  [0xb4] = { "OR H",    &unimplemented_instruction, 4, 1},
-  [0xb5] = { "OR L",    &unimplemented_instruction, 4, 1},
-  [0xb6] = { "OR (HL)", &unimplemented_instruction, 8, 1},
-  [0xf6] = { "OR #",    &unimplemented_instruction, 8, 2},
+  [0xb7] = { "OR A",    &i_or_a    , 4, 1},
+  [0xb0] = { "OR B",    &i_or_b    , 4, 1},
+  [0xb1] = { "OR C",    &i_or_c    , 4, 1},
+  [0xb2] = { "OR D",    &i_or_d    , 4, 1},
+  [0xb3] = { "OR E",    &i_or_e    , 4, 1},
+  [0xb4] = { "OR H",    &i_or_h    , 4, 1},
+  [0xb5] = { "OR L",    &i_or_l    , 4, 1},
+  [0xb6] = { "OR (HL)", &i_or_hl   , 8, 1},
+  [0xf6] = { "OR #",    &i_or_sharp, 8, 2},
 
   /* 7. XOR n */
   /* Description: */
@@ -360,15 +360,15 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Reset. */
   /*     C - Reset. */
-  [0xaf] = { "XOR A",    &i_xor_a, 4, 1},
-  [0xa8] = { "XOR B",    &unimplemented_instruction, 4, 1},
-  [0xa9] = { "XOR C",    &unimplemented_instruction, 4, 1},
-  [0xaa] = { "XOR D",    &unimplemented_instruction, 4, 1},
-  [0xab] = { "XOR E",    &unimplemented_instruction, 4, 1},
-  [0xac] = { "XOR H",    &unimplemented_instruction, 4, 1},
-  [0xad] = { "XOR L",    &unimplemented_instruction, 4, 1},
-  [0xae] = { "XOR (HL)", &unimplemented_instruction, 8, 1},
-  [0xee] = { "XOR #",    &unimplemented_instruction, 8, 2},
+  [0xaf] = { "XOR A",    &i_xor_a    , 4, 1},
+  [0xa8] = { "XOR B",    &i_xor_b    , 4, 1},
+  [0xa9] = { "XOR C",    &i_xor_c    , 4, 1},
+  [0xaa] = { "XOR D",    &i_xor_d    , 4, 1},
+  [0xab] = { "XOR E",    &i_xor_e    , 4, 1},
+  [0xac] = { "XOR H",    &i_xor_h    , 4, 1},
+  [0xad] = { "XOR L",    &i_xor_l    , 4, 1},
+  [0xae] = { "XOR (HL)", &i_xor_hl   , 8, 1},
+  [0xee] = { "XOR #",    &i_xor_sharp, 8, 2},
 
 
   /* 8. CP n */
@@ -381,15 +381,15 @@ const t_instruction     g_instructions[] = {
   /*     N - Set. */
   /*     H - Set if no borrow from bit 4. */
   /*     C - Set for no borrow. (Set if A < n.) */
-  [0xbf] = { "OP A",    &unimplemented_instruction, 4, 1},
-  [0xb8] = { "OP B",    &unimplemented_instruction, 4, 1},
-  [0xb9] = { "OP C",    &unimplemented_instruction, 4, 1},
-  [0xba] = { "OP D",    &unimplemented_instruction, 4, 1},
-  [0xbb] = { "OP E",    &unimplemented_instruction, 4, 1},
-  [0xbc] = { "OP H",    &unimplemented_instruction, 4, 1},
-  [0xbd] = { "OP L",    &unimplemented_instruction, 4, 1},
-  [0xbe] = { "OP (HL)", &unimplemented_instruction, 8, 1},
-  [0xfe] = { "OP #",    &unimplemented_instruction, 8, 2},
+  [0xbf] = { "CP A",        &i_cp_a    , 4, 1},
+  [0xb8] = { "CP B",        &i_cp_b    , 4, 1},
+  [0xb9] = { "CP C",        &i_cp_c    , 4, 1},
+  [0xba] = { "CP D",        &i_cp_d    , 4, 1},
+  [0xbb] = { "CP E",        &i_cp_e    , 4, 1},
+  [0xbc] = { "CP H",        &i_cp_h    , 4, 1},
+  [0xbd] = { "CP L",        &i_cp_l    , 4, 1},
+  [0xbe] = { "CP (HL) ",    &i_cp_hl   , 8, 1},
+  [0xfe] = { "CP #    ",    &i_cp_sharp, 8, 2},
 
   /* 9. INC n */
   /* Description: */
@@ -466,10 +466,10 @@ const t_instruction     g_instructions[] = {
   /*     nn = BC, DE, HL, SP. */
   /* Flags affected: */
   /*     None. */
-  [0x03] = { "INC BC", &unimplemented_instruction, 8, 1},
-  [0x13] = { "INC DE", &unimplemented_instruction, 8, 1},
-  [0x23] = { "INC HL", &unimplemented_instruction, 8, 1},
-  [0x33] = { "INC SP", &unimplemented_instruction, 8, 1},
+  [0x03] = { "INC BC", &i_inc_d_bc, 8, 1},
+  [0x13] = { "INC DE", &i_inc_d_de, 8, 1},
+  [0x23] = { "INC HL", &i_inc_d_hl, 8, 1},
+  [0x33] = { "INC SP", &i_inc_d_sp, 8, 1},
 
   /* 3. DEC nn */
   /* Description: */
@@ -478,10 +478,10 @@ const t_instruction     g_instructions[] = {
   /*     nn = BC, DE, HL, SP. */
   /* Flags affected: */
   /*     None. */
-  [0x0b] = { "DEC BC", &unimplemented_instruction, 8, 1},
-  [0x1b] = { "DEC DE", &unimplemented_instruction, 8, 1},
-  [0x2b] = { "DEC HL", &unimplemented_instruction, 8, 1},
-  [0x3b] = { "DEC SP", &unimplemented_instruction, 8, 1},
+  [0x0b] = { "DEC BC", &i_dec_d_bc, 8, 1},
+  [0x1b] = { "DEC DE", &i_dec_d_de, 8, 1},
+  [0x2b] = { "DEC HL", &i_dec_d_hl, 8, 1},
+  [0x3b] = { "DEC SP", &i_dec_d_sp, 8, 1},
 
   /* 3.3.5 Miscellaneous */
 
@@ -549,7 +549,7 @@ const t_instruction     g_instructions[] = {
   /* Description: */
   /*     This instruction disables interrupts but not immediately. */
   /*     Interrupts are disabled after instruction after DI is executed. */
-  [0xf3] = { "DI", &unimplemented_instruction, 4, 1},
+  [0xf3] = { "DI", &i_di, 4, 1},
 
   /* 10. EI */
   /* Description: */
@@ -627,14 +627,14 @@ const t_instruction     g_instructions[] = {
   /* 3. JP (HL) */
   /* Description: */
   /*     Jump to address contained in HL. */
-  [0xe9] = { "JP (HL)", &unimplemented_instruction, 4, 1},
+  [0xe9] = { "JP (HL)", &i_jp_hl, 4, 1},
 
   /* 4. JP n */
   /* Description: */
   /*     Add n to current address and jump to it. */
   /* Use with: */
   /*     n = one byte signed immediate value */
-  [0x18] = { "JP n", &unimplemented_instruction, 8, 2},
+  [0x18] = { "JP n", &i_jp_n, 8, 2},
 
   /* 5. JR cc, n */
   /* Description: */
@@ -645,10 +645,10 @@ const t_instruction     g_instructions[] = {
   /*     cc = C, Jump if C flag is set. */
   /* Use with: */
   /*     n = one byte signed immediate value. */
-  [0x20] = { "JR NZ, #", &unimplemented_instruction, 8, 2},
-  [0x28] = { "JR Z, #",  &unimplemented_instruction, 8, 2},
-  [0x30] = { "JR NC, #", &unimplemented_instruction, 8, 2},
-  [0x38] = { "JR C, #",  &unimplemented_instruction, 8, 2},
+  [0x20] = { "JR NZ, #", &i_jr_nz_sharp, 8, 2},
+  [0x28] = { "JR Z, #",  &i_jr_z_sharp, 8, 2},
+  [0x30] = { "JR NC, #", &i_jr_nc_sharp, 8, 2},
+  [0x38] = { "JR C, #",  &i_jr_c_sharp, 8, 2},
 
   /* 3.3.9 - Calls */
 

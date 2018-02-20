@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdio.h>
 #include "instructions.h"
 #include "cpu.h"
@@ -20,7 +21,8 @@ int                 search_instruction(uint8_t opcode, t_cpustate *state)
       g_instructions[state->memory.start[state->pc]].operation,
       state->memory.start[state->pc]);
   ret = instruction.handler(state);
-  state->pc += instruction.size;
+  if (strncmp(instruction.operation, "J", 1) != 0) /* Advance pc only if instruction is not a jump TODO: #pabo */
+    state->pc += instruction.size;
   return ret;
 }
 

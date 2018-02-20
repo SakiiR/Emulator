@@ -25,6 +25,8 @@ enum                                    flag_status
 
 
 /* Generator - extract good (offset) bit from uint8_t f */
+/* ty https://github.com/aessiane */
+
 # define f_get(flag, offset)				                                		\
 static inline enum flag_status               get_##flag(uint8_t *f)  		        \
 {			                            							                \

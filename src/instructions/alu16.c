@@ -39,4 +39,50 @@ int                 i_add16_hl_sp(t_cpustate *state)
     return RETURN_SUCCESS;
 }
 
+int                 i_inc_d_bc(t_cpustate *state)
+{
+    ++state->bc;
+    return RETURN_SUCCESS;
+}
 
+int                 i_inc_d_de(t_cpustate *state)
+{
+    ++state->de;
+    return RETURN_SUCCESS;
+}
+
+int                 i_inc_d_hl(t_cpustate *state)
+{
+    ++state->hl;
+    return RETURN_SUCCESS;
+}
+
+int                 i_inc_d_sp(t_cpustate *state)
+{
+    ++state->sp;
+    return RETURN_SUCCESS;
+}
+
+int                 i_dec_d_bc(t_cpustate *state)
+{
+    --state->bc;
+    return RETURN_SUCCESS;
+}
+
+int                 i_dec_d_de(t_cpustate *state)
+{
+    --state->de;
+    return RETURN_SUCCESS;
+}
+
+int                 i_dec_d_hl(t_cpustate *state)
+{
+    --state->hl;
+    return RETURN_SUCCESS;
+}
+
+int                 i_dec_d_sp(t_cpustate *state)
+{
+    --state->sp;
+    return RETURN_SUCCESS;
+}

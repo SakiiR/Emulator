@@ -2,7 +2,10 @@
 
 void                                    zero_flag_check(uint8_t *f, uint8_t result)
 {
-  *f = (result == 0 ? BIT_SET : BIT_RESET);
+  if (result == 0)
+    set_Z(f);
+  else 
+    reset_Z(f);
 }
 
 void                                    substract_flag_check(uint8_t *f, uint8_t result)
