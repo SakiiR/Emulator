@@ -706,3 +706,16 @@ int                 i_sbc8_a_sharp(t_cpustate *state)
   check_no_borrow_half_carry(&state->f, op1, op2);
   return RETURN_SUCCESS;
 }
+
+int                 i_add_sp_sharp(t_cpustate *state)
+{
+  uint16_t          op1 = state->sp;
+  uint8_t           op2 = state->op8;
+
+  state->sp = op1 + op2;
+  reset_Z(&state->f);
+  reset_N(&state->f);
+  carry_check(&state->f, op1, op2, state->sp);
+  half_carry_check(&state->f, op1, op2);
+  return RETURN_SUCCESS;
+}
