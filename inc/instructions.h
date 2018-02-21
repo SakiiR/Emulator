@@ -170,6 +170,9 @@ t_ihandler                  i_add8_a_l    ;
 t_ihandler                  i_add8_a_hl   ;
 t_ihandler                  i_add8_a_sharp;
 
+/* ADD SP, #*/
+t_ihandler                  i_add_sp_sharp;
+
 /* ADC A, n */
 t_ihandler                  i_adc8_a_a    ;
 t_ihandler                  i_adc8_a_b    ;

@@ -457,7 +457,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Set or reset according to operation. */
   /*     C - Set or reset according to operation. */
-  [0xe8] = { "ADD SP, #", &unimplemented_instruction, 16, 2},
+  [0xe8] = { "ADD SP, #", &i_add_sp_sharp, 16, 2},
 
   /* 3. INC nn */
   /* Description: */
