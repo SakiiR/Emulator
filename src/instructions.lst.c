@@ -490,7 +490,7 @@ const t_instruction     g_instructions[] = {
   /* Description: */
   /*     Decimal adjust register A. */
   /*     This instruction adjusts register A so that the */
-  /*     correct representation of Binary Coded Deciman (BCD) is obtained. */
+  /*     correct representation of Binary Coded Decimal (BCD) is obtained. */
   /* Flags affected: */
   /*     Z - Set if register A is zero. */
   /*     N - Not affected. */

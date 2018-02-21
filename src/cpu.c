@@ -5,7 +5,7 @@
 #include "resource.h"
 #include "card.h"
 
-static void      init_cpu(t_cpustate *state)
+static void      init_registers(t_cpustate *state)
 {
   state->af	= 0x01b0;
   state->bc	= 0x0013;
@@ -80,14 +80,6 @@ static void      init_hregisters(t_cpustate *state)
   *state->hregisters.IE    = 0x00;
 }
 
-static void     init_registers(t_cpustate *state)
-{
-  state->af = 0;
-  state->bc = 0;
-  state->de = 0;
-  state->hl = 0;
-}
-
 /**
  * Launch the loop()
  */
@@ -96,7 +88,6 @@ int             emulate(t_card *card)
   t_cpustate    state;
   uint8_t       opcode;
 
-  init_cpu(&state);
   if (init_memory(&state.memory, card) == RETURN_FAILURE)
     return RETURN_FAILURE;
   init_registers(&state);

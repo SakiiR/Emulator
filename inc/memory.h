@@ -1,8 +1,6 @@
 #ifndef MEMORY_H_
 # define MEMORY_H_
 
-# define M_LITTLE_ENDIAN
-
 # include <stdint.h>
 # include "card.h"
 # include "cpu.h"
