@@ -65,5 +65,7 @@ void                                        zero_flag_check(uint8_t *f, uint8_t 
 void                                        substract_flag_check(uint8_t *f, uint8_t result);
 void                                        half_carry_check(uint8_t *f, uint8_t a, uint8_t b);
 void                                        carry_check(uint8_t *f, uint8_t a, uint8_t b, uint8_t result);
+void                                        check_no_borrow_carry(uint8_t *f, uint8_t a, uint8_t b);
+void                                        check_no_borrow_half_carry(uint8_t *f, uint8_t a, uint8_t b);
 
 #endif /* !REGISTER_H_ */

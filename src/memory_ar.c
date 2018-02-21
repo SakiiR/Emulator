@@ -35,6 +35,12 @@ void                    write_byte(t_cpustate *state, uint16_t address, uint8_t 
   state->memory.start[address] = byte;
 }
 
+void                    write_word(t_cpustate *state, uint16_t address, uint16_t word)
+{
+  write_byte(state, address, (uint8_t)(word & 0x00FF));
+  write_byte(state, address + 1, (uint8_t)((word & 0xFF00) >> 8));
+}
+
 void                    push_word(t_cpustate *state, uint16_t word)
 {
   push_byte(state, (word & 0xFF00) >> 8);

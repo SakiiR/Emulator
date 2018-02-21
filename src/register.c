@@ -30,3 +30,18 @@ void                                    carry_check(uint8_t *f, uint8_t a, uint8
     reset_C(f);
 }
 
+void                                    check_no_borrow_carry(uint8_t *f, uint8_t a, uint8_t b)
+{
+  if (a < b)
+    set_C(f);
+  else
+    reset_C(f);
+}
+
+void                                    check_no_borrow_half_carry(uint8_t *f, uint8_t a, uint8_t b)
+{
+  if ((((char)a & 0x0f) - ((char)b & 0x0f)) > 0)
+    set_H(f);
+  else
+    reset_H(f);
+}

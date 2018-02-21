@@ -12,6 +12,7 @@ uint16_t                pop_word(t_cpustate *state);
 
 uint8_t                 read_byte(t_cpustate *state, uint16_t address);
 void                    write_byte(t_cpustate *state, uint16_t address, uint8_t byte);
+void                    write_word(t_cpustate *state, uint16_t address, uint16_t word);
 
 void                    fill_bc(t_cpustate *state, uint16_t word);
 void                    fill_de(t_cpustate *state, uint16_t word);
