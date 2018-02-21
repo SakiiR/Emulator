@@ -1,5 +1,6 @@
 #include "resource.h"
 #include "cpu.h"
+#include "register.h"
 #include "memory_ar.h"
 
 
@@ -522,5 +523,18 @@ int                 i_ld_ff00_n_a(t_cpustate *state)
 int                 i_ld_a_ff00_n(t_cpustate *state)
 {
   state->a = read_byte(state, 0xFF00 + state->op8);
+  return RETURN_SUCCESS;
+}
+
+int                 i_ld16_hl_sp_n(t_cpustate *state)
+{
+  uint8_t           op1 = state->sp;
+  uint8_t           op2 = state->op8;
+
+  state->hl = op1 + op2;
+  reset_Z(&state->f);
+  reset_N(&state->f);
+  half_carry_check(&state->f, op1, op2);
+  carry_check(&state->f, op1, op2, state->hl);
   return RETURN_SUCCESS;
 }

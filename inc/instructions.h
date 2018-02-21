@@ -135,12 +135,27 @@ t_ihandler                  i_ld_ff00_n_a;
 /* LD A, ($FF00 + n) */
 t_ihandler                  i_ld_a_ff00_n;
 
+
 /* 16 bits loads */
 t_ihandler                  i_ld16_bc_nn;
 t_ihandler                  i_ld16_de_nn;
 t_ihandler                  i_ld16_sp_nn;
 t_ihandler                  i_ld16_hl_nn;
 t_ihandler                  i_ld16_sp_hl;
+t_ihandler                  i_ld16_hl_sp_n;
+t_ihandler                  i_ld16_nn_sp;
+
+/* PUSH */
+t_ihandler                  i_push_af;
+t_ihandler                  i_push_bc;
+t_ihandler                  i_push_de;
+t_ihandler                  i_push_hl;
+
+/* Pop */
+t_ihandler                  i_pop_af;
+t_ihandler                  i_pop_bc;
+t_ihandler                  i_pop_de;
+t_ihandler                  i_pop_hl;
 
 /* ALU 8 Bits */
 
@@ -165,6 +180,28 @@ t_ihandler                  i_adc8_a_h    ;
 t_ihandler                  i_adc8_a_l    ;
 t_ihandler                  i_adc8_a_hl   ;
 t_ihandler                  i_adc8_a_sharp;
+
+/* SUB A, n*/
+t_ihandler                  i_sub8_a_a    ;
+t_ihandler                  i_sub8_a_b    ;
+t_ihandler                  i_sub8_a_c    ;
+t_ihandler                  i_sub8_a_d    ;
+t_ihandler                  i_sub8_a_e    ;
+t_ihandler                  i_sub8_a_h    ;
+t_ihandler                  i_sub8_a_l    ;
+t_ihandler                  i_sub8_a_hl   ;
+t_ihandler                  i_sub8_a_sharp;
+
+/* SBC A, n*/
+t_ihandler                  i_sbc8_a_a    ;
+t_ihandler                  i_sbc8_a_b    ;
+t_ihandler                  i_sbc8_a_c    ;
+t_ihandler                  i_sbc8_a_d    ;
+t_ihandler                  i_sbc8_a_e    ;
+t_ihandler                  i_sbc8_a_h    ;
+t_ihandler                  i_sbc8_a_l    ;
+t_ihandler                  i_sbc8_a_hl   ;
+t_ihandler                  i_sbc8_a_sharp;
 
 /* INC n */
 t_ihandler                  i_inc_a ;
@@ -269,6 +306,17 @@ t_ihandler                  i_cp_h    ;
 t_ihandler                  i_cp_l    ;
 t_ihandler                  i_cp_hl   ;
 t_ihandler                  i_cp_sharp;
+
+/* BIT */
+
+t_ihandler                  i_bit_a   ;
+t_ihandler                  i_bit_b   ;
+t_ihandler                  i_bit_c   ;
+t_ihandler                  i_bit_d   ;
+t_ihandler                  i_bit_e   ;
+t_ihandler                  i_bit_h   ;
+t_ihandler                  i_bit_l   ;
+t_ihandler                  i_bit_hl   ;
 
 /* CCF */
 t_ihandler                  i_ccf;

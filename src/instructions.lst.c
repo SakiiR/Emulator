@@ -158,12 +158,12 @@ const t_instruction     g_instructions[] = {
   /* 19. LDH (n), A */
   /* Description: Put A into memory address $FF00+n */
   /* Use with: n = one byte immediate value. */
-  [0xe0] = { "LD ($FF00+n), A", &unimplemented_instruction, 12, 2},
+  [0xe0] = { "LD ($FF00+n), A", &i_ld_ff00_n_a, 12, 2},
  
   /* 20. LDH A, (n) */
   /* Description: Put memory address $FF00+n into A */
   /* Use with: n = one byte immediate value */
-  [0xf0] = { "LD A, ($FF00+n)", &unimplemented_instruction, 12, 2},
+  [0xf0] = { "LD A, ($FF00+n)", &i_ld_a_ff00_n, 12, 2},
   
 
   /* 3.3.2 - 16 Bits Loads */
@@ -196,7 +196,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Set or reset according to operation. */
   /*     C - Set or reset according to operation. */
-  [0xf8] = { "LDHL SP, n", &unimplemented_instruction, 12, 1},
+  [0xf8] = { "LDHL SP, n", &i_ld16_hl_sp_n, 12, 1},
  
 
   /* 5. LD (nn), SP */
@@ -204,7 +204,7 @@ const t_instruction     g_instructions[] = {
   /*     Put Stack Pointer (SP) at address n. */
   /* Use with: */
   /*     nn = two byte immediate address. */
-  [0x08] = { "LD (nn) SP", &unimplemented_instruction, 20, 1},
+  [0x08] = { "LD (nn) SP", &i_ld16_nn_sp, 20, 1},
 
   /* 6. PUSH nn */
   /* Description: */
@@ -212,10 +212,10 @@ const t_instruction     g_instructions[] = {
   /*     Decrement Stack Pointer (SP) twice. */
   /* Use with: */
   /*     nn = AF, BC, DE, HL */
-  [0xf5] = { "PUSH AF", &unimplemented_instruction, 16, 1},
-  [0xc5] = { "PUSH BC", &unimplemented_instruction, 16, 1},
-  [0xd5] = { "PUSH DE", &unimplemented_instruction, 16, 1},
-  [0xe5] = { "PUSH HL", &unimplemented_instruction, 16, 1},
+  [0xf5] = { "PUSH AF", &i_push_af, 16, 1},
+  [0xc5] = { "PUSH BC", &i_push_bc, 16, 1},
+  [0xd5] = { "PUSH DE", &i_push_de, 16, 1},
+  [0xe5] = { "PUSH HL", &i_push_hl, 16, 1},
   
   /* 7. POP nn */
   /* Description: */
@@ -223,10 +223,10 @@ const t_instruction     g_instructions[] = {
   /*     Increment Stack Pointer (SP) twice. */
   /* Use with: */
   /*     nn = AF, BC, DE, HL */
-  [0xf1] = { "POP AF", &unimplemented_instruction, 12, 1},
-  [0xc1] = { "POP BC", &unimplemented_instruction, 12, 1},
-  [0xd1] = { "POP DE", &unimplemented_instruction, 12, 1},
-  [0xe1] = { "POP HL", &unimplemented_instruction, 12, 1},
+  [0xf1] = { "POP AF", &i_pop_af, 12, 1},
+  [0xc1] = { "POP BC", &i_pop_bc, 12, 1},
+  [0xd1] = { "POP DE", &i_pop_de, 12, 1},
+  [0xe1] = { "POP HL", &i_pop_hl, 12, 1},
 
   /* 3.3.3 - 8 Bit ALU */
 
@@ -280,15 +280,15 @@ const t_instruction     g_instructions[] = {
   /*     N - Set. */
   /*     H - Set if no borrow from bit 4. */
   /*     C - Set if no borrow. */
-  [0x97] = { "SUB A",    &unimplemented_instruction, 4, 1},
-  [0x90] = { "SUB B",    &unimplemented_instruction, 4, 1},
-  [0x91] = { "SUB C",    &unimplemented_instruction, 4, 1},
-  [0x92] = { "SUB D",    &unimplemented_instruction, 4, 1},
-  [0x93] = { "SUB E",    &unimplemented_instruction, 4, 1},
-  [0x94] = { "SUB H",    &unimplemented_instruction, 4, 1},
-  [0x95] = { "SUB L",    &unimplemented_instruction, 4, 1},
-  [0x96] = { "SUB (HL)", &unimplemented_instruction, 8, 1},
-  [0xd6] = { "SUB #",    &unimplemented_instruction, 8, 2},
+  [0x97] = { "SUB A",    &i_sub8_a_a    , 4, 1},
+  [0x90] = { "SUB B",    &i_sub8_a_b    , 4, 1},
+  [0x91] = { "SUB C",    &i_sub8_a_c    , 4, 1},
+  [0x92] = { "SUB D",    &i_sub8_a_d    , 4, 1},
+  [0x93] = { "SUB E",    &i_sub8_a_e    , 4, 1},
+  [0x94] = { "SUB H",    &i_sub8_a_h    , 4, 1},
+  [0x95] = { "SUB L",    &i_sub8_a_l    , 4, 1},
+  [0x96] = { "SUB (HL)", &i_sub8_a_hl   , 8, 1},
+  [0xd6] = { "SUB #",    &i_sub8_a_sharp, 8, 2},
 
   /* 4. SBC A, n */
   /* Description: */
@@ -300,14 +300,14 @@ const t_instruction     g_instructions[] = {
   /*     N - Set. */
   /*     H - Set if no borrow from bit 4. */
   /*     C - Set if no borrow. */
-  [0x9f] = { "SUB A, A", &unimplemented_instruction, 4, 1},
-  [0x98] = { "SUB A, B", &unimplemented_instruction, 4, 1},
-  [0x99] = { "SUB A, C", &unimplemented_instruction, 4, 1},
-  [0x9a] = { "SUB A, D", &unimplemented_instruction, 4, 1},
-  [0x9b] = { "SUB A, E", &unimplemented_instruction, 4, 1},
-  [0x9c] = { "SUB A, H", &unimplemented_instruction, 4, 1},
-  [0x9d] = { "SUB A, L", &unimplemented_instruction, 4, 1},
-  [0x9e] = { "SUB A, (HL)", &unimplemented_instruction, 8, 1},
+  [0x9f] = { "SBC A, A",    &i_sbc8_a_a    , 4, 1},
+  [0x98] = { "SBC A, B",    &i_sbc8_a_b    , 4, 1},
+  [0x99] = { "SBC A, C",    &i_sbc8_a_c    , 4, 1},
+  [0x9a] = { "SBC A, D",    &i_sbc8_a_d    , 4, 1},
+  [0x9b] = { "SBC A, E",    &i_sbc8_a_e    , 4, 1},
+  [0x9c] = { "SBC A, H",    &i_sbc8_a_h    , 4, 1},
+  [0x9d] = { "SBC A, L",    &i_sbc8_a_l    , 4, 1},
+  [0x9e] = { "SBC A, (HL)", &i_sbc8_a_hl   , 8, 1},
   /* {0x??, "SUB A, #", &unimplemented_instruction, ??, 2}, */
 
   /* 5. AND n */
@@ -721,18 +721,18 @@ const t_instruction     g_instructions[] = {
   /* Non-Documented */
   [0xcb] = { "PREFIX", &i_prefix, 4, 1},
 
-  [0xd3] = { "", &unimplemented_instruction, 0, 1},
-  [0xdb] = { "", &unimplemented_instruction, 0, 1},
-  [0xdd] = { "", &unimplemented_instruction, 0, 1},
-  [0xde] = { "", &unimplemented_instruction, 0, 1},
-  [0xe3] = { "", &unimplemented_instruction, 0, 1},
-  [0xe4] = { "", &unimplemented_instruction, 0, 1},
-  [0xeb] = { "", &unimplemented_instruction, 0, 1},
-  [0xec] = { "", &unimplemented_instruction, 0, 1},
-  [0xed] = { "", &unimplemented_instruction, 0, 1},
-  [0xf4] = { "", &unimplemented_instruction, 0, 1},
-  [0xfc] = { "", &unimplemented_instruction, 0, 1},
-  [0xfd] = { "", &unimplemented_instruction, 0, 1},
+  [0xd3] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xdb] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xdd] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xde] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xe3] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xe4] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xeb] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xec] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xed] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xf4] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xfc] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
+  [0xfd] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
 };
 
 const t_instruction     g_instructions_cb[] = {
@@ -910,14 +910,14 @@ const t_instruction     g_instructions_cb[] = {
   /*     H - Set. */
   /*     C - Not affected. */
 
-  [0x47] = {"BIT b, A",       &unimplemented_instruction, 8, 1},
-  [0x40] = {"BIT b, B",       &unimplemented_instruction, 8, 1},
-  [0x41] = {"BIT b, C",       &unimplemented_instruction, 8, 1},
-  [0x42] = {"BIT b, D",       &unimplemented_instruction, 8, 1},
-  [0x43] = {"BIT b, E",       &unimplemented_instruction, 8, 1},
-  [0x44] = {"BIT b, H",       &unimplemented_instruction, 8, 1},
-  [0x45] = {"BIT b, L",       &unimplemented_instruction, 8, 1},
-  [0x46] = {"BIT b, (HL)",    &unimplemented_instruction, 16, 1},
+  [0x47] = {"BIT b, A",       &i_bit_a , 8, 2},
+  [0x40] = {"BIT b, B",       &i_bit_b , 8, 2},
+  [0x41] = {"BIT b, C",       &i_bit_c , 8, 2},
+  [0x42] = {"BIT b, D",       &i_bit_d , 8, 2},
+  [0x43] = {"BIT b, E",       &i_bit_e , 8, 2},
+  [0x44] = {"BIT b, H",       &i_bit_h , 8, 2},
+  [0x45] = {"BIT b, L",       &i_bit_l , 8, 2},
+  [0x46] = {"BIT b, (HL)",    &i_bit_hl, 16, 2},
 
   /* SET b, r */
   /* Description: */
