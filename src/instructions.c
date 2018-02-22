@@ -23,6 +23,8 @@ static void         verb_state(t_cpustate *state)
   printf("   D: 0x%02x  E: 0x%02x  DE: 0x%04x     \n", state->d, state->e, state->de);
   printf("   H: 0x%02x  L: 0x%02x  HL: 0x%04x     \n", state->h, state->l, state->hl);
   printf("  PC: 0x%04x             SP: 0x%04x     \n", state->pc, state->sp);
+  printf(" Immediate values:                      \n");
+  printf("     OP8: 0x%02x       OP16: 0x%04x     \n", (uint8_t)state->op8, (uint16_t)state->op16);
   printf(" Flags:                                 \n");
   printf("     [%c%c%c%c]                         \n", (get_Z(&state->f) ? 'Z' : '-'), (get_N(&state->f) ? 'N' : '-'), (get_H(&state->f) ? 'H' : '-'), (get_C(&state->f) ? 'C' : '-'));
   printf("\n\n");
@@ -55,7 +57,7 @@ int                 i_prefix(t_cpustate *state)
 {
   t_instruction     i = g_instructions_cb[state->memory.start[state->pc + 1]];
   printf("[+] Triggering CB instruction (%s)\n", i.operation);
-  return g_instructions_cb[state->op8].handler(state);
+  return g_instructions_cb[(int)state->op8].handler(state);
 }
 
 int                 i_stop(t_cpustate *state)

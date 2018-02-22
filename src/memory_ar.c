@@ -1,11 +1,11 @@
 #include "memory_ar.h"
 
-uint8_t                 read_8(uint8_t *memory)
+char                    read_8(uint8_t *memory)
 {
   return memory[0];
 }
 
-uint16_t                read_16(uint8_t *memory)
+short                   read_16(uint8_t *memory)
 {
   return memory[1] << 8 | memory[0];
 }

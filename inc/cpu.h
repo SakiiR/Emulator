@@ -95,8 +95,10 @@ typedef struct              s_cpustate {
   uint16_t                  pc;    
   struct s_memory           memory;    
   uint8_t                   int_enable;    
-  uint8_t                   op8;
-  uint16_t                  op16;
+  union {
+    char                     op8;
+    short                    op16;
+  };
   struct s_hregisters       hregisters;
 }                           t_cpustate;    
 
