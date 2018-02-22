@@ -496,7 +496,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Not affected. */
   /*     H - Reset. */
   /*     C - Set or reset according to operation. */
-  [0x27] = { "DDA", &unimplemented_instruction, 4, 1},
+  [0x27] = { "DDA", &i_daa, 4, 1},
 
   /* 3. CPL */
   /* Description: */
@@ -506,7 +506,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Set. */
   /*     H - Set. */
   /*     C - Not affected. */
-  [0x2f] = { "CPL", &unimplemented_instruction, 4, 1},
+  [0x2f] = { "CPL", &i_cpl, 4, 1},
 
   /* 4. CCF */
   /* Description: */
@@ -556,7 +556,7 @@ const t_instruction     g_instructions[] = {
   /*     Enable interrupts. */
   /*     This instruction enables interrupts but not immediately. */
   /*     Interrupts are enabled after instruction after EI is executed. */
-  [0xfb] = { "EI", &unimplemented_instruction, 4, 1},
+  [0xfb] = { "EI", &i_ei, 4, 1},
 
   /* 3.3.6 Rotates & Shifts */
 

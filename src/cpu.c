@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include "opts.h"
 #include "instructions.h"
 #include "cpu.h"
 #include "resource.h"
@@ -13,6 +14,8 @@ static void      init_registers(t_cpustate *state)
   state->hl	= 0x014d;
   state->sp	= 0xfffe;
   state->pc	= 0x0100; /* Cartridge entry point */
+  state->op8 = 0x00;
+  state->op16 = 0x0000;
 }
 
 static void      init_hregisters(t_cpustate *state)
@@ -83,7 +86,7 @@ static void      init_hregisters(t_cpustate *state)
 /**
  * Launch the loop()
  */
-int             emulate(t_card *card)
+int             emulate(t_card *card, t_opts *options)
 {
   t_cpustate    state;
   uint8_t       opcode;
@@ -95,8 +98,13 @@ int             emulate(t_card *card)
   while (1)
   {
     opcode = state.memory.start[state.pc];
-    if (search_instruction(opcode, &state) == RETURN_FAILURE)
+    if (search_instruction(opcode, &state, options) == RETURN_FAILURE)
       return RETURN_FAILURE;
+    if (options->step_by_step)
+    {
+      printf(">");
+      getchar();
+    }
   }
   return RETURN_SUCCESS;
 }

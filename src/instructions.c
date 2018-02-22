@@ -4,41 +4,55 @@
 #include "cpu.h"
 #include "resource.h"
 #include "register.h"
+#include "memory_ar.h"
+
 
 static void         get_operands(t_cpustate *state)
 {
-  state->op8 = read_8(&state->memory.start[state->pc + 1]);
-  state->op16 = read_16(&state->memory.start[state->pc + 1]);
+  state->op16 = (short)read_16(&state->memory.start[state->pc + 1]);
 }
 
+static void         dump_memory(uint8_t *memory, unsigned int n)
+{
+  unsigned int      i = 0;
+
+  for (i = 0 ; i < n ; ++i)
+    printf("%02x ", memory[i]);
+  printf("\n");
+}
 static void         verb_state(t_cpustate *state)
 {
   t_instruction     instruction = g_instructions[state->memory.start[state->pc]];
 
-  printf("########################################\n\n\n");
-  printf(" Instruction %s - 0x%02x                \n", instruction.operation, state->memory.start[state->pc]);
-  printf(" Registers:                             \n");
-  printf("   A: 0x%02x  F: 0x%02x  AF: 0x%04x     \n", state->a, state->f, state->af);
-  printf("   B: 0x%02x  C: 0x%02x  DC: 0x%04x     \n", state->b, state->c, state->bc);
-  printf("   D: 0x%02x  E: 0x%02x  DE: 0x%04x     \n", state->d, state->e, state->de);
-  printf("   H: 0x%02x  L: 0x%02x  HL: 0x%04x     \n", state->h, state->l, state->hl);
-  printf("  PC: 0x%04x             SP: 0x%04x     \n", state->pc, state->sp);
-  printf(" Immediate values:                      \n");
-  printf("     OP8: 0x%02x       OP16: 0x%04x     \n", (uint8_t)state->op8, (uint16_t)state->op16);
-  printf(" Flags:                                 \n");
-  printf("     [%c%c%c%c]                         \n", (get_Z(&state->f) ? 'Z' : '-'), (get_N(&state->f) ? 'N' : '-'), (get_H(&state->f) ? 'H' : '-'), (get_C(&state->f) ? 'C' : '-'));
-  printf("\n\n");
+  printf("A: %02x F: %02x (AF: %04x)                       \n", state->a, state->f, state->af);
+  printf("B: %02x C: %02x (BC: %04x)                       \n", state->b, state->c, state->bc);
+  printf("D: %02x E: %02x (DE: %04x)                       \n", state->d, state->e, state->de);
+  printf("H: %02x L: %02x (HL: %04x)                       \n", state->h, state->l, state->hl);
+  printf("PC: %04x SP: %04x                                \n", state->pc, state->sp);
+  printf("OP8: %02X  OP16: %04x                            \n", (uint8_t)state->op8, (uint16_t)state->op16);
+  printf("MEM: ");
+  dump_memory(&state->memory.start[state->pc], 10);
+  printf("[%c%c%c%c]                                       \n",
+         (get_Z(&state->f) ? 'Z': '-'),
+         (get_N(&state->f) ? 'N': '-'),
+         (get_H(&state->f) ? 'H': '-'),
+         (get_C(&state->f) ? 'C': '-')
+         );
+  printf("00:%04x:  00	%s                                 \n", state->pc, instruction.operation);
 }
 
-int                 search_instruction(uint8_t opcode, t_cpustate *state)
+int                 search_instruction(uint8_t opcode, t_cpustate *state, t_opts *options)
 {
   int               ret = RETURN_SUCCESS;
+  uint16_t          oldpc = 0;
   t_instruction     instruction = g_instructions[opcode];
 
   get_operands(state);
-  verb_state(state);
+  if (options->verbose)
+    verb_state(state);
+  oldpc = state->pc;
   ret = instruction.handler(state);
-  if (strncmp(instruction.operation, "J", 1) != 0) /* Advance pc only if instruction is not a jump TODO: #pabo */
+  if (oldpc == state->pc)
     state->pc += instruction.size;
   return ret;
 }
@@ -88,5 +102,30 @@ int                 i_ccf(t_cpustate *state)
 int                 i_nop(t_cpustate *state)
 {
   (void)state;
+  return RETURN_SUCCESS;
+}
+
+int                 i_daa(t_cpustate *state)
+{
+  if (get_H(&state->f) || (state->a & 0x0F) > 0x9)
+    state->a += 6;
+  if (get_C(&state->f) || (state->a & 0xF0) > 0x90)
+  {
+    set_C(&state->f);
+    state->a += 96;
+  }
+  else
+    reset_C(&state->f);
+  zero_flag_check(&state->f, state->a);
+  reset_H(&state->f);
+  return RETURN_SUCCESS;
+}
+
+int                 i_cpl(t_cpustate *state)
+{
+  state->a = ~state->a;
+  reset_N(&state->f);
+  reset_H(&state->f);
+  get_C(&state->f) ? reset_C(&state->f) : set_C(&state->f);
   return RETURN_SUCCESS;
 }

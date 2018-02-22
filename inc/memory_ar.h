@@ -25,4 +25,8 @@ uint16_t                get_bc(t_cpustate *state);
 uint16_t                get_de(t_cpustate *state);
 uint16_t                get_hl(t_cpustate *state);
 
+uint8_t                 read_8(uint8_t *memory);
+uint16_t                read_16(uint8_t *memory);
+uint32_t                read_32(uint8_t *memory);
+
 #endif /* !MEMORY_AR_H_ */
