@@ -2,6 +2,7 @@
 # define CPU_H_
 
 # include <stdint.h>
+# include "opts.h"
 # include "register.h"
 # include "memory.h"
 # include "card.h"
@@ -96,13 +97,13 @@ typedef struct              s_cpustate {
   struct s_memory           memory;    
   uint8_t                   int_enable;    
   union {
-    char                     op8;
-    short                    op16;
+    int8_t                  op8;
+    int16_t                 op16;
   };
   struct s_hregisters       hregisters;
 }                           t_cpustate;    
 
 
-int                         emulate(t_card *card);
+int                         emulate(t_card *card, t_opts *options);
 
 #endif /* !CPU_H_ */

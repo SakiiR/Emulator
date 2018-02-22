@@ -22,7 +22,7 @@ int             main(int argc, char **argv)
       fprintf(stderr, "[-] Sorry, only ROM_Only CB can be run on this emulator .. \n");
       return RETURN_FAILURE;
     }
-    if (emulate(&card) == RETURN_FAILURE)
+    if (emulate(&card, &options) == RETURN_FAILURE)
       return RETURN_FAILURE;
     return RETURN_SUCCESS;
 }

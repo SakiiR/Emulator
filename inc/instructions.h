@@ -3,6 +3,7 @@
 
 # define SWAP_NIBLES(a)		((((a) & 0x0F) << 4) | (((a) & 0xF0) >> 4))
 
+# include "opts.h"
 # include "cpu.h"
 
 typedef int                 (t_ihandler)(struct s_cpustate *state);
@@ -20,7 +21,7 @@ extern const t_instruction	g_instructions[0xFF + 1];
 extern const t_instruction	g_instructions_cb[0xFF + 1];
 
 int                         unimplemented_instruction(t_cpustate *state);
-int                         search_instruction(uint8_t opcode, t_cpustate *state);
+int                         search_instruction(uint8_t opcode, t_cpustate *state, t_opts *options);
 
 t_ihandler                  i_prefix;
 t_ihandler                  i_nop;
@@ -324,6 +325,12 @@ t_ihandler                  i_bit_hl   ;
 /* CCF */
 t_ihandler                  i_ccf;
 
+/* DAA */
+t_ihandler                  i_daa;
+
+/* CPL */
+t_ihandler                  i_cpl;
+
 /* Calls */
 t_ihandler                  i_call_nn;
 
@@ -335,6 +342,9 @@ t_ihandler                  i_stop;
 
 /* DI */
 t_ihandler                  i_di;
+
+/* EI */
+t_ihandler                  i_ei;
 
 #endif /* !INSTRUCTIONS_H_ */
 

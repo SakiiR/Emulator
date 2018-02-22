@@ -7,6 +7,8 @@ typedef struct      s_opts
 {
     int             card_fd;
     char            *card_path;
+    char            step_by_step;
+    char            verbose;
 }                   t_opts;
 
 int                 parse_command_line(int argc, char **argv, t_opts *options);
