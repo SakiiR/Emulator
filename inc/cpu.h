@@ -6,7 +6,6 @@
 # include "register.h"
 # include "memory.h"
 # include "card.h"
-# include "video.h"
 
 # define MEMORY_SIZE                  (0xFFFF)
 
@@ -104,7 +103,6 @@ typedef struct              s_cpustate {
   };
   struct s_hregisters       hregisters;
   char                      stepping;
-  struct s_gpu              gpu;
 }                           t_cpustate;    
 
 

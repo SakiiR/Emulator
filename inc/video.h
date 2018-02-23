@@ -11,7 +11,10 @@ typedef struct              s_gpu
   SDL_Surface               *screen;
 }                           t_gpu;
 
+typedef struct s_game	    t_game;
+
 SDL_Surface                 *setup_SDL();
 void                        destroy_SDL(SDL_Surface *screen);
+int                         gpu_step(t_game *game);
 
 #endif /* !VIDEO_H_ */

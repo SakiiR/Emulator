@@ -11,7 +11,7 @@ typedef struct      s_game
   t_cpustate        state;
   t_opts            options;
   t_card            card;
-  t_gpu             gpu;
+  struct s_gpu      gpu;
 }                   t_game;
 
 int                 game_loop(t_game *game);

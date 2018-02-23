@@ -19,3 +19,9 @@ void                    destroy_SDL(SDL_Surface *screen)
   SDL_FreeSurface(screen);
   SDL_Quit();
 }
+
+int                     gpu_step(t_game *game)
+{
+  (void)game;
+  return RETURN_SUCCESS;
+}
