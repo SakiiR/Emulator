@@ -21,7 +21,6 @@ extern const t_instruction	g_instructions[0xFF + 1];
 extern const t_instruction	g_instructions_cb[0xFF + 1];
 
 int                         unimplemented_instruction(t_cpustate *state);
-int                         search_instruction(uint8_t opcode, t_cpustate *state, t_opts *options);
 
 t_ihandler                  i_prefix;
 t_ihandler                  i_nop;

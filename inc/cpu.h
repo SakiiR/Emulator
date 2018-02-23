@@ -108,7 +108,7 @@ typedef struct              s_cpustate {
 }                           t_cpustate;    
 
 
-int                         emulate(t_card *card, t_opts *options);
-int                         gpu_step(t_cpustate *state);
+int                         cpu_step(t_cpustate *state, t_opts *options);
+int                         init_cpu(t_cpustate *state, t_card *card);
 
 #endif /* !CPU_H_ */

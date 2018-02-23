@@ -6,6 +6,7 @@
 #include "cpu.h"
 #include "resource.h"
 #include "card.h"
+#include "memory_ar.h"
 
 static void      init_registers(t_cpustate *state)
 {
@@ -84,49 +85,64 @@ static void      init_hregisters(t_cpustate *state)
   *state->hregisters.IE    = 0x00;
 }
 
-static char     parse_event(SDL_Event *event, t_cpustate *state)
+static void         dump_memory(uint8_t *memory, unsigned int n)
 {
-  (void)state;
-  if (event != NULL)
-  {
-    if (event->type ==SDL_QUIT)
-    {
-      fprintf(stderr, "Exiting ..\n");
-      return RETURN_FAILURE;
-    }
-    if (event->type == SDL_KEYDOWN)
-    {
-      switch(event->key.keysym.sym)
-      {
-        default:
-          break;
-      }
-    }
-  }
+  unsigned int      i = 0;
+
+  for (i = 0 ; i < n ; ++i)
+    printf("%02x ", memory[i]);
+  printf("\n");
+}
+
+static void         verb_state(t_cpustate *state)
+{
+  t_instruction     instruction = g_instructions[state->memory.start[state->pc]];
+
+  printf("A: %02x F: %02x (AF: %04x)                       \n", state->a, state->f, state->af);
+  printf("B: %02x C: %02x (BC: %04x)                       \n", state->b, state->c, state->bc);
+  printf("D: %02x E: %02x (DE: %04x)                       \n", state->d, state->e, state->de);
+  printf("H: %02x L: %02x (HL: %04x)                       \n", state->h, state->l, state->hl);
+  printf("PC: %04x SP: %04x                                \n", state->pc, state->sp);
+  printf("OP8: %02X  OP16: %04x                            \n", (uint8_t)state->op8, (uint16_t)state->op16);
+  printf("MEM: ");
+  dump_memory(&state->memory.start[state->pc], 10);
+  printf(
+         "[%c%c%c%c]                                       \n",
+         (get_Z(&state->f) ? 'Z': '-'),
+         (get_N(&state->f) ? 'N': '-'),
+         (get_H(&state->f) ? 'H': '-'),
+         (get_C(&state->f) ? 'C': '-')
+        );
+  printf("00:%04x:  00	%s                                 \n", state->pc, instruction.operation);
+}
+
+static void         get_operands(t_cpustate *state)
+{
+  state->op16 = (short)read_16(&state->memory.start[state->pc + 1]);
+}
+
+int                 init_cpu(t_cpustate *state, t_card *card)
+{
+  if (init_memory(&state->memory, card) == RETURN_FAILURE)
+    return RETURN_FAILURE;
+  init_registers(state);
+  init_hregisters(state);
   return RETURN_SUCCESS;
 }
 
 /**
- * Launch the loop()
+ * One CPU step/stage 
  */
-int             emulate(t_card *card, t_opts *options)
+int                 cpu_step(t_cpustate *state, t_opts *options)
 {
-  t_cpustate    state;
-  uint8_t       opcode;
-  SDL_Event     event;
+  uint8_t           opcode = state->memory.start[state->pc];
+  t_instruction     instruction = g_instructions[opcode];
 
-  if (init_memory(&state.memory, card) == RETURN_FAILURE)
-    return RETURN_FAILURE;
-  init_registers(&state);
-  init_hregisters(&state);
-  while (1)
-  {
-    SDL_PollEvent(&event);
-    opcode = state.memory.start[state.pc];
-    if (search_instruction(opcode, &state, options) == RETURN_FAILURE)
-      return RETURN_FAILURE;
-    if (parse_event(&event, &state) == RETURN_FAILURE)
-      return RETURN_FAILURE;
-  }
+  get_operands(state);
+  if (options->verbose)
+    verb_state(state);
+  state->old_pc = state->pc;
+  state->pc += instruction.size;
+  instruction.handler(state);
   return RETURN_SUCCESS;
 }
