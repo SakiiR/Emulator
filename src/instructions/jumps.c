@@ -56,7 +56,7 @@ int                 i_jp_n(t_cpustate *state)
 int                 i_jr_nz_sharp(t_cpustate *state)
 {
   if (!get_Z(&state->f))
-    state->pc += state->op8 + 2; //TODO: lol + 2
+    state->pc += state->op8;
   return RETURN_SUCCESS;
 }
 

@@ -44,16 +44,13 @@ static void         verb_state(t_cpustate *state)
 int                 search_instruction(uint8_t opcode, t_cpustate *state, t_opts *options)
 {
   int               ret = RETURN_SUCCESS;
-  uint16_t          oldpc = 0;
   t_instruction     instruction = g_instructions[opcode];
 
   get_operands(state);
   if (options->verbose)
     verb_state(state);
-  oldpc = state->pc;
+  state->pc += instruction.size;
   ret = instruction.handler(state);
-  if (oldpc == state->pc)
-    state->pc += instruction.size;
   return ret;
 }
 
