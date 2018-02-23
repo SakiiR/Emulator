@@ -322,6 +322,26 @@ t_ihandler                  i_bit_h   ;
 t_ihandler                  i_bit_l   ;
 t_ihandler                  i_bit_hl   ;
 
+/* SET */
+t_ihandler                  i_set_a   ;
+t_ihandler                  i_set_b   ;
+t_ihandler                  i_set_c   ;
+t_ihandler                  i_set_d   ;
+t_ihandler                  i_set_e   ;
+t_ihandler                  i_set_h   ;
+t_ihandler                  i_set_l   ;
+t_ihandler                  i_set_hl   ;
+
+/* RES */
+t_ihandler                  i_res_a   ;
+t_ihandler                  i_res_b   ;
+t_ihandler                  i_res_c   ;
+t_ihandler                  i_res_d   ;
+t_ihandler                  i_res_e   ;
+t_ihandler                  i_res_h   ;
+t_ihandler                  i_res_l   ;
+t_ihandler                  i_res_hl   ;
+
 /* Rotations */
 t_ihandler                  i_rlca;
 t_ihandler                  i_rla ;
@@ -339,6 +359,99 @@ t_ihandler                  i_cpl;
 
 /* Calls */
 t_ihandler                  i_call_nn;
+t_ihandler                  i_call_nz_nn;
+t_ihandler                  i_call_z_nn;
+t_ihandler                  i_call_nc_nn;
+t_ihandler                  i_call_c_nn;
+
+/* RST */
+t_ihandler                  i_rst_00;
+t_ihandler                  i_rst_08;
+t_ihandler                  i_rst_10;
+t_ihandler                  i_rst_18;
+t_ihandler                  i_rst_20;
+t_ihandler                  i_rst_28;
+t_ihandler                  i_rst_30;
+t_ihandler                  i_rst_38;
+
+/* RET */
+t_ihandler                  i_ret;
+t_ihandler                  i_ret_nz;
+t_ihandler                  i_ret_z ;
+t_ihandler                  i_ret_nc;
+t_ihandler                  i_ret_c ;
+t_ihandler                  i_reti ;
+
+/* SWAP n */
+t_ihandler                  i_swap_a ;
+t_ihandler                  i_swap_b ;
+t_ihandler                  i_swap_c ;
+t_ihandler                  i_swap_d ;
+t_ihandler                  i_swap_e ;
+t_ihandler                  i_swap_h ;
+t_ihandler                  i_swap_l ;
+t_ihandler                  i_swap_hl;
+
+/* RLC n */
+t_ihandler                  i_rlc_a ;
+t_ihandler                  i_rlc_b ;
+t_ihandler                  i_rlc_c ;
+t_ihandler                  i_rlc_d ;
+t_ihandler                  i_rlc_e ;
+t_ihandler                  i_rlc_h ;
+t_ihandler                  i_rlc_l ;
+t_ihandler                  i_rlc_hl;
+
+/* RL n */
+t_ihandler                  i_rl_a ;
+t_ihandler                  i_rl_b ;
+t_ihandler                  i_rl_c ;
+t_ihandler                  i_rl_d ;
+t_ihandler                  i_rl_e ;
+t_ihandler                  i_rl_h ;
+t_ihandler                  i_rl_l ;
+t_ihandler                  i_rl_hl;
+
+/* RRC n*/
+t_ihandler                  i_rrc_a ;
+t_ihandler                  i_rrc_b ;
+t_ihandler                  i_rrc_c ;
+t_ihandler                  i_rrc_d ;
+t_ihandler                  i_rrc_e ;
+t_ihandler                  i_rrc_h ;
+t_ihandler                  i_rrc_l ;
+t_ihandler                  i_rrc_hl;
+
+/* RR n*/
+t_ihandler                  i_rr_a ;
+t_ihandler                  i_rr_b ;
+t_ihandler                  i_rr_c ;
+t_ihandler                  i_rr_d ;
+t_ihandler                  i_rr_e ;
+t_ihandler                  i_rr_h ;
+t_ihandler                  i_rr_l ;
+t_ihandler                  i_rr_hl;
+
+/* SLA n */
+t_ihandler                  i_sla_a ;
+t_ihandler                  i_sla_b ;
+t_ihandler                  i_sla_c ;
+t_ihandler                  i_sla_d ;
+t_ihandler                  i_sla_e ;
+t_ihandler                  i_sla_h ;
+t_ihandler                  i_sla_l ;
+t_ihandler                  i_sla_hl;
+
+/* SRA n */
+t_ihandler                  i_sra_a ;
+t_ihandler                  i_sra_b ;
+t_ihandler                  i_sra_c ;
+t_ihandler                  i_sra_d ;
+t_ihandler                  i_sra_e ;
+t_ihandler                  i_sra_h ;
+t_ihandler                  i_sra_l ;
+t_ihandler                  i_sra_hl;
+
 
 /* HALT */
 t_ihandler                  i_halt;

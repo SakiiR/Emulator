@@ -670,10 +670,10 @@ const t_instruction     g_instructions[] = {
   /*     cc = C, Call if C flag is set */
   /* Use with: */
   /*     nn = two byte immediate value. (LS byte first). */
-  [0xc4] = { "CALL NZ, nn", &unimplemented_instruction, 12, 3},
-  [0xcc] = { "CALL Z, nn",  &unimplemented_instruction, 12, 3},
-  [0xd4] = { "CALL NC, nn", &unimplemented_instruction, 12, 3},
-  [0xdc] = { "CALL C, nn",  &unimplemented_instruction, 12, 3},
+  [0xc4] = { "CALL NZ, nn", &i_call_nz_nn, 12, 3},
+  [0xcc] = { "CALL Z, nn",  &i_call_z_nn , 12, 3},
+  [0xd4] = { "CALL NC, nn", &i_call_nc_nn, 12, 3},
+  [0xdc] = { "CALL C, nn",  &i_call_c_nn , 12, 3},
 
 
   /* 3.3.10 - Restarts */
@@ -684,21 +684,21 @@ const t_instruction     g_instructions[] = {
   /*     Jump to address $0000 + n. */
   /* Use with: */
   /*     n = $00, $08, $10, $18, $20, $28, $30, $38 */
-  [0xc7] = { "RST 00H", &unimplemented_instruction, 32, 1},
-  [0xcf] = { "RST 08H", &unimplemented_instruction, 32, 1},
-  [0xd7] = { "RST 10H", &unimplemented_instruction, 32, 1},
-  [0xdf] = { "RST 18H", &unimplemented_instruction, 32, 1},
-  [0xe7] = { "RST 20H", &unimplemented_instruction, 32, 1},
-  [0xef] = { "RST 28H", &unimplemented_instruction, 32, 1},
-  [0xf7] = { "RST 30H", &unimplemented_instruction, 32, 1},
-  [0xff] = { "RST 38H", &i_rst_38,                  32, 1},
+  [0xc7] = { "RST 00H", &i_rst_00, 32, 1},
+  [0xcf] = { "RST 08H", &i_rst_08, 32, 1},
+  [0xd7] = { "RST 10H", &i_rst_10, 32, 1},
+  [0xdf] = { "RST 18H", &i_rst_18, 32, 1},
+  [0xe7] = { "RST 20H", &i_rst_20, 32, 1},
+  [0xef] = { "RST 28H", &i_rst_28, 32, 1},
+  [0xf7] = { "RST 30H", &i_rst_30, 32, 1},
+  [0xff] = { "RST 38H", &i_rst_38,  32, 1},
 
   /* 3.3.11 - Returns */
 
   /* 1. RET */
   /* Description: */
   /*     Pop two bytes from stack & jump to that address. */
-  [0xc9] = { "RET", &unimplemented_instruction, 8, 1},
+  [0xc9] = { "RET", &i_ret, 8, 1},
 
   /* 2. RET cc */
   /* Description: */
@@ -708,15 +708,15 @@ const t_instruction     g_instructions[] = {
   /*     cc = Z, Return if Z flag is set. */
   /*     cc = NC, Return if C flag is reset. */
   /*     cc = C, Return if C flag is set. */
-  [0xc0] = { "RET NZ", &unimplemented_instruction, 8, 1},
-  [0xc8] = { "RET Z",  &unimplemented_instruction, 8, 1},
-  [0xd0] = { "RET NC", &unimplemented_instruction, 8, 1},
-  [0xd8] = { "RET C",  &unimplemented_instruction, 8, 1},
+  [0xc0] = { "RET NZ", &i_ret_nz, 8, 1},
+  [0xc8] = { "RET Z",  &i_ret_z , 8, 1},
+  [0xd0] = { "RET NC", &i_ret_nc, 8, 1},
+  [0xd8] = { "RET C",  &i_ret_c , 8, 1},
 
   /* 3. RETI */
   /* Description: */
   /*     Pop two bytes from stack & jump to that address then enable interrupts. */
-  [0xd9] = { "RETI", &unimplemented_instruction, 8, 1},
+  [0xd9] = { "RETI", &i_reti, 8, 1},
 
   /* Non-Documented */
   [0xcb] = { "PREFIX", &i_prefix, 4, 1},
@@ -748,14 +748,14 @@ const t_instruction     g_instructions_cb[] = {
   /*     H - Reset. */
   /*     C - Reset. */
 
-  [0x37] = {"SWAP A",    &unimplemented_instruction, 8, 1},
-  [0x30] = {"SWAP B",    &unimplemented_instruction, 8, 1},
-  [0x31] = {"SWAP C",    &unimplemented_instruction, 8, 1},
-  [0x32] = {"SWAP D",    &unimplemented_instruction, 8, 1},
-  [0x33] = {"SWAP E",    &unimplemented_instruction, 8, 1},
-  [0x34] = {"SWAP H",    &unimplemented_instruction, 8, 1},
-  [0x35] = {"SWAP L",    &unimplemented_instruction, 8, 1},
-  [0x36] = {"SWAP (HL)", &unimplemented_instruction, 16, 1},
+  [0x37] = {"SWAP A",    &i_swap_a , 8, 1},
+  [0x30] = {"SWAP B",    &i_swap_b , 8, 1},
+  [0x31] = {"SWAP C",    &i_swap_c , 8, 1},
+  [0x32] = {"SWAP D",    &i_swap_d , 8, 1},
+  [0x33] = {"SWAP E",    &i_swap_e , 8, 1},
+  [0x34] = {"SWAP H",    &i_swap_h , 8, 1},
+  [0x35] = {"SWAP L",    &i_swap_l , 8, 1},
+  [0x36] = {"SWAP (HL)", &i_swap_hl, 16, 1},
 
   /* RLC n */
   /* Description: */
@@ -768,14 +768,14 @@ const t_instruction     g_instructions_cb[] = {
   /*     H - Reset. */
   /*     C - Contains old bit 7 data. */
 
-  [0x07] = {"RLC A",       &unimplemented_instruction, 8, 1},
-  [0x00] = {"RLC B",       &unimplemented_instruction, 8, 1},
-  [0x01] = {"RLC C",       &unimplemented_instruction, 8, 1},
-  [0x02] = {"RLC D",       &unimplemented_instruction, 8, 1},
-  [0x03] = {"RLC E",       &unimplemented_instruction, 8, 1},
-  [0x04] = {"RLC H",       &unimplemented_instruction, 8, 1},
-  [0x05] = {"RLC L",       &unimplemented_instruction, 8, 1},
-  [0x06] = {"RLC (HL)",    &unimplemented_instruction, 16, 1},
+  [0x07] = {"RLC A",       &i_rlc_a , 8, 1},
+  [0x00] = {"RLC B",       &i_rlc_b , 8, 1},
+  [0x01] = {"RLC C",       &i_rlc_c , 8, 1},
+  [0x02] = {"RLC D",       &i_rlc_d , 8, 1},
+  [0x03] = {"RLC E",       &i_rlc_e , 8, 1},
+  [0x04] = {"RLC H",       &i_rlc_h , 8, 1},
+  [0x05] = {"RLC L",       &i_rlc_l , 8, 1},
+  [0x06] = {"RLC (HL)",    &i_rlc_hl, 16, 1},
 
   /* RL n */
   /* Description: */
@@ -788,14 +788,14 @@ const t_instruction     g_instructions_cb[] = {
   /*     H - Reset. */
   /*     C - Contains old bit 7 data. */
 
-  [0x17] = {"RL A",          &unimplemented_instruction, 8, 1},
-  [0x10] = {"RL B",          &unimplemented_instruction, 8, 1},
-  [0x11] = {"RL C",          &unimplemented_instruction, 8, 1},
-  [0x12] = {"RL D",          &unimplemented_instruction, 8, 1},
-  [0x13] = {"RL E",          &unimplemented_instruction, 8, 1},
-  [0x14] = {"RL H",          &unimplemented_instruction, 8, 1},
-  [0x15] = {"RL L",          &unimplemented_instruction, 8, 1},
-  [0x16] = {"RL (HL)",       &unimplemented_instruction, 16, 1},
+  [0x17] = {"RL A",          &i_rl_a , 8, 1},
+  [0x10] = {"RL B",          &i_rl_b , 8, 1},
+  [0x11] = {"RL C",          &i_rl_c , 8, 1},
+  [0x12] = {"RL D",          &i_rl_d , 8, 1},
+  [0x13] = {"RL E",          &i_rl_e , 8, 1},
+  [0x14] = {"RL H",          &i_rl_h , 8, 1},
+  [0x15] = {"RL L",          &i_rl_l , 8, 1},
+  [0x16] = {"RL (HL)",       &i_rl_hl, 16, 1},
 
   /* RRC n */
   /* Description: */
@@ -808,14 +808,14 @@ const t_instruction     g_instructions_cb[] = {
   /*     H - Reset. */
   /*     C - Contains old bit 0 data. */
 
-  [0x0f] = {"RRC A",          &unimplemented_instruction, 8, 1},
-  [0x08] = {"RRC B",          &unimplemented_instruction, 8, 1},
-  [0x09] = {"RRC C",          &unimplemented_instruction, 8, 1},
-  [0x0a] = {"RRC D",          &unimplemented_instruction, 8, 1},
-  [0x0b] = {"RRC E",          &unimplemented_instruction, 8, 1},
-  [0x0c] = {"RRC H",          &unimplemented_instruction, 8, 1},
-  [0x0d] = {"RRC L",          &unimplemented_instruction, 8, 1},
-  [0x0e] = {"RRC (HL)",       &unimplemented_instruction, 16, 1},
+  [0x0f] = {"RRC A",          &i_rrc_a , 8, 1},
+  [0x08] = {"RRC B",          &i_rrc_b , 8, 1},
+  [0x09] = {"RRC C",          &i_rrc_c , 8, 1},
+  [0x0a] = {"RRC D",          &i_rrc_d , 8, 1},
+  [0x0b] = {"RRC E",          &i_rrc_e , 8, 1},
+  [0x0c] = {"RRC H",          &i_rrc_h , 8, 1},
+  [0x0d] = {"RRC L",          &i_rrc_l , 8, 1},
+  [0x0e] = {"RRC (HL)",       &i_rrc_hl, 16, 1},
 
   /* RR n */
   /* Description: */
@@ -827,15 +827,14 @@ const t_instruction     g_instructions_cb[] = {
   /*     N - Reset. */
   /*     H - Reset. */
   /*     C - Contains old bit 0 data. */
-
-  [0x1f] = {"RR A",          &unimplemented_instruction, 8, 1},
-  [0x18] = {"RR B",          &unimplemented_instruction, 8, 1},
-  [0x19] = {"RR C",          &unimplemented_instruction, 8, 1},
-  [0x1a] = {"RR D",          &unimplemented_instruction, 8, 1},
-  [0x1b] = {"RR E",          &unimplemented_instruction, 8, 1},
-  [0x1c] = {"RR H",          &unimplemented_instruction, 8, 1},
-  [0x1d] = {"RR L",          &unimplemented_instruction, 8, 1},
-  [0x1e] = {"RR (HL)",       &unimplemented_instruction, 16, 1},
+  [0x1f] = {"RR A",          &i_rr_a , 8, 1},
+  [0x18] = {"RR B",          &i_rr_b , 8, 1},
+  [0x19] = {"RR C",          &i_rr_c , 8, 1},
+  [0x1a] = {"RR D",          &i_rr_d , 8, 1},
+  [0x1b] = {"RR E",          &i_rr_e , 8, 1},
+  [0x1c] = {"RR H",          &i_rr_h , 8, 1},
+  [0x1d] = {"RR L",          &i_rr_l , 8, 1},
+  [0x1e] = {"RR (HL)",       &i_rr_hl, 16, 1},
 
   /* SLA n */
   /* Description: */
@@ -847,15 +846,14 @@ const t_instruction     g_instructions_cb[] = {
   /*     N - Reset. */
   /*     H - Reset. */
   /*     C - Contains old bit 7 data. */
-
-  [0x27] = {"SLA A",          &unimplemented_instruction, 8, 1},
-  [0x20] = {"SLA B",          &unimplemented_instruction, 8, 1},
-  [0x21] = {"SLA C",          &unimplemented_instruction, 8, 1},
-  [0x22] = {"SLA D",          &unimplemented_instruction, 8, 1},
-  [0x23] = {"SLA E",          &unimplemented_instruction, 8, 1},
-  [0x24] = {"SLA H",          &unimplemented_instruction, 8, 1},
-  [0x25] = {"SLA L",          &unimplemented_instruction, 8, 1},
-  [0x26] = {"SLA (HL)",       &unimplemented_instruction, 16, 1},
+  [0x27] = {"SLA A",          &i_sla_a , 8, 1},
+  [0x20] = {"SLA B",          &i_sla_b , 8, 1},
+  [0x21] = {"SLA C",          &i_sla_c , 8, 1},
+  [0x22] = {"SLA D",          &i_sla_d , 8, 1},
+  [0x23] = {"SLA E",          &i_sla_e , 8, 1},
+  [0x24] = {"SLA H",          &i_sla_h , 8, 1},
+  [0x25] = {"SLA L",          &i_sla_l , 8, 1},
+  [0x26] = {"SLA (HL)",       &i_sla_hl, 16, 1},
 
   /*  SRA n */
   /* Description: */
@@ -868,14 +866,14 @@ const t_instruction     g_instructions_cb[] = {
   /*     H - Reset. */
   /*     C - Contains old bit 0 data. */
 
-  [0x2f] = {"SRA A",          &unimplemented_instruction, 8, 1},
-  [0x28] = {"SRA B",          &unimplemented_instruction, 8, 1},
-  [0x29] = {"SRA C",          &unimplemented_instruction, 8, 1},
-  [0x2a] = {"SRA D",          &unimplemented_instruction, 8, 1},
-  [0x2b] = {"SRA E",          &unimplemented_instruction, 8, 1},
-  [0x2c] = {"SRA H",          &unimplemented_instruction, 8, 1},
-  [0x2d] = {"SRA L",          &unimplemented_instruction, 8, 1},
-  [0x2e] = {"SRA (HL)",       &unimplemented_instruction, 16, 1},
+  [0x2f] = {"SRA A",          &i_sra_a , 8, 1},
+  [0x28] = {"SRA B",          &i_sra_b , 8, 1},
+  [0x29] = {"SRA C",          &i_sra_c , 8, 1},
+  [0x2a] = {"SRA D",          &i_sra_d , 8, 1},
+  [0x2b] = {"SRA E",          &i_sra_e , 8, 1},
+  [0x2c] = {"SRA H",          &i_sra_h , 8, 1},
+  [0x2d] = {"SRA L",          &i_sra_l , 8, 1},
+  [0x2e] = {"SRA (HL)",       &i_sra_hl, 16, 1},
 
   /* SRL n */
   /* Description: */
@@ -925,14 +923,14 @@ const t_instruction     g_instructions_cb[] = {
   /* Use with: */
   /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
 
-  [0xc7] = {"SET b, A",       &unimplemented_instruction, 8, 1},
-  [0xc0] = {"SET b, B",       &unimplemented_instruction, 8, 1},
-  [0xc1] = {"SET b, C",       &unimplemented_instruction, 8, 1},
-  [0xc2] = {"SET b, D",       &unimplemented_instruction, 8, 1},
-  [0xc3] = {"SET b, E",       &unimplemented_instruction, 8, 1},
-  [0xc4] = {"SET b, H",       &unimplemented_instruction, 8, 1},
-  [0xc5] = {"SET b, L",       &unimplemented_instruction, 8, 1},
-  [0xc6] = {"SET b, (HL)",    &unimplemented_instruction, 16, 1},
+  [0xc7] = {"SET b, A",       &i_set_a , 8, 1},
+  [0xc0] = {"SET b, B",       &i_set_b , 8, 1},
+  [0xc1] = {"SET b, C",       &i_set_c , 8, 1},
+  [0xc2] = {"SET b, D",       &i_set_d , 8, 1},
+  [0xc3] = {"SET b, E",       &i_set_e , 8, 1},
+  [0xc4] = {"SET b, H",       &i_set_h , 8, 1},
+  [0xc5] = {"SET b, L",       &i_set_l , 8, 1},
+  [0xc6] = {"SET b, (HL)",    &i_set_hl, 16, 1},
 
   /* RES b, r */
   /* Description: */
@@ -940,12 +938,12 @@ const t_instruction     g_instructions_cb[] = {
   /* Use with: */
   /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
 
-  [0x87] = {"RES b, A",       &unimplemented_instruction, 8, 1},
-  [0x80] = {"RES b, B",       &unimplemented_instruction, 8, 1},
-  [0x81] = {"RES b, C",       &unimplemented_instruction, 8, 1},
-  [0x82] = {"RES b, D",       &unimplemented_instruction, 8, 1},
-  [0x83] = {"RES b, E",       &unimplemented_instruction, 8, 1},
-  [0x84] = {"RES b, H",       &unimplemented_instruction, 8, 1},
-  [0x85] = {"RES b, L",       &unimplemented_instruction, 8, 1},
-  [0x86] = {"RES b, (HL)",    &unimplemented_instruction, 16, 1},
+  [0x87] = {"RES b, A",       &i_res_a , 8, 1},
+  [0x80] = {"RES b, B",       &i_res_b , 8, 1},
+  [0x81] = {"RES b, C",       &i_res_c , 8, 1},
+  [0x82] = {"RES b, D",       &i_res_d , 8, 1},
+  [0x83] = {"RES b, E",       &i_res_e , 8, 1},
+  [0x84] = {"RES b, H",       &i_res_h , 8, 1},
+  [0x85] = {"RES b, L",       &i_res_l , 8, 1},
+  [0x86] = {"RES b, (HL)",    &i_res_hl, 16, 1},
 };
