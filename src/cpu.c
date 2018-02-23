@@ -1,3 +1,4 @@
+#include <SDL/SDL.h>
 #include <stdio.h>
 #include <unistd.h>
 #include "opts.h"
@@ -83,6 +84,28 @@ static void      init_hregisters(t_cpustate *state)
   *state->hregisters.IE    = 0x00;
 }
 
+static char     parse_event(SDL_Event *event, t_cpustate *state)
+{
+  (void)state;
+  if (event != NULL)
+  {
+    if (event->type ==SDL_QUIT)
+    {
+      fprintf(stderr, "Exiting ..\n");
+      return RETURN_FAILURE;
+    }
+    if (event->type == SDL_KEYDOWN)
+    {
+      switch(event->key.keysym.sym)
+      {
+        default:
+          break;
+      }
+    }
+  }
+  return RETURN_SUCCESS;
+}
+
 /**
  * Launch the loop()
  */
@@ -90,6 +113,7 @@ int             emulate(t_card *card, t_opts *options)
 {
   t_cpustate    state;
   uint8_t       opcode;
+  SDL_Event     event;
 
   if (init_memory(&state.memory, card) == RETURN_FAILURE)
     return RETURN_FAILURE;
@@ -97,14 +121,12 @@ int             emulate(t_card *card, t_opts *options)
   init_hregisters(&state);
   while (1)
   {
+    SDL_PollEvent(&event);
     opcode = state.memory.start[state.pc];
     if (search_instruction(opcode, &state, options) == RETURN_FAILURE)
       return RETURN_FAILURE;
-    if (options->step_by_step)
-    {
-      printf(">");
-      getchar();
-    }
+    if (parse_event(&event, &state) == RETURN_FAILURE)
+      return RETURN_FAILURE;
   }
   return RETURN_SUCCESS;
 }
