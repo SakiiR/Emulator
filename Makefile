@@ -2,7 +2,7 @@ CC = gcc
 
 RM = rm -rf
 
-LDFLAGS +=  
+LDFLAGS += -lSDL
 
 CFLAGS += -Iinc -W -Werror -Wall -g3
 

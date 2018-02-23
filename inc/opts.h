@@ -2,6 +2,7 @@
 # define OPTS_H_
 
 # include <unistd.h>
+# include "video.h"
 
 typedef struct      s_opts
 {
@@ -9,6 +10,7 @@ typedef struct      s_opts
     char            *card_path;
     char            step_by_step;
     char            verbose;
+    SDL_Surface     *screen;
 }                   t_opts;
 
 int                 parse_command_line(int argc, char **argv, t_opts *options);

@@ -44,13 +44,13 @@ typedef struct      s_card
   char              title[CTITLE_SIZE + 1];
   char              *content;
   size_t            size;
-  t_liscensee       liscensee;
-  t_cardtype        card_type;
   size_t            rom_size;
   size_t            ram_size;
   uint16_t          japanese;
   unsigned char     version;
   unsigned char     h_checksum; 
+  t_liscensee       liscensee;
+  t_cardtype        card_type;
 }                   t_card;
 
 

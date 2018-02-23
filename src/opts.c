@@ -14,6 +14,7 @@ static void        init_options(t_opts *options)
   options->card_fd = 0;
   options->step_by_step = 0;
   options->verbose = 0;
+  options->screen = NULL;
 }
 
 static void         help(const char *prog)
