@@ -322,6 +322,12 @@ t_ihandler                  i_bit_h   ;
 t_ihandler                  i_bit_l   ;
 t_ihandler                  i_bit_hl   ;
 
+/* Rotations */
+t_ihandler                  i_rlca;
+t_ihandler                  i_rla ;
+t_ihandler                  i_rrca;
+t_ihandler                  i_rra ;
+
 /* CCF */
 t_ihandler                  i_ccf;
 

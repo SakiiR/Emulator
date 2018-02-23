@@ -568,7 +568,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Reset. */
   /*     C - Contains old bit 7 data. */
-  [0x07] = { "RLCA", &unimplemented_instruction, 4, 1},
+  [0x07] = { "RLCA", &i_rlca, 4, 1},
 
   /* 2. RLA */
   /* Description: */
@@ -578,7 +578,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Reset. */
   /*     C - Contains old bit 7 data. */
-  [0x17] = { "RLA", &unimplemented_instruction, 4, 1},
+  [0x17] = { "RLA", &i_rla, 4, 1},
 
   /* 3. RRCA */
   /* Description: */
@@ -588,7 +588,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Reset. */
   /*     C - Contains old bit 0 data. */
-  [0x0f] = { "RRCA", &unimplemented_instruction, 4, 1},
+  [0x0f] = { "RRCA", &i_rrca, 4, 1},
 
   /* 4. RRA */
   /* Description: */
@@ -598,7 +598,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Reset. */
   /*     C - Contains old bit 0 data. */
-  [0x1f] = { "RRA", &unimplemented_instruction, 4, 1},
+  [0x1f] = { "RRA", &i_rra, 4, 1},
 
   /* 3.3.8 - Jumps */
 
