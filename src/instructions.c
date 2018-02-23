@@ -32,12 +32,13 @@ static void         verb_state(t_cpustate *state)
   printf("OP8: %02X  OP16: %04x                            \n", (uint8_t)state->op8, (uint16_t)state->op16);
   printf("MEM: ");
   dump_memory(&state->memory.start[state->pc], 10);
-  printf("[%c%c%c%c]                                       \n",
+  printf(
+         "[%c%c%c%c]                                       \n",
          (get_Z(&state->f) ? 'Z': '-'),
          (get_N(&state->f) ? 'N': '-'),
          (get_H(&state->f) ? 'H': '-'),
          (get_C(&state->f) ? 'C': '-')
-         );
+        );
   printf("00:%04x:  00	%s                                 \n", state->pc, instruction.operation);
 }
 
@@ -49,6 +50,7 @@ int                 search_instruction(uint8_t opcode, t_cpustate *state, t_opts
   get_operands(state);
   if (options->verbose)
     verb_state(state);
+  state->old_pc = state->pc;
   state->pc += instruction.size;
   ret = instruction.handler(state);
   return ret;
@@ -57,10 +59,14 @@ int                 search_instruction(uint8_t opcode, t_cpustate *state, t_opts
 
 int                 unimplemented_instruction(t_cpustate *state)
 {
-  fprintf(stderr, "[-] Unimplemented Instruction at 0x%04x (%s) (0x%02x)\n",
-      state->pc,
-      g_instructions[state->memory.start[state->pc]].operation,
-      state->memory.start[state->pc]);
+  t_instruction     instruction = g_instructions[state->memory.start[state->old_pc]];
+
+  fprintf(stderr, 
+          "[-] Unimplemented Instruction at 0x%04x (%s) (0x%02x)\n",
+          state->old_pc,
+          instruction.operation,
+          state->memory.start[state->old_pc]
+         );
   return RETURN_FAILURE;
 }
 

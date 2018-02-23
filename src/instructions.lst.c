@@ -684,13 +684,13 @@ const t_instruction     g_instructions[] = {
   /*     Jump to address $0000 + n. */
   /* Use with: */
   /*     n = $00, $08, $10, $18, $20, $28, $30, $38 */
-  [0xc7] = { "RST 00H", &i_rst_00, 32, 1},
-  [0xcf] = { "RST 08H", &i_rst_08, 32, 1},
-  [0xd7] = { "RST 10H", &i_rst_10, 32, 1},
-  [0xdf] = { "RST 18H", &i_rst_18, 32, 1},
-  [0xe7] = { "RST 20H", &i_rst_20, 32, 1},
-  [0xef] = { "RST 28H", &i_rst_28, 32, 1},
-  [0xf7] = { "RST 30H", &i_rst_30, 32, 1},
+  [0xc7] = { "RST 00H", &i_rst_00,  32, 1},
+  [0xcf] = { "RST 08H", &i_rst_08,  32, 1},
+  [0xd7] = { "RST 10H", &i_rst_10,  32, 1},
+  [0xdf] = { "RST 18H", &i_rst_18,  32, 1},
+  [0xe7] = { "RST 20H", &i_rst_20,  32, 1},
+  [0xef] = { "RST 28H", &i_rst_28,  32, 1},
+  [0xf7] = { "RST 30H", &i_rst_30,  32, 1},
   [0xff] = { "RST 38H", &i_rst_38,  32, 1},
 
   /* 3.3.11 - Returns */
