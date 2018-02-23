@@ -4,6 +4,14 @@
 #include "memory_ar.h"
 
 
+int                 i_bit_a(t_cpustate *state)
+{
+  zero_flag_check(&state->f, state->a & 0x80);
+  reset_N(&state->f);
+  set_H(&state->f);
+  return RETURN_SUCCESS;
+}
+
 int                 i_bit_b(t_cpustate *state)
 {
   zero_flag_check(&state->f, state->b & 0x80);

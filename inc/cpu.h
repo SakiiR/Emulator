@@ -93,6 +93,7 @@ typedef struct              s_cpustate {
     uint16_t                hl;
   };
   uint16_t                  sp;    
+  uint16_t                  old_pc;    
   uint16_t                  pc;    
   struct s_memory           memory;    
   uint8_t                   int_enable;    
