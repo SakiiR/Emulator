@@ -9,6 +9,8 @@
 
 # define MEMORY_SIZE                  (0xFFFF)
 
+struct                      s_instruction;
+
 typedef struct              s_hregisters
 {
   uint8_t                   *TIMA;
@@ -102,6 +104,7 @@ typedef struct              s_cpustate {
     int16_t                 op16;
   };
   struct s_hregisters       hregisters;
+  struct s_instruction      *instruction;
   char                      stepping;
 }                           t_cpustate;    
 

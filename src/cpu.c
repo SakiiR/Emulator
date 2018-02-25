@@ -96,16 +96,15 @@ static void         dump_memory(uint8_t *memory, unsigned int n)
 
 void                verb_state(t_cpustate *state)
 {
-  t_instruction     instruction = g_instructions[state->memory.start[state->pc]];
   char              operation[32];
+  t_instruction     *instruction = state->instruction;
 
-  if (instruction.size == 2)
-    sprintf(operation, instruction.operation, (uint8_t)state->op8);
-  else if (instruction.size == 3)
-    sprintf(operation, instruction.operation, (uint8_t)state->op16);
+  if (instruction->size == 2)
+    sprintf(operation, instruction->operation, (uint8_t)state->op8);
+  else if (instruction->size == 3)
+    sprintf(operation, instruction->operation, (uint8_t)state->op16);
   else 
-    sprintf(operation, instruction.operation);
-
+    strcpy(operation, instruction->operation);
   printf("A: %02x F: %02x (AF: %04x)                       \n", state->a, state->f, state->af);
   printf("B: %02x C: %02x (BC: %04x)                       \n", state->b, state->c, state->bc);
   printf("D: %02x E: %02x (DE: %04x)                       \n", state->d, state->e, state->de);
@@ -127,6 +126,10 @@ void                verb_state(t_cpustate *state)
 
 static void         get_operands(t_cpustate *state)
 {
+  printf("Fetching operands: %02x - %02x\n", 
+         state->memory.start[state->pc + 1],
+         state->memory.start[state->pc + 2]
+        );
   state->op16 = (short)read_16(&state->memory.start[state->pc + 1]);
 }
 
@@ -145,13 +148,12 @@ int                 init_cpu(t_cpustate *state, t_card *card)
 int                 cpu_step(t_cpustate *state, t_opts *options)
 {
   uint8_t           opcode = state->memory.start[state->pc];
-  t_instruction     instruction = g_instructions[opcode];
 
   get_operands(state);
+  state->instruction = &g_instructions[opcode];
   if (options->verbose)
     verb_state(state);
-  state->old_pc = state->pc;
-  state->pc += instruction.size;
-  instruction.handler(state);
+  state->pc += state->instruction->size;
+  state->instruction->handler(state);
   return RETURN_SUCCESS;
 }
