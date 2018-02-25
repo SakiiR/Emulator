@@ -4,6 +4,7 @@
 #include "game.h"
 #include "cpu.h"
 #include "video.h"
+#include "utils.h"
 
 static char         parse_event(SDL_Event *event, t_game *game)
 {
@@ -12,13 +13,21 @@ static char         parse_event(SDL_Event *event, t_game *game)
   {
     if (event->type ==SDL_QUIT)
     {
-      fprintf(stderr, "Exiting ..\n");
+      fprintf(stderr, "[-] Exiting ..\n");
       return RETURN_FAILURE;
     }
     if (event->type == SDL_KEYDOWN)
     {
       switch(event->key.keysym.sym)
       {
+        case SDLK_m:
+          dump_memory(game);
+          break;
+        case SDLK_v:
+          dump_vram(game);
+          break;
+        case SDLK_p:
+          verb_state(&game->state);
         default:
           break;
       }

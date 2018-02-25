@@ -94,9 +94,17 @@ static void         dump_memory(uint8_t *memory, unsigned int n)
   printf("\n");
 }
 
-static void         verb_state(t_cpustate *state)
+void                verb_state(t_cpustate *state)
 {
   t_instruction     instruction = g_instructions[state->memory.start[state->pc]];
+  char              operation[32];
+
+  if (instruction.size == 2)
+    sprintf(operation, instruction.operation, (uint8_t)state->op8);
+  else if (instruction.size == 3)
+    sprintf(operation, instruction.operation, (uint8_t)state->op16);
+  else 
+    sprintf(operation, instruction.operation);
 
   printf("A: %02x F: %02x (AF: %04x)                       \n", state->a, state->f, state->af);
   printf("B: %02x C: %02x (BC: %04x)                       \n", state->b, state->c, state->bc);
@@ -113,7 +121,8 @@ static void         verb_state(t_cpustate *state)
          (get_H(&state->f) ? 'H': '-'),
          (get_C(&state->f) ? 'C': '-')
         );
-  printf("00:%04x:  00	%s                                 \n", state->pc, instruction.operation);
+  printf("00:%04x:  00	%s                                 \n", state->pc, operation);
+  printf(">\n");
 }
 
 static void         get_operands(t_cpustate *state)
