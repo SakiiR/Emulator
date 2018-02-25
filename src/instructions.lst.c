@@ -1,6 +1,6 @@
 #include "instructions.h"
 
-const t_instruction     g_instructions[] = {
+t_instruction     g_instructions[] = {
   /* 3.3.1 - 8 Bits Loads */
 
   /* 1. LD nn, n */
@@ -735,7 +735,7 @@ const t_instruction     g_instructions[] = {
   [0xfd] = { "UNKNOWN!", &unimplemented_instruction, 0, 1},
 };
 
-const t_instruction     g_instructions_cb[] = {
+t_instruction     g_instructions_cb[] = {
 
   /* SWAP n */
   /* Description: */

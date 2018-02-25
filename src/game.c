@@ -28,6 +28,7 @@ static char         parse_event(SDL_Event *event, t_game *game)
           break;
         case SDLK_p:
           verb_state(&game->state);
+          break;
         default:
           break;
       }
