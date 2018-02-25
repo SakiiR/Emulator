@@ -8,12 +8,12 @@ const t_instruction     g_instructions[] = {
   /* Use with:  */
   /*     nn = B,C,D,E,H,L,BC,DE,HL,SP  */
   /*      n = 8 bit immediate value  */
-  [0x06] = { "LD B, n",         &i_ld8_b_n, 8, 2},
-  [0x0e] = { "LD C, n",         &i_ld8_c_n, 8, 2},
-  [0x16] = { "LD D, n",         &i_ld8_d_n, 8, 2},
-  [0x1e] = { "LD E, n",         &i_ld8_e_n, 8, 2},
-  [0x26] = { "LD H, n",         &i_ld8_h_n, 8, 2},
-  [0x2e] = { "LD L, n",         &i_ld8_l_n, 8, 2},
+  [0x06] = { "LD B, 0x%02x",         &i_ld8_b_n, 8, 2},
+  [0x0e] = { "LD C, 0x%02x",         &i_ld8_c_n, 8, 2},
+  [0x16] = { "LD D, 0x%02x",         &i_ld8_d_n, 8, 2},
+  [0x1e] = { "LD E, 0x%02x",         &i_ld8_e_n, 8, 2},
+  [0x26] = { "LD H, 0x%02x",         &i_ld8_h_n, 8, 2},
+  [0x2e] = { "LD L, 0x%02x",         &i_ld8_l_n, 8, 2},
 
   /* 2. LD r1, r2 */
   /* Description: Put value r2 into r1 */
@@ -85,8 +85,8 @@ const t_instruction     g_instructions[] = {
   /*     nn = two byte immediate value. (LS byte first.) */
   [0x0a] = { "LD A, (BC)", &i_ld8_a_bc    , 8, 1},
   [0x1a] = { "LD A, (DE)", &i_ld8_a_de    , 8, 1},
-  [0xfa] = { "LD A, (nn)", &i_ld8_a_nn    , 16, 1},
-  [0x3e] = { "LD A, #",    &i_ld8_a_sharp , 8, 1},
+  [0xfa] = { "LD A, (0x%04x)", &i_ld8_a_nn    , 16, 1},
+  [0x3e] = { "LD A, 0x%02x",    &i_ld8_a_sharp , 8, 1},
 
   /* 4. LD n, A */
   /* Description: Put value A into n */
@@ -158,12 +158,12 @@ const t_instruction     g_instructions[] = {
   /* 19. LDH (n), A */
   /* Description: Put A into memory address $FF00+n */
   /* Use with: n = one byte immediate value. */
-  [0xe0] = { "LD ($FF00+n), A", &i_ld_ff00_n_a, 12, 2},
+  [0xe0] = { "LD ($FF00 + 0x%02x), A", &i_ld_ff00_n_a, 12, 2},
  
   /* 20. LDH A, (n) */
   /* Description: Put memory address $FF00+n into A */
   /* Use with: n = one byte immediate value */
-  [0xf0] = { "LD A, ($FF00+n)", &i_ld_a_ff00_n, 12, 2},
+  [0xf0] = { "LD A, ($FF00 + 0x%02x)", &i_ld_a_ff00_n, 12, 2},
   
 
   /* 3.3.2 - 16 Bits Loads */
@@ -174,10 +174,10 @@ const t_instruction     g_instructions[] = {
   /* Use With:  */
   /* n = BC, DE, HL, SP */
   /* nn = 16 bit immediate value */
-  [0x01] = { "LD BC, nn", &i_ld16_bc_nn, 12, 3},
-  [0x11] = { "LD DE, nn", &i_ld16_de_nn, 12, 3},
-  [0x21] = { "LD HL, nn", &i_ld16_hl_nn, 12, 3},
-  [0x31] = { "LD SP, nn", &i_ld16_sp_nn, 12, 3},
+  [0x01] = { "LD BC, 0x%04x", &i_ld16_bc_nn, 12, 3},
+  [0x11] = { "LD DE, 0x%04x", &i_ld16_de_nn, 12, 3},
+  [0x21] = { "LD HL, 0x%04x", &i_ld16_hl_nn, 12, 3},
+  [0x31] = { "LD SP, 0x%04x", &i_ld16_sp_nn, 12, 3},
 
   /* 2. LD SP, HL */
   /* Description: Put HL into Stack Pointer (SP) */
@@ -196,7 +196,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Set or reset according to operation. */
   /*     C - Set or reset according to operation. */
-  [0xf8] = { "LDHL SP, n", &i_ld16_hl_sp_n, 12, 1},
+  [0xf8] = { "LDHL SP, 0x%02x", &i_ld16_hl_sp_n, 12, 1},
  
 
   /* 5. LD (nn), SP */
@@ -204,7 +204,7 @@ const t_instruction     g_instructions[] = {
   /*     Put Stack Pointer (SP) at address n. */
   /* Use with: */
   /*     nn = two byte immediate address. */
-  [0x08] = { "LD (nn) SP", &i_ld16_nn_sp, 20, 1},
+  [0x08] = { "LD (0x%04x) SP", &i_ld16_nn_sp, 20, 1},
 
   /* 6. PUSH nn */
   /* Description: */
@@ -248,7 +248,7 @@ const t_instruction     g_instructions[] = {
   [0x84] = { "ADD A, H",    &i_add8_a_h    , 4, 1},
   [0x85] = { "ADD A, L",    &i_add8_a_l    , 4, 1},
   [0x86] = { "ADD A, (HL)", &i_add8_a_hl   , 8, 1},
-  [0xc6] = { "ADD A, #",    &i_add8_a_sharp, 8, 2},
+  [0xc6] = { "ADD A, 0x%02x",    &i_add8_a_sharp, 8, 2},
 
   /* 2.ADC A, n */
   /* Description: */
@@ -268,7 +268,7 @@ const t_instruction     g_instructions[] = {
   [0x8c] = { "ADC A, H",    &i_adc8_a_h    , 4, 1},
   [0x8d] = { "ADC A, L",    &i_adc8_a_l    , 4, 1},
   [0x8e] = { "ADC A, (HL)", &i_adc8_a_hl   , 8, 1},
-  [0xce] = { "ADC A, #",    &i_adc8_a_sharp, 8, 1},
+  [0xce] = { "ADC A, 0x%02x",    &i_adc8_a_sharp, 8, 1},
 
   /* SUB n */
   /* Description: */
@@ -288,7 +288,7 @@ const t_instruction     g_instructions[] = {
   [0x94] = { "SUB H",    &i_sub8_a_h    , 4, 1},
   [0x95] = { "SUB L",    &i_sub8_a_l    , 4, 1},
   [0x96] = { "SUB (HL)", &i_sub8_a_hl   , 8, 1},
-  [0xd6] = { "SUB #",    &i_sub8_a_sharp, 8, 2},
+  [0xd6] = { "SUB 0x%02x",    &i_sub8_a_sharp, 8, 2},
 
   /* 4. SBC A, n */
   /* Description: */
@@ -328,7 +328,7 @@ const t_instruction     g_instructions[] = {
   [0xa4] = { "AND H",    &i_and_h    , 4, 1},
   [0xa5] = { "AND L",    &i_and_l    , 4, 1},
   [0xa6] = { "AND (HL)", &i_and_hl   , 8, 1},
-  [0xe6] = { "AND #",    &i_and_sharp, 8, 2},
+  [0xe6] = { "AND 0x%02x",    &i_and_sharp, 8, 2},
 
   /* 6. OR n */
   /* Description: */
@@ -348,7 +348,7 @@ const t_instruction     g_instructions[] = {
   [0xb4] = { "OR H",    &i_or_h    , 4, 1},
   [0xb5] = { "OR L",    &i_or_l    , 4, 1},
   [0xb6] = { "OR (HL)", &i_or_hl   , 8, 1},
-  [0xf6] = { "OR #",    &i_or_sharp, 8, 2},
+  [0xf6] = { "OR 0x%02x",    &i_or_sharp, 8, 2},
 
   /* 7. XOR n */
   /* Description: */
@@ -368,7 +368,7 @@ const t_instruction     g_instructions[] = {
   [0xac] = { "XOR H",    &i_xor_h    , 4, 1},
   [0xad] = { "XOR L",    &i_xor_l    , 4, 1},
   [0xae] = { "XOR (HL)", &i_xor_hl   , 8, 1},
-  [0xee] = { "XOR #",    &i_xor_sharp, 8, 2},
+  [0xee] = { "XOR 0x%02x",    &i_xor_sharp, 8, 2},
 
 
   /* 8. CP n */
@@ -389,7 +389,7 @@ const t_instruction     g_instructions[] = {
   [0xbc] = { "CP H",        &i_cp_h    , 4, 1},
   [0xbd] = { "CP L",        &i_cp_l    , 4, 1},
   [0xbe] = { "CP (HL) ",    &i_cp_hl   , 8, 1},
-  [0xfe] = { "CP #    ",    &i_cp_sharp, 8, 2},
+  [0xfe] = { "CP 0x%02x ",    &i_cp_sharp, 8, 2},
 
   /* 9. INC n */
   /* Description: */
@@ -457,7 +457,7 @@ const t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Set or reset according to operation. */
   /*     C - Set or reset according to operation. */
-  [0xe8] = { "ADD SP, #", &i_add_sp_sharp, 16, 2},
+  [0xe8] = { "ADD SP, 0x%02x", &i_add_sp_sharp, 16, 2},
 
   /* 3. INC nn */
   /* Description: */
@@ -607,7 +607,7 @@ const t_instruction     g_instructions[] = {
   /*     Jump to address nn. */
   /* Use with: */
   /*     nn = two byte immediate value. (LS byte first) */
-  [0xc3] = { "JP nn", &i_jp_nn, 12, 3},
+  [0xc3] = { "JP 0x%04x", &i_jp_nn, 12, 3},
   
 
   /* 2. JP cc, nn */
@@ -619,10 +619,10 @@ const t_instruction     g_instructions[] = {
   /*     cc = C, Jump if C flag is set. */
   /* Use with: */
   /*     nn = two byte immediate value. (LS byte first) */
-  [0xc2] = { "JP NZ, nn", &i_jp_nz_nn, 12, 3},
-  [0xca] = { "JP Z, nn",  &i_jp_z_nn,  12, 3},
-  [0xd2] = { "JP NC, nn", &i_jp_nc_nn, 12, 3},
-  [0xda] = { "JP C, nn",  &i_jp_c_nn,  12, 3},
+  [0xc2] = { "JP NZ, 0x%04x", &i_jp_nz_nn, 12, 3},
+  [0xca] = { "JP Z, 0x%04x",  &i_jp_z_nn,  12, 3},
+  [0xd2] = { "JP NC, 0x%04x", &i_jp_nc_nn, 12, 3},
+  [0xda] = { "JP C, 0x%04x",  &i_jp_c_nn,  12, 3},
 
   /* 3. JP (HL) */
   /* Description: */
@@ -634,7 +634,7 @@ const t_instruction     g_instructions[] = {
   /*     Add n to current address and jump to it. */
   /* Use with: */
   /*     n = one byte signed immediate value */
-  [0x18] = { "JP n", &i_jp_n, 8, 2},
+  [0x18] = { "JP 0x%02x", &i_jp_n, 8, 2},
 
   /* 5. JR cc, n */
   /* Description: */
@@ -645,10 +645,10 @@ const t_instruction     g_instructions[] = {
   /*     cc = C, Jump if C flag is set. */
   /* Use with: */
   /*     n = one byte signed immediate value. */
-  [0x20] = { "JR NZ, #", &i_jr_nz_sharp, 8, 2},
-  [0x28] = { "JR Z, #",  &i_jr_z_sharp, 8, 2},
-  [0x30] = { "JR NC, #", &i_jr_nc_sharp, 8, 2},
-  [0x38] = { "JR C, #",  &i_jr_c_sharp, 8, 2},
+  [0x20] = { "JR NZ, 0x%02x", &i_jr_nz_sharp, 8, 2},
+  [0x28] = { "JR Z, 0x%02x",  &i_jr_z_sharp, 8, 2},
+  [0x30] = { "JR NC, 0x%02x", &i_jr_nc_sharp, 8, 2},
+  [0x38] = { "JR C, 0x%02x",  &i_jr_c_sharp, 8, 2},
 
   /* 3.3.9 - Calls */
 
@@ -658,7 +658,7 @@ const t_instruction     g_instructions[] = {
   /*     Push address of next instruction onto stack and then jump to address nn. */
   /* Use with: */
   /*     nn = two byte immediate value. (LS byte first). */
-  [0xcd] = { "CALL nn", &i_call_nn, 12, 3},
+  [0xcd] = { "CALL 0x%02x", &i_call_nn, 12, 3},
 
 
   /* 2. CALL cc, nn */
@@ -670,10 +670,10 @@ const t_instruction     g_instructions[] = {
   /*     cc = C, Call if C flag is set */
   /* Use with: */
   /*     nn = two byte immediate value. (LS byte first). */
-  [0xc4] = { "CALL NZ, nn", &i_call_nz_nn, 12, 3},
-  [0xcc] = { "CALL Z, nn",  &i_call_z_nn , 12, 3},
-  [0xd4] = { "CALL NC, nn", &i_call_nc_nn, 12, 3},
-  [0xdc] = { "CALL C, nn",  &i_call_c_nn , 12, 3},
+  [0xc4] = { "CALL NZ, 0x%02x", &i_call_nz_nn, 12, 3},
+  [0xcc] = { "CALL Z, 0x%02x",  &i_call_z_nn , 12, 3},
+  [0xd4] = { "CALL NC, 0x%02x", &i_call_nc_nn, 12, 3},
+  [0xdc] = { "CALL C, 0x%02x",  &i_call_c_nn , 12, 3},
 
 
   /* 3.3.10 - Restarts */
@@ -908,14 +908,14 @@ const t_instruction     g_instructions_cb[] = {
   /*     H - Set. */
   /*     C - Not affected. */
 
-  [0x47] = {"BIT b, A",       &i_bit_a , 8, 2},
-  [0x40] = {"BIT b, B",       &i_bit_b , 8, 2},
-  [0x41] = {"BIT b, C",       &i_bit_c , 8, 2},
-  [0x42] = {"BIT b, D",       &i_bit_d , 8, 2},
-  [0x43] = {"BIT b, E",       &i_bit_e , 8, 2},
-  [0x44] = {"BIT b, H",       &i_bit_h , 8, 2},
-  [0x45] = {"BIT b, L",       &i_bit_l , 8, 2},
-  [0x46] = {"BIT b, (HL)",    &i_bit_hl, 16, 2},
+  [0x47] = {"BIT 0x%02x, A",       &i_bit_a , 8, 2},
+  [0x40] = {"BIT 0x%02x, B",       &i_bit_b , 8, 2},
+  [0x41] = {"BIT 0x%02x, C",       &i_bit_c , 8, 2},
+  [0x42] = {"BIT 0x%02x, D",       &i_bit_d , 8, 2},
+  [0x43] = {"BIT 0x%02x, E",       &i_bit_e , 8, 2},
+  [0x44] = {"BIT 0x%02x, H",       &i_bit_h , 8, 2},
+  [0x45] = {"BIT 0x%02x, L",       &i_bit_l , 8, 2},
+  [0x46] = {"BIT 0x%02x, (HL)",    &i_bit_hl, 16, 2},
 
   /* SET b, r */
   /* Description: */
@@ -923,14 +923,14 @@ const t_instruction     g_instructions_cb[] = {
   /* Use with: */
   /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
 
-  [0xc7] = {"SET b, A",       &i_set_a , 8, 1},
-  [0xc0] = {"SET b, B",       &i_set_b , 8, 1},
-  [0xc1] = {"SET b, C",       &i_set_c , 8, 1},
-  [0xc2] = {"SET b, D",       &i_set_d , 8, 1},
-  [0xc3] = {"SET b, E",       &i_set_e , 8, 1},
-  [0xc4] = {"SET b, H",       &i_set_h , 8, 1},
-  [0xc5] = {"SET b, L",       &i_set_l , 8, 1},
-  [0xc6] = {"SET b, (HL)",    &i_set_hl, 16, 1},
+  [0xc7] = {"SET 0x%02x, A",       &i_set_a , 8, 1},
+  [0xc0] = {"SET 0x%02x, B",       &i_set_b , 8, 1},
+  [0xc1] = {"SET 0x%02x, C",       &i_set_c , 8, 1},
+  [0xc2] = {"SET 0x%02x, D",       &i_set_d , 8, 1},
+  [0xc3] = {"SET 0x%02x, E",       &i_set_e , 8, 1},
+  [0xc4] = {"SET 0x%02x, H",       &i_set_h , 8, 1},
+  [0xc5] = {"SET 0x%02x, L",       &i_set_l , 8, 1},
+  [0xc6] = {"SET 0x%02x, (HL)",    &i_set_hl, 16, 1},
 
   /* RES b, r */
   /* Description: */
@@ -938,12 +938,12 @@ const t_instruction     g_instructions_cb[] = {
   /* Use with: */
   /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
 
-  [0x87] = {"RES b, A",       &i_res_a , 8, 1},
-  [0x80] = {"RES b, B",       &i_res_b , 8, 1},
-  [0x81] = {"RES b, C",       &i_res_c , 8, 1},
-  [0x82] = {"RES b, D",       &i_res_d , 8, 1},
-  [0x83] = {"RES b, E",       &i_res_e , 8, 1},
-  [0x84] = {"RES b, H",       &i_res_h , 8, 1},
-  [0x85] = {"RES b, L",       &i_res_l , 8, 1},
-  [0x86] = {"RES b, (HL)",    &i_res_hl, 16, 1},
+  [0x87] = {"RES 0x%02x, A",       &i_res_a , 8, 1},
+  [0x80] = {"RES 0x%02x, B",       &i_res_b , 8, 1},
+  [0x81] = {"RES 0x%02x, C",       &i_res_c , 8, 1},
+  [0x82] = {"RES 0x%02x, D",       &i_res_d , 8, 1},
+  [0x83] = {"RES 0x%02x, E",       &i_res_e , 8, 1},
+  [0x84] = {"RES 0x%02x, H",       &i_res_h , 8, 1},
+  [0x85] = {"RES 0x%02x, L",       &i_res_l , 8, 1},
+  [0x86] = {"RES 0x%02x, (HL)",    &i_res_hl, 16, 1},
 };
