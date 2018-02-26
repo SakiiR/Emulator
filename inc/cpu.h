@@ -105,7 +105,6 @@ typedef struct              s_cpustate {
   };
   struct s_hregisters       hregisters;
   struct s_instruction      *instruction;
-  char                      stepping;
 }                           t_cpustate;    
 
 

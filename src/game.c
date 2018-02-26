@@ -1,4 +1,5 @@
 #include <SDL/SDL.h>
+#include <unistd.h>
 #include <stdio.h>
 #include "resource.h"
 #include "game.h"
