@@ -9,12 +9,12 @@
 
 int                 unimplemented_instruction(t_cpustate *state)
 {
-  t_instruction     instruction = g_instructions[state->memory.start[state->old_pc]];
+  t_instruction     *instruction = state->instruction;
 
   fprintf(stderr, 
           "[-] Unimplemented Instruction at 0x%04x (%s) (0x%02x)\n",
           state->old_pc,
-          instruction.operation,
+          instruction->operation,
           state->memory.start[state->old_pc]
          );
   return RETURN_FAILURE;

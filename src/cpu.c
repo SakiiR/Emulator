@@ -153,6 +153,7 @@ int                 cpu_step(t_cpustate *state, t_opts *options)
   state->instruction = &g_instructions[opcode];
   if (options->verbose)
     verb_state(state);
+  state->old_pc = state->pc;
   state->pc += state->instruction->size;
   state->instruction->handler(state);
   return RETURN_SUCCESS;
