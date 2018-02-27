@@ -98,6 +98,7 @@ void                verb_state(t_cpustate *state)
 {
   char              operation[32];
   t_instruction     *instruction = state->instruction;
+  uint8_t           opcode = state->memory.start[state->pc];
 
   if (instruction->size == 2)
     sprintf(operation, instruction->operation, (uint8_t)state->op8);
@@ -120,7 +121,7 @@ void                verb_state(t_cpustate *state)
          (get_H(&state->f) ? 'H': '-'),
          (get_C(&state->f) ? 'C': '-')
         );
-  printf("00:%04x:  00	%s                                 \n", state->pc, operation);
+  printf("00:%04x:  %02x \t %s                                 \n", state->pc, opcode, operation);
   printf("\n");
 }
 
