@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "resource.h"
 #include "game.h"
+#include "debugger/debugger.h"
 #include "opts.h"
 #include "card.h"
 #include "cpu.h"
@@ -26,8 +27,16 @@ int             main(int argc, char **argv)
   }
   if ((game.gpu.screen = setup_SDL()) == NULL)
     return RETURN_FAILURE;
-  if (game_loop(&game) == RETURN_FAILURE)
-    return RETURN_FAILURE;
-  destroy_SDL(game.options.screen);
+  if (game.options.debugger)
+  {
+    if (debugger(&game) == RETURN_FAILURE)
+      return RETURN_FAILURE;
+  }
+  else
+  {
+    if (game_loop(&game) == RETURN_FAILURE)
+      return RETURN_FAILURE;
+  }
+  destroy_SDL(game.gpu.screen);
   return RETURN_SUCCESS;
 }

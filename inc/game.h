@@ -5,12 +5,14 @@
 # include "card.h"
 # include "opts.h"
 # include "video.h"
+# include "debugger/debugger.h"
 
 typedef struct      s_game
 {
   t_cpustate        state;
   t_opts            options;
   t_card            card;
+  t_dbg             dbg;
   struct s_gpu      gpu;
 }                   t_game;
 

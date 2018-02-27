@@ -47,7 +47,7 @@ int                 game_loop(t_game *game)
   while (1)
   {
     SDL_PollEvent(&event);
-    cpu_step(&game->state, &game->options);
+    cpu_step(&game->state, game->options.verbose);
     gpu_step(game);
     if (parse_event(&event, game) == RETURN_FAILURE)
       return RETURN_FAILURE;

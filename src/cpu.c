@@ -121,15 +121,11 @@ void                verb_state(t_cpustate *state)
          (get_C(&state->f) ? 'C': '-')
         );
   printf("00:%04x:  00	%s                                 \n", state->pc, operation);
-  printf(">\n");
+  printf("\n");
 }
 
 static void         get_operands(t_cpustate *state)
 {
-  printf("Fetching operands: %02x - %02x\n", 
-         state->memory.start[state->pc + 1],
-         state->memory.start[state->pc + 2]
-        );
   state->op16 = (short)read_16(&state->memory.start[state->pc + 1]);
 }
 
@@ -145,13 +141,13 @@ int                 init_cpu(t_cpustate *state, t_card *card)
 /**
  * One CPU step/stage 
  */
-int                 cpu_step(t_cpustate *state, t_opts *options)
+int                 cpu_step(t_cpustate *state, char verbose)
 {
   uint8_t           opcode = state->memory.start[state->pc];
 
   get_operands(state);
   state->instruction = &g_instructions[opcode];
-  if (options->verbose)
+  if (verbose)
     verb_state(state);
   state->old_pc = state->pc;
   state->pc += state->instruction->size;
