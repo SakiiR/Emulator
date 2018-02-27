@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
 #include "resource.h"
@@ -21,9 +22,18 @@ t_dbgcmd                g_dbgcmds[] = {
     {"continue",        &dbgcmd_continue},
     {"r",               &dbgcmd_reset},
     {"reset",           &dbgcmd_reset},
+    {"x",               &dbgcmd_x},
     {NULL,              NULL},
 };
 
+static unsigned int     tokens_length(const char **tokens)
+{
+  unsigned int          i;
+
+  for (i = 0 ; tokens && tokens[i] ; ++i)
+    ;
+  return i;
+}
 int                     dbgcmd_next(t_game *game, const char **argv)
 {
   (void)argv;
@@ -54,7 +64,7 @@ static char             parse_address(char *arg, uint16_t *address)
   }
   *address = strtol(s, NULL, 16);
   printf("[~] Fixed breakpoint at address 0x%04x\n", *address);
-  return RETURN_SUCCESS;  
+  return RETURN_SUCCESS;
 }
 
 int                     dbgcmd_add_breakpoint(t_game *game, const char **argv)
@@ -100,7 +110,7 @@ static char             should_break(t_breakpoint *breakpoints, uint16_t address
 int                     dbgcmd_continue(t_game *game, const char **argv)
 {
   (void)argv;
-  while (1)  
+  while (1)
   {
     if (should_break(game->dbg.breakpoints, game->state.pc) == RETURN_SUCCESS)
       break;
@@ -116,5 +126,47 @@ int                     dbgcmd_reset(t_game *game, const char **argv)
   if (init_cpu(&game->state, &game->card) == RETURN_FAILURE)
     return RETURN_FAILURE;
   cpu_step(&game->state, 1);
+  return RETURN_SUCCESS;
+}
+
+static void             hex_dump(const uint8_t *memory, uint16_t address, unsigned long count)
+{
+  uint8_t              i = 0;
+  uint8_t              j = 0;
+
+  while (i < count)
+  {
+    printf("0x%04x: ", address + i);
+    for (j = i ; j < i + 16 ; j += 2)
+    {
+      printf("%02x", memory[address + j]);
+      printf("%02x ", memory[address + j + 1]);
+    }
+    for (j = i ; j < i + 16 ; ++j)
+      printf("%c", isprint(memory[address + j]) ? memory[address + j]: '.');
+    printf("\n");
+    i += j;
+  }
+}
+
+int                     dbgcmd_x(t_game *game, const char **argv)
+{
+  unsigned int          argc = tokens_length(argv);
+  unsigned long         count = 0;
+  uint16_t              address = 0;
+
+  if (argc < 3)
+  {
+    fprintf(stderr, "[~] x <count> <addr>\n");
+    return RETURN_SUCCESS;
+  }
+  if ((count = strtoul(argv[1], NULL, 10)) == 0)
+  {
+    fprintf(stderr, "[~] x <count> <addr>\ncount should be > 0\n");
+    return RETURN_SUCCESS;
+  }
+  if (parse_address((char *)argv[2], &address) == RETURN_FAILURE)
+    return RETURN_SUCCESS;
+  hex_dump(game->state.memory.start, address, count);
   return RETURN_SUCCESS;
 }

@@ -27,5 +27,6 @@ int                     dbgcmd_add_breakpoint(t_game *game, const char **argv);
 int                     dbgcmd_del_breakpoint(t_game *game, const char **argv);
 int                     dbgcmd_continue(t_game *game, const char **argv);
 int                     dbgcmd_reset(t_game *game, const char **argv);
+int                     dbgcmd_x(t_game *game, const char **argv);
 
 #endif /* DEBUGGER_H_ */

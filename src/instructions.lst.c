@@ -83,10 +83,10 @@ t_instruction     g_instructions[] = {
   /* Use with:  */
   /*      n = A,B,C,D,E,H,L,(BC),(DE),(HL),(nn),# */
   /*     nn = two byte immediate value. (LS byte first.) */
-  [0x0a] = { "LD A, (BC)", &i_ld8_a_bc    , 8, 1},
-  [0x1a] = { "LD A, (DE)", &i_ld8_a_de    , 8, 1},
-  [0xfa] = { "LD A, (0x%04x)", &i_ld8_a_nn    , 16, 1},
-  [0x3e] = { "LD A, 0x%02x",    &i_ld8_a_sharp , 8, 1},
+  [0x0a] = { "LD A, (BC)",      &i_ld8_a_bc    , 8, 1},
+  [0x1a] = { "LD A, (DE)",      &i_ld8_a_de    , 8, 1},
+  [0xfa] = { "LD A, (0x%04x)",  &i_ld8_a_nn    , 16, 3},
+  [0x3e] = { "LD A, 0x%02x",    &i_ld8_a_sharp , 8, 2},
 
   /* 4. LD n, A */
   /* Description: Put value A into n */
