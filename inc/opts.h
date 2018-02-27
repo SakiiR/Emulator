@@ -10,7 +10,7 @@ typedef struct      s_opts
     char            *card_path;
     char            step_by_step;
     char            verbose;
-    SDL_Surface     *screen;
+    char            debugger;
 }                   t_opts;
 
 int                 parse_command_line(int argc, char **argv, t_opts *options);
