@@ -16,6 +16,7 @@ typedef struct              s_hregisters
   uint8_t                   *TIMA;
   uint8_t                   *TMA;
   uint8_t                   *TAC;
+  uint8_t                   *IF;
   uint8_t                   *NR10;
   uint8_t                   *NR11;
   uint8_t                   *NR12;
@@ -37,6 +38,7 @@ typedef struct              s_hregisters
   uint8_t                   *SCY;
   uint8_t                   *SCX;
   uint8_t                   *LYC;
+  uint8_t                   *LY;
   uint8_t                   *BGP;
   uint8_t                   *OBP0;
   uint8_t                   *OBP1;

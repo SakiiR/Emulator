@@ -1,4 +1,5 @@
 #include "resource.h"
+#include "game.h"
 #include "cpu.h"
 #include "register.h"
 #include "memory_ar.h"

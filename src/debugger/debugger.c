@@ -93,6 +93,7 @@ int                     debugger(t_game *game)
 
   if (init_cpu(&game->state, &game->card) == RETURN_FAILURE) 
     return RETURN_FAILURE;
+  init_interrupts(&game->interrupts);
   init_dbg(game);
   while (1)
   {

@@ -25,6 +25,7 @@ static void      init_hregisters(t_cpustate *state)
   state->hregisters.TIMA   = state->memory.start + 0xff05; //TODO: check quand je serai reveillé (2.7.1 GameBoy CPU Manual)
   state->hregisters.TMA    = state->memory.start + 0xff06;
   state->hregisters.TAC    = state->memory.start + 0xff07;
+  state->hregisters.IF     = state->memory.start + 0xff0f;
   state->hregisters.NR10   = state->memory.start + 0xff10;
   state->hregisters.NR11   = state->memory.start + 0xff11;
   state->hregisters.NR12   = state->memory.start + 0xff12;
@@ -45,6 +46,7 @@ static void      init_hregisters(t_cpustate *state)
   state->hregisters.LCDC   = state->memory.start + 0xff40;
   state->hregisters.SCY    = state->memory.start + 0xff42;
   state->hregisters.SCX    = state->memory.start + 0xff43;
+  state->hregisters.LY     = state->memory.start + 0xff44;
   state->hregisters.LYC    = state->memory.start + 0xff45;
   state->hregisters.BGP    = state->memory.start + 0xff47;
   state->hregisters.OBP0   = state->memory.start + 0xff48;
@@ -56,6 +58,7 @@ static void      init_hregisters(t_cpustate *state)
   *state->hregisters.TIMA  = 0x00;
   *state->hregisters.TMA   = 0x00;
   *state->hregisters.TAC   = 0x00;
+  *state->hregisters.IF    = 0x00;
   *state->hregisters.NR10  = 0x80;
   *state->hregisters.NR11  = 0xbf;
   *state->hregisters.NR12  = 0xf3;
@@ -76,6 +79,7 @@ static void      init_hregisters(t_cpustate *state)
   *state->hregisters.LCDC  = 0x91;
   *state->hregisters.SCY   = 0x00;
   *state->hregisters.SCX   = 0x00;
+  *state->hregisters.LY    = 0x00;
   *state->hregisters.LYC   = 0x00;
   *state->hregisters.BGP   = 0xfc;
   *state->hregisters.OBP0  = 0xff;

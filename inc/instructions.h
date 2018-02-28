@@ -17,8 +17,8 @@ typedef struct              s_instruction
 }                           t_instruction;
 
 
-extern t_instruction	g_instructions[0xFF + 1];
-extern t_instruction	g_instructions_cb[0xFF + 1];
+extern t_instruction	    g_instructions[0xFF + 1];
+extern t_instruction	    g_instructions_cb[0xFF + 1];
 
 int                         unimplemented_instruction(t_cpustate *state);
 

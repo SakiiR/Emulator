@@ -96,7 +96,7 @@ int                 read_card(t_card *card)
   }
   /* Read ROM size */
   card->rom_size = 32000 << card->content[ROMSIZE_B];
-  /* Read RAM size (find better way) */
+  /* Read RAM size (TODO: find better way) */
   switch (card->content[RAMSIZE_B])
   {
     case 0x00:
