@@ -6,6 +6,7 @@
 # include "opts.h"
 # include "video.h"
 # include "debugger/debugger.h"
+# include "interrupts.h"
 
 typedef struct      s_game
 {
@@ -13,6 +14,7 @@ typedef struct      s_game
   t_opts            options;
   t_card            card;
   t_dbg             dbg;
+  t_interrupts      interrupts;
   struct s_gpu      gpu;
 }                   t_game;
 
