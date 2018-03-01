@@ -4,7 +4,7 @@
 
 void                        init_interrupts(t_interrupts *interrupts)
 {
-  interrupts->enabled = 1;
+  interrupts->enabled = INTERRUPTS_ENABLED;
 }
 
 char                        interrupts_step(t_game *game)
@@ -19,11 +19,9 @@ char                        interrupts_step(t_game *game)
     SERIAL_HANDLER,
     JOYPAD_HANDLER
   };
-  if (!(interrupts_registers && game->interrupts.enabled))
+  if (!(interrupts_registers && game->interrupts.enabled == INTERRUPTS_ENABLED))
     return RETURN_FAILURE;
   for (unsigned i = 0; i < (sizeof(interrupts) / sizeof(interrupts[0])); ++i)
-  {
     printf("i: %d\n", i);
-  }
   return RETURN_SUCCESS;
 }
