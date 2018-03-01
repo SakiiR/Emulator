@@ -1,45 +1,46 @@
 #include "resource.h"
 #include "cpu.h"
+#include "game.h"
 #include "memory.h"
 #include "memory_ar.h"
 
-int                 i_ret(t_cpustate *state)
+int                 i_ret(t_game *game)
 {
-  state->pc = pop_word(state);
+  game->state.pc = pop_word(&game->state);
   return RETURN_SUCCESS;
 }
 
-int                 i_ret_nz(t_cpustate *state)
+int                 i_ret_nz(t_game *game)
 {
-  if (!get_Z(&state->f))
-    state->pc = pop_word(state);
+  if (!get_Z(&game->state.f))
+    game->state.pc = pop_word(&game->state);
   return RETURN_SUCCESS;
 }
 
-int                 i_ret_z(t_cpustate *state)
+int                 i_ret_z(t_game *game)
 {
-  if (get_Z(&state->f))
-    state->pc = pop_word(state);
+  if (get_Z(&game->state.f))
+    game->state.pc = pop_word(&game->state);
   return RETURN_SUCCESS;
 }
 
-int                 i_ret_nc(t_cpustate *state)
+int                 i_ret_nc(t_game *game)
 {
-  if (!get_C(&state->f))
-    state->pc = pop_word(state);
+  if (!get_C(&game->state.f))
+    game->state.pc = pop_word(&game->state);
   return RETURN_SUCCESS;
 }
 
-int                 i_ret_c(t_cpustate *state)
+int                 i_ret_c(t_game *game)
 {
-  if (get_C(&state->f))
-    state->pc = pop_word(state);
+  if (get_C(&game->state.f))
+    game->state.pc = pop_word(&game->state);
   return RETURN_SUCCESS;
 }
 
-int                 i_reti(t_cpustate *state)
+int                 i_reti(t_game *game)
 {
-  state->pc = pop_word(state);
+  game->state.pc = pop_word(&game->state);
   // TODO: Enable interrupts
   return RETURN_SUCCESS;
 }

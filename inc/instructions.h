@@ -6,7 +6,7 @@
 # include "opts.h"
 # include "cpu.h"
 
-typedef int                 (t_ihandler)(struct s_cpustate *state);
+typedef int                 (t_ihandler)(struct s_game *game);
 
 typedef struct              s_instruction
 {
@@ -20,7 +20,7 @@ typedef struct              s_instruction
 extern t_instruction	    g_instructions[0xFF + 1];
 extern t_instruction	    g_instructions_cb[0xFF + 1];
 
-int                         unimplemented_instruction(t_cpustate *state);
+int                         unimplemented_instruction(t_game *game);
 
 t_ihandler                  i_prefix;
 t_ihandler                  i_nop;

@@ -157,6 +157,6 @@ int                 cpu_step(t_game *game, char verbose)
     verb_state(&game->state);
   game->state.old_pc = game->state.pc;
   game->state.pc += game->state.instruction->size;
-  game->state.instruction->handler(&game->state);
+  game->state.instruction->handler(game);
   return RETURN_SUCCESS;
 }

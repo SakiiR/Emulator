@@ -1,88 +1,89 @@
 #include "resource.h"
 #include "cpu.h"
+#include "game.h"
 #include "memory.h"
 
 
-int                 i_add16_hl_bc(t_cpustate *state)
+int                 i_add16_hl_bc(t_game *game)
 {
-    uint16_t        op1 = state->hl;
-    uint16_t        op2 = state->bc;
+    uint16_t        op1 = game->state.hl;
+    uint16_t        op2 = game->state.bc;
 
-    state->hl = op1 + op2;
+    game->state.hl = op1 + op2;
     return RETURN_SUCCESS;
 }
 
-int                 i_add16_hl_de(t_cpustate *state)
+int                 i_add16_hl_de(t_game *game)
 {
-    uint16_t        op1 = state->hl;
-    uint16_t        op2 = state->de;
+    uint16_t        op1 = game->state.hl;
+    uint16_t        op2 = game->state.de;
 
-    state->hl = op1 + op2;
+    game->state.hl = op1 + op2;
     return RETURN_SUCCESS;
 }
 
-int                 i_add16_hl_hl(t_cpustate *state)
+int                 i_add16_hl_hl(t_game *game)
 {
-    uint16_t        op1 = state->hl;
-    uint16_t        op2 = state->hl;
+    uint16_t        op1 = game->state.hl;
+    uint16_t        op2 = game->state.hl;
 
-    state->hl = op1 + op2;
+    game->state.hl = op1 + op2;
     return RETURN_SUCCESS;
 }
 
-int                 i_add16_hl_sp(t_cpustate *state)
+int                 i_add16_hl_sp(t_game *game)
 {
-    uint16_t        op1 = state->hl;
-    uint16_t        op2 = state->sp;
+    uint16_t        op1 = game->state.hl;
+    uint16_t        op2 = game->state.sp;
 
-    state->hl = op1 + op2;
+    game->state.hl = op1 + op2;
     return RETURN_SUCCESS;
 }
 
-int                 i_inc_d_bc(t_cpustate *state)
+int                 i_inc_d_bc(t_game *game)
 {
-    ++state->bc;
+    ++game->state.bc;
     return RETURN_SUCCESS;
 }
 
-int                 i_inc_d_de(t_cpustate *state)
+int                 i_inc_d_de(t_game *game)
 {
-    ++state->de;
+    ++game->state.de;
     return RETURN_SUCCESS;
 }
 
-int                 i_inc_d_hl(t_cpustate *state)
+int                 i_inc_d_hl(t_game *game)
 {
-    ++state->hl;
+    ++game->state.hl;
     return RETURN_SUCCESS;
 }
 
-int                 i_inc_d_sp(t_cpustate *state)
+int                 i_inc_d_sp(t_game *game)
 {
-    ++state->sp;
+    ++game->state.sp;
     return RETURN_SUCCESS;
 }
 
-int                 i_dec_d_bc(t_cpustate *state)
+int                 i_dec_d_bc(t_game *game)
 {
-    --state->bc;
+    --game->state.bc;
     return RETURN_SUCCESS;
 }
 
-int                 i_dec_d_de(t_cpustate *state)
+int                 i_dec_d_de(t_game *game)
 {
-    --state->de;
+    --game->state.de;
     return RETURN_SUCCESS;
 }
 
-int                 i_dec_d_hl(t_cpustate *state)
+int                 i_dec_d_hl(t_game *game)
 {
-    --state->hl;
+    --game->state.hl;
     return RETURN_SUCCESS;
 }
 
-int                 i_dec_d_sp(t_cpustate *state)
+int                 i_dec_d_sp(t_game *game)
 {
-    --state->sp;
+    --game->state.sp;
     return RETURN_SUCCESS;
 }
