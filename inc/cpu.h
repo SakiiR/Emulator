@@ -109,9 +109,8 @@ typedef struct              s_cpustate {
   struct s_instruction      *instruction;
 }                           t_cpustate;    
 
-
 void                        verb_state(t_cpustate *state);
-int                         cpu_step(t_cpustate *state, char verbose);
+int                         cpu_step(t_game *game, char verbose);
 int                         init_cpu(t_cpustate *state, t_card *card);
 
 #endif /* !CPU_H_ */
