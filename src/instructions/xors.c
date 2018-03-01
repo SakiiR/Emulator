@@ -1,121 +1,122 @@
 #include "resource.h"
 #include "cpu.h"
+#include "game.h"
 #include "memory.h"
 #include "memory_ar.h"
 
-int                 i_xor_a(t_cpustate *state)
+int                 i_xor_a(t_game *game)
 {
-  uint8_t           op1 = state->a;
-  uint8_t           op2 = state->a;
+  uint8_t           op1 = game->state.a;
+  uint8_t           op2 = game->state.a;
 
-  state->a = op1 ^ op2;
-  zero_flag_check(&state->f, state->a);
-  reset_N(&state->f);
-  reset_H(&state->f);
-  reset_C(&state->f);
+  game->state.a = op1 ^ op2;
+  zero_flag_check(&game->state.f, game->state.a);
+  reset_N(&game->state.f);
+  reset_H(&game->state.f);
+  reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
 
-int                 i_xor_b(t_cpustate *state)
+int                 i_xor_b(t_game *game)
 {
-  uint8_t           op1 = state->a;
-  uint8_t           op2 = state->b;
+  uint8_t           op1 = game->state.a;
+  uint8_t           op2 = game->state.b;
 
-  state->a = op1 ^ op2;
-  zero_flag_check(&state->f, state->a);
-  reset_N(&state->f);
-  reset_H(&state->f);
-  reset_C(&state->f);
+  game->state.a = op1 ^ op2;
+  zero_flag_check(&game->state.f, game->state.a);
+  reset_N(&game->state.f);
+  reset_H(&game->state.f);
+  reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
 
-int                 i_xor_c(t_cpustate *state)
+int                 i_xor_c(t_game *game)
 {
-  uint8_t           op1 = state->a;
-  uint8_t           op2 = state->c;
+  uint8_t           op1 = game->state.a;
+  uint8_t           op2 = game->state.c;
 
-  state->a = op1 ^ op2;
-  zero_flag_check(&state->f, state->a);
-  reset_N(&state->f);
-  reset_H(&state->f);
-  reset_C(&state->f);
+  game->state.a = op1 ^ op2;
+  zero_flag_check(&game->state.f, game->state.a);
+  reset_N(&game->state.f);
+  reset_H(&game->state.f);
+  reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
 
-int                 i_xor_d(t_cpustate *state)
+int                 i_xor_d(t_game *game)
 {
-  uint8_t           op1 = state->a;
-  uint8_t           op2 = state->d;
+  uint8_t           op1 = game->state.a;
+  uint8_t           op2 = game->state.d;
 
-  state->a = op1 ^ op2;
-  zero_flag_check(&state->f, state->a);
-  reset_N(&state->f);
-  reset_H(&state->f);
-  reset_C(&state->f);
+  game->state.a = op1 ^ op2;
+  zero_flag_check(&game->state.f, game->state.a);
+  reset_N(&game->state.f);
+  reset_H(&game->state.f);
+  reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
 
-int                 i_xor_e(t_cpustate *state)
+int                 i_xor_e(t_game *game)
 {
-  uint8_t           op1 = state->a;
-  uint8_t           op2 = state->e;
+  uint8_t           op1 = game->state.a;
+  uint8_t           op2 = game->state.e;
 
-  state->a = op1 ^ op2;
-  zero_flag_check(&state->f, state->a);
-  reset_N(&state->f);
-  reset_H(&state->f);
-  reset_C(&state->f);
+  game->state.a = op1 ^ op2;
+  zero_flag_check(&game->state.f, game->state.a);
+  reset_N(&game->state.f);
+  reset_H(&game->state.f);
+  reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
 
-int                 i_xor_h(t_cpustate *state)
+int                 i_xor_h(t_game *game)
 {
-  uint8_t           op1 = state->a;
-  uint8_t           op2 = state->h;
+  uint8_t           op1 = game->state.a;
+  uint8_t           op2 = game->state.h;
 
-  state->a = op1 ^ op2;
-  zero_flag_check(&state->f, state->a);
-  reset_N(&state->f);
-  reset_H(&state->f);
-  reset_C(&state->f);
+  game->state.a = op1 ^ op2;
+  zero_flag_check(&game->state.f, game->state.a);
+  reset_N(&game->state.f);
+  reset_H(&game->state.f);
+  reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
 
-int                 i_xor_l(t_cpustate *state)
+int                 i_xor_l(t_game *game)
 {
-  uint8_t           op1 = state->a;
-  uint8_t           op2 = state->l;
+  uint8_t           op1 = game->state.a;
+  uint8_t           op2 = game->state.l;
 
-  state->a = op1 ^ op2;
-  zero_flag_check(&state->f, state->a);
-  reset_N(&state->f);
-  reset_H(&state->f);
-  reset_C(&state->f);
+  game->state.a = op1 ^ op2;
+  zero_flag_check(&game->state.f, game->state.a);
+  reset_N(&game->state.f);
+  reset_H(&game->state.f);
+  reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
 
-int                 i_xor_hl(t_cpustate *state)
+int                 i_xor_hl(t_game *game)
 {
-  uint8_t           op1 = state->a;
-  uint8_t           op2 = read_byte(state, state->hl);
+  uint8_t           op1 = game->state.a;
+  uint8_t           op2 = read_byte(&game->state, game->state.hl);
 
-  state->a = op1 ^ op2;
-  zero_flag_check(&state->f, state->a);
-  reset_N(&state->f);
-  reset_H(&state->f);
-  reset_C(&state->f);
+  game->state.a = op1 ^ op2;
+  zero_flag_check(&game->state.f, game->state.a);
+  reset_N(&game->state.f);
+  reset_H(&game->state.f);
+  reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
 
-int                 i_xor_sharp(t_cpustate *state)
+int                 i_xor_sharp(t_game *game)
 {
-  uint8_t           op1 = state->a;
-  uint16_t          op2 = state->op8;
+  uint8_t           op1 = game->state.a;
+  uint16_t          op2 = game->state.op8;
 
-  state->a = op1 ^ op2;
-  zero_flag_check(&state->f, state->a);
-  reset_N(&state->f);
-  reset_H(&state->f);
-  reset_C(&state->f);
+  game->state.a = op1 ^ op2;
+  zero_flag_check(&game->state.f, game->state.a);
+  reset_N(&game->state.f);
+  reset_H(&game->state.f);
+  reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
