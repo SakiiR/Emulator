@@ -8,10 +8,9 @@
 #include "cpu.h"
 #include "video.h"
 
-
 int             main(int argc, char **argv)
 {
-  t_game        game;  
+  t_game        game;
 
   if (parse_command_line(argc, argv, &game.options) == RETURN_FAILURE)
     return RETURN_FAILURE;

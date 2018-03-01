@@ -1,6 +1,7 @@
 #include <SDL/SDL.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "game.h"
 #include "opts.h"
 #include "instructions.h"
 #include "cpu.h"
@@ -146,16 +147,16 @@ int                 init_cpu(t_cpustate *state, t_card *card)
 /**
  * One CPU step/stage 
  */
-int                 cpu_step(t_cpustate *state, char verbose)
+int                 cpu_step(t_game *game, char verbose)
 {
-  uint8_t           opcode = state->memory.start[state->pc];
+  uint8_t           opcode = game->state.memory.start[game->state.pc];
 
-  get_operands(state);
-  state->instruction = &g_instructions[opcode];
+  get_operands(&game->state);
+  game->state.instruction = &g_instructions[opcode];
   if (verbose)
-    verb_state(state);
-  state->old_pc = state->pc;
-  state->pc += state->instruction->size;
-  state->instruction->handler(state);
+    verb_state(&game->state);
+  game->state.old_pc = game->state.pc;
+  game->state.pc += game->state.instruction->size;
+  game->state.instruction->handler(&game->state);
   return RETURN_SUCCESS;
 }

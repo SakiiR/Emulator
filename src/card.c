@@ -140,7 +140,7 @@ static unsigned char    compute_checksum(t_card *card)
   int                   i;
   unsigned char         x = 0;
 
-  for (i = 0x134 ; i < 0x14C+1 ; ++i)
+  for (i = 0x134 ; i < 0x14D ; ++i)
     x = (x - card->content[i] - 1) & 0xff;
   return x;
 }
