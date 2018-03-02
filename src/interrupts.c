@@ -1,5 +1,6 @@
 #include "resource.h"
 #include "game.h"
+#include "memory_ar.h"
 #include "interrupts.h"
 
 void                        init_interrupts(t_interrupts *interrupts)
@@ -10,9 +11,8 @@ void                        init_interrupts(t_interrupts *interrupts)
 char                        interrupts_step(t_game *game)
 {
   uint8_t                   interrupts_registers = (*game->state.hregisters.IF & 
-                                                    *game->state.hregisters.IE);
+      *game->state.hregisters.IE);
   static const uint8_t      interrupts[] = {
-
     VBLANK_HANDLER,
     LCDSTAT_HANDLER,
     TIMER_HANDLER,
@@ -21,7 +21,18 @@ char                        interrupts_step(t_game *game)
   };
   if (!(interrupts_registers && game->interrupts.enabled == INTERRUPTS_ENABLED))
     return RETURN_FAILURE;
-  for (unsigned i = 0; i < (sizeof(interrupts) / sizeof(interrupts[0])); ++i)
-    printf("i: %d\n", i);
+  for (unsigned int i = 0; i < (sizeof(interrupts)); ++i)
+  {
+    if (interrupts_registers & (1 << i))
+    {
+      printf("[~] Interruption triggered!\n");
+      /* Restoring interrupt flag and enable */
+      *game->state.hregisters.IF &= (0xFF ^ (1 << i));
+      game->interrupts.enabled = INTERRUPTS_DISABLED;
+      /* Save PC and jump to interrupt handler */
+      push_word(&game->state, game->state.pc);
+      game->state.pc = interrupts[i];
+    }
+  }
   return RETURN_SUCCESS;
 }
