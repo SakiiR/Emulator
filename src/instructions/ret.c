@@ -3,10 +3,18 @@
 #include "game.h"
 #include "memory.h"
 #include "memory_ar.h"
+#include "interrupts.h"
 
 int                 i_ret(t_game *game)
 {
   game->state.pc = pop_word(&game->state);
+  return RETURN_SUCCESS;
+}
+
+int                 i_reti(t_game *game)
+{
+  game->state.pc = pop_word(&game->state);
+  game->interrupts.enabled = INTERRUPTS_ENABLED;
   return RETURN_SUCCESS;
 }
 
@@ -37,14 +45,4 @@ int                 i_ret_c(t_game *game)
     game->state.pc = pop_word(&game->state);
   return RETURN_SUCCESS;
 }
-
-int                 i_reti(t_game *game)
-{
-  game->state.pc = pop_word(&game->state);
-  // TODO: Enable interrupts
-  return RETURN_SUCCESS;
-}
-
-
-
 
