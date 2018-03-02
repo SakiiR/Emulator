@@ -37,7 +37,7 @@ static unsigned int     tokens_length(const char **tokens)
 int                     dbgcmd_next(t_game *game, const char **argv)
 {
   (void)argv;
-  cpu_step(&game->state, 1);
+  cpu_step(game, 1);
   return RETURN_SUCCESS;
 }
 
@@ -114,9 +114,9 @@ int                     dbgcmd_continue(t_game *game, const char **argv)
   {
     if (should_break(game->dbg.breakpoints, game->state.pc) == RETURN_SUCCESS)
       break;
-    cpu_step(&game->state, 0);
+    cpu_step(game, 0);
   }
-  cpu_step(&game->state, 1);
+  cpu_step(game, 1);
   return RETURN_SUCCESS;
 }
 
@@ -125,7 +125,7 @@ int                     dbgcmd_reset(t_game *game, const char **argv)
   (void)argv;
   if (init_cpu(&game->state, &game->card) == RETURN_FAILURE)
     return RETURN_FAILURE;
-  cpu_step(&game->state, 1);
+  cpu_step(game, 1);
   return RETURN_SUCCESS;
 }
 
