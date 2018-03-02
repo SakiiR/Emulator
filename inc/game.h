@@ -7,6 +7,7 @@
 # include "video.h"
 # include "debugger/debugger.h"
 # include "interrupts.h"
+# include "timer.h"
 
 typedef struct      s_game
 {
@@ -15,6 +16,7 @@ typedef struct      s_game
   t_card            card;
   t_dbg             dbg;
   t_interrupts      interrupts;
+  t_timer           timer;
   struct s_gpu      gpu;
 }                   t_game;
 

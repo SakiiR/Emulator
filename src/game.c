@@ -7,6 +7,8 @@
 #include "video.h"
 #include "utils.h"
 #include "interrupts.h"
+#include "timer.h"
+
 
 static char         parse_event(SDL_Event *event, t_game *game)
 {
@@ -46,11 +48,13 @@ int                 game_loop(t_game *game)
   if (init_cpu(&game->state, &game->card) == RETURN_FAILURE) 
     return RETURN_FAILURE;
   init_interrupts(&game->interrupts);
+  init_timer(&game->timer);
   while (1)
   {
     SDL_PollEvent(&event);
-    cpu_step(&game->state, game->options.verbose);
+    cpu_step(game, game->options.verbose);
     gpu_step(game);
+    timer_step(game);
     interrupts_step(game);
     if (parse_event(&event, game) == RETURN_FAILURE)
       return RETURN_FAILURE;

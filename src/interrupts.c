@@ -8,6 +8,12 @@ void                        init_interrupts(t_interrupts *interrupts)
   interrupts->enabled = INTERRUPTS_ENABLED;
 }
 
+int                         trigger_interrupt(t_game *game, const enum e_interrupt_type type)
+{
+  *game->state.hregisters.IF |= type;
+  return RETURN_SUCCESS;
+}
+
 char                        interrupts_step(t_game *game)
 {
   uint8_t                   interrupts_registers = (*game->state.hregisters.IF & 

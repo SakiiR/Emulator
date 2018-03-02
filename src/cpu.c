@@ -23,7 +23,8 @@ static void      init_registers(t_cpustate *state)
 
 static void      init_hregisters(t_cpustate *state)
 {
-  state->hregisters.TIMA   = state->memory.start + 0xff05; //TODO: check quand je serai reveillé (2.7.1 GameBoy CPU Manual)
+  state->hregisters.DIV    = state->memory.start + 0xff04; //TODO: check quand je serai reveillé (2.7.1 GameBoy CPU Manual)
+  state->hregisters.TIMA   = state->memory.start + 0xff05; 
   state->hregisters.TMA    = state->memory.start + 0xff06;
   state->hregisters.TAC    = state->memory.start + 0xff07;
   state->hregisters.IF     = state->memory.start + 0xff0f;
@@ -56,6 +57,7 @@ static void      init_hregisters(t_cpustate *state)
   state->hregisters.WX     = state->memory.start + 0xff4b;
   state->hregisters.IE     = state->memory.start + 0xffff;
 
+  *state->hregisters.DIV   = 0x00;
   *state->hregisters.TIMA  = 0x00;
   *state->hregisters.TMA   = 0x00;
   *state->hregisters.TAC   = 0x00;

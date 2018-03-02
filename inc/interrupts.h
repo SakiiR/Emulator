@@ -20,7 +20,18 @@ typedef struct              s_interrupts
   enum s_interrupt_status   enabled;
 }                           t_interrupts;
 
+enum                    e_interrupt_type
+{
+  VBLANK  = 1 << 0,  /* 0b00000001 */
+  LCDSTAT = 1 << 1,  /* 0b00000010 */
+  TIMER   = 1 << 2,  /* 0b00000100 */
+  SERIAL  = 1 << 3,  /* 0b00001000 */
+  JOYPAD  = 1 << 4   /* 0b00010000 */
+};
+
 void                        init_interrupts(t_interrupts *interrupts);
 char                        interrupts_step(t_game *game);
+
+int                         trigger_interrupt(t_game *game, const enum e_interrupt_type type);
 
 #endif /* !INTERRUPTS_H_ */
