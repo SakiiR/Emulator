@@ -7,6 +7,7 @@ int                     init_timer(t_timer *timer)
 {
   timer->div = 0;
   timer->timer = 0;
+  timer->cycles = 0;
   return RETURN_SUCCESS;
 }
 

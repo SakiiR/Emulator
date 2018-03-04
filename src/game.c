@@ -8,7 +8,7 @@
 #include "utils.h"
 #include "interrupts.h"
 #include "timer.h"
-
+#include "timing.h"
 
 static char         parse_event(SDL_Event *event, t_game *game)
 {
@@ -56,6 +56,7 @@ int                 game_loop(t_game *game)
     gpu_step(game);
     timer_step(game);
     interrupts_step(game);
+    timing_step(game);
     if (parse_event(&event, game) == RETURN_FAILURE)
       return RETURN_FAILURE;
   }

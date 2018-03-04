@@ -14,6 +14,8 @@ int                 i_cp_a(t_game *game)
       set_C(&game->state.f);
     if (op1 == op2)
       set_Z(&game->state.f);
+    else
+      reset_Z(&game->state.f);
     set_N(&game->state.f);
     /* TODO: Set if no borrow from bit 4 */
     return RETURN_SUCCESS;
@@ -28,6 +30,8 @@ int                 i_cp_b(t_game *game)
       set_C(&game->state.f);
     if (op1 == op2)
       set_Z(&game->state.f);
+    else
+      reset_Z(&game->state.f);
     set_N(&game->state.f);
     /* TODO: Set if no borrow from bit 4 */
     return RETURN_SUCCESS;
@@ -42,6 +46,8 @@ int                 i_cp_c(t_game *game)
       set_C(&game->state.f);
     if (op1 == op2)
       set_Z(&game->state.f);
+    else
+      reset_Z(&game->state.f);
     set_N(&game->state.f);
     /* TODO: Set if no borrow from bit 4 */
     return RETURN_SUCCESS;
@@ -56,6 +62,8 @@ int                 i_cp_d(t_game *game)
       set_C(&game->state.f);
     if (op1 == op2)
       set_Z(&game->state.f);
+    else
+      reset_Z(&game->state.f);
     set_N(&game->state.f);
     /* TODO: Set if no borrow from bit 4 */
     return RETURN_SUCCESS;
@@ -70,6 +78,8 @@ int                 i_cp_e(t_game *game)
       set_C(&game->state.f);
     if (op1 == op2)
       set_Z(&game->state.f);
+    else
+      reset_Z(&game->state.f);
     set_N(&game->state.f);
     /* TODO: Set if no borrow from bit 4 */
     return RETURN_SUCCESS;
@@ -84,6 +94,8 @@ int                 i_cp_h(t_game *game)
       set_C(&game->state.f);
     if (op1 == op2)
       set_Z(&game->state.f);
+    else
+      reset_Z(&game->state.f);
     set_N(&game->state.f);
     /* TODO: Set if no borrow from bit 4 */
     return RETURN_SUCCESS;
@@ -98,6 +110,8 @@ int                 i_cp_l(t_game *game)
       set_C(&game->state.f);
     if (op1 == op2)
       set_Z(&game->state.f);
+    else
+      reset_Z(&game->state.f);
     set_N(&game->state.f);
     /* TODO: Set if no borrow from bit 4 */
     return RETURN_SUCCESS;
@@ -112,6 +126,8 @@ int                 i_cp_hl(t_game *game)
       set_C(&game->state.f);
     if (op1 == op2)
       set_Z(&game->state.f);
+    else
+      reset_Z(&game->state.f);
     set_N(&game->state.f);
     /* TODO: Set if no borrow from bit 4 */
     return RETURN_SUCCESS;
@@ -124,8 +140,12 @@ int                 i_cp_sharp(t_game *game)
 
     if (op1 < op2)
       set_C(&game->state.f);
+
     if (op1 == op2)
       set_Z(&game->state.f);
+    else
+      reset_Z(&game->state.f);
+
     set_N(&game->state.f);
     /* TODO: Set if no borrow from bit 4 */
     return RETURN_SUCCESS;

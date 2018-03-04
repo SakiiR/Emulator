@@ -13,6 +13,7 @@ typedef struct          s_timer
 {
   unsigned long long    div;
   unsigned long long    timer;
+  unsigned long long    cycles;
 }                       t_timer;
 
 int                     init_timer(t_timer *timer);
