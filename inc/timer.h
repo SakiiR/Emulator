@@ -6,6 +6,7 @@
 # define MAX_DIV        (16384)
 # define TIMER_ENABLED  (1 << 2)
 # define TIMER_OFFSET   (0x3) 
+# define CPU_FREQ       (4194304) /* Hz */
 
 typedef struct s_game   t_game;
 

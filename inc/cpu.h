@@ -40,6 +40,7 @@ typedef struct              s_hregisters
   uint8_t                   *SCX;
   uint8_t                   *LYC;
   uint8_t                   *LY;
+  uint8_t                   *STAT;
   uint8_t                   *BGP;
   uint8_t                   *OBP0;
   uint8_t                   *OBP1;

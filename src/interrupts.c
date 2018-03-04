@@ -31,7 +31,6 @@ char                        interrupts_step(t_game *game)
   {
     if (interrupts_registers & (1 << i))
     {
-      printf("[~] Interruption triggered!\n");
       /* Restoring interrupt flag and enable */
       *game->state.hregisters.IF &= (0xFF ^ (1 << i));
       game->interrupts.enabled = INTERRUPTS_DISABLED;

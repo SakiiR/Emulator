@@ -49,10 +49,12 @@ int                 game_loop(t_game *game)
     return RETURN_FAILURE;
   init_interrupts(&game->interrupts);
   init_timer(&game->timer);
+  init_gpu(&game->gpu);
   while (1)
   {
     SDL_PollEvent(&event);
-    cpu_step(game, game->options.verbose);
+    if (cpu_step(game, game->options.verbose) == RETURN_FAILURE)
+      return RETURN_FAILURE;
     gpu_step(game);
     timer_step(game);
     interrupts_step(game);

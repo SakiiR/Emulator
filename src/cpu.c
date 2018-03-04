@@ -46,6 +46,7 @@ static void      init_hregisters(t_cpustate *state)
   state->hregisters.NR51   = state->memory.start + 0xff25;
   state->hregisters.NR52   = state->memory.start + 0xff26;
   state->hregisters.LCDC   = state->memory.start + 0xff40;
+  state->hregisters.STAT   = state->memory.start + 0xff41;
   state->hregisters.SCY    = state->memory.start + 0xff42;
   state->hregisters.SCX    = state->memory.start + 0xff43;
   state->hregisters.LY     = state->memory.start + 0xff44;
@@ -84,6 +85,7 @@ static void      init_hregisters(t_cpustate *state)
   *state->hregisters.SCX   = 0x00;
   *state->hregisters.LY    = 0x00;
   *state->hregisters.LYC   = 0x00;
+  *state->hregisters.STAT  = 0x00;
   *state->hregisters.BGP   = 0xfc;
   *state->hregisters.OBP0  = 0xff;
   *state->hregisters.OBP1  = 0xff;
@@ -110,7 +112,7 @@ void                verb_state(t_cpustate *state)
   if (instruction->size == 2)
     sprintf(operation, instruction->operation, (uint8_t)state->op8);
   else if (instruction->size == 3)
-    sprintf(operation, instruction->operation, (uint8_t)state->op16);
+    sprintf(operation, instruction->operation, (uint16_t)state->op16);
   else 
     strcpy(operation, instruction->operation);
   printf("A: %02x F: %02x (AF: %04x)                       \n", state->a, state->f, state->af);
@@ -159,6 +161,11 @@ int                 cpu_step(t_game *game, char verbose)
     verb_state(&game->state);
   game->state.old_pc = game->state.pc;
   game->state.pc += game->state.instruction->size;
+  if (game->state.instruction->handler == NULL)
+  {
+    printf("WTF!\n");
+    return RETURN_FAILURE;
+  }
   game->state.instruction->handler(game);
   return RETURN_SUCCESS;
 }

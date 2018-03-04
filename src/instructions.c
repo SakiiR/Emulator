@@ -29,7 +29,8 @@ t_instruction               *decode_instruction(t_game *game, uint16_t pc)
 int                         i_prefix(t_game *game)
 {
   t_instruction     i = g_instructions_cb[game->state.memory.start[game->state.pc + 1]];
-  printf("[+] Triggering CB instruction (%s)\n", i.operation);
+
+  game->state.pc += i.size;
   return g_instructions_cb[(int)game->state.op8].handler(game);
 }
 
