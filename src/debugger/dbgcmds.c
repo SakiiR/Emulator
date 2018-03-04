@@ -2,29 +2,41 @@
 #include <string.h>
 #include <stdlib.h>
 #include "resource.h"
+#include "instructions.h"
 #include "cpu.h"
 #include "game.h"
 #include "debugger/debugger.h"
 
 t_dbgcmd                g_dbgcmds[] = {
-    {"n",               &dbgcmd_next},
-    {"next",            &dbgcmd_next},
-    {"step",            &dbgcmd_next},
-    {"q",               &dbgcmd_quit},
-    {"quit",            &dbgcmd_quit},
-    {"exit",            &dbgcmd_quit},
-    {"b",               &dbgcmd_add_breakpoint},
-    {"breakpoint",      &dbgcmd_add_breakpoint},
-    {"d",               &dbgcmd_del_breakpoint},
-    {"del",             &dbgcmd_del_breakpoint},
-    {"delete",          &dbgcmd_del_breakpoint},
-    {"c",               &dbgcmd_continue},
-    {"continue",        &dbgcmd_continue},
-    {"r",               &dbgcmd_reset},
-    {"reset",           &dbgcmd_reset},
-    {"x",               &dbgcmd_x},
-    {NULL,              NULL},
+  {"help",            &dbgcmd_help,             "Display help message"},
+  {"n",               &dbgcmd_next,             "Step to next instruction and display the status"},
+  {"next",            &dbgcmd_next,             "Step to next instruction and display the status"},
+  {"step",            &dbgcmd_next,             "Step to next instruction and display the status"},
+  {"q",               &dbgcmd_quit,             "Quit the gameboy emulator"},
+  {"quit",            &dbgcmd_quit,             "Quit the gameboy emulator"},
+  {"exit",            &dbgcmd_quit,             "Quit the gameboy emulator"},
+  {"b",               &dbgcmd_add_breakpoint,   "Add a breakpoint"},
+  {"breakpoint",      &dbgcmd_add_breakpoint,   "Add a breakpoint"},
+  {"breakpoints",     &dbgcmd_list_breakpoints, "List all breakpoints"},
+  {"blist",           &dbgcmd_list_breakpoints, "List all breakpoints"},
+  {"d",               &dbgcmd_del_breakpoint,   "Delete a breakpoint"},
+  {"del",             &dbgcmd_del_breakpoint,   "Delete a breakpoint"},
+  {"delete",          &dbgcmd_del_breakpoint,   "Delete a breakpoint"},
+  {"c",               &dbgcmd_continue,         "Continue until a breakpoint is met"},
+  {"continue",        &dbgcmd_continue,         "Continue until a breakpoint is met"},
+  {"r",               &dbgcmd_reset,            "Reset the gameboy"},
+  {"reset",           &dbgcmd_reset,            "Reset the gameboy"},
+  {"x",               &dbgcmd_x,                "Display N byte from the gameboy memory"},
+  {NULL,              NULL,                     NULL},
 };
+
+static void             gameboy_step(t_game *game, char verbose)
+{
+  cpu_step(game, verbose);
+  gpu_step(game);
+  timer_step(game);
+  interrupts_step(game);
+}
 
 static unsigned int     tokens_length(const char **tokens)
 {
@@ -34,10 +46,21 @@ static unsigned int     tokens_length(const char **tokens)
     ;
   return i;
 }
+
+int                     dbgcmd_help(t_game *game, const char **argv)
+{
+  (void)game;
+  (void)argv;
+  printf("[~] Available commands: \n");
+  for (unsigned int i = 0 ; g_dbgcmds[i].command ; ++i)
+    printf("%20s - %s\n", g_dbgcmds[i].command, g_dbgcmds[i].description);
+  return RETURN_SUCCESS;
+}
+
 int                     dbgcmd_next(t_game *game, const char **argv)
 {
   (void)argv;
-  cpu_step(game, 1);
+  gameboy_step(game, 1);
   return RETURN_SUCCESS;
 }
 
@@ -63,7 +86,6 @@ static char             parse_address(char *arg, uint16_t *address)
     return RETURN_FAILURE;
   }
   *address = strtol(s, NULL, 16);
-  printf("[~] Fixed breakpoint at address 0x%04x\n", *address);
   return RETURN_SUCCESS;
 }
 
@@ -75,11 +97,27 @@ int                     dbgcmd_add_breakpoint(t_game *game, const char **argv)
     return RETURN_SUCCESS;
   if (parse_address((char *)argv[1], &address) == RETURN_FAILURE)
     return RETURN_SUCCESS;
+  printf("[~] Fixed breakpoint at address 0x%04x\n", address);
   if (add_breakpoint(&game->dbg.breakpoints, address) == RETURN_FAILURE)
     return RETURN_SUCCESS;
   return RETURN_SUCCESS;
 }
 
+int                     dbgcmd_list_breakpoints(t_game *game, const char **argv)
+{
+  t_breakpoint          *it = game->dbg.breakpoints;
+  t_instruction         *instruction = NULL;
+
+  (void)argv;
+  printf("[~] Breakpoint list:\n");
+  while (it)
+  {
+    instruction = decode_instruction(game, it->address);
+    printf("\t at address: 0x%04x -> %s \n", it->address, instruction->operation);
+    it = it->next;
+  }
+  return RETURN_SUCCESS;
+}
 
 int                     dbgcmd_del_breakpoint(t_game *game, const char **argv)
 {
@@ -114,9 +152,9 @@ int                     dbgcmd_continue(t_game *game, const char **argv)
   {
     if (should_break(game->dbg.breakpoints, game->state.pc) == RETURN_SUCCESS)
       break;
-    cpu_step(game, 0);
+    gameboy_step(game, 0);
   }
-  cpu_step(game, 1);
+  gameboy_step(game, 1);
   return RETURN_SUCCESS;
 }
 
@@ -125,7 +163,7 @@ int                     dbgcmd_reset(t_game *game, const char **argv)
   (void)argv;
   if (init_cpu(&game->state, &game->card) == RETURN_FAILURE)
     return RETURN_FAILURE;
-  cpu_step(game, 1);
+  gameboy_step(game, 1);
   return RETURN_SUCCESS;
 }
 

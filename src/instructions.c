@@ -8,9 +8,9 @@
 #include "memory_ar.h"
 
 
-int                 unimplemented_instruction(t_game *game)
+int                         unimplemented_instruction(t_game *game)
 {
-  t_instruction     *instruction = game->state.instruction;
+  t_instruction             *instruction = game->state.instruction;
 
   fprintf(stderr, 
           "[-] Unimplemented Instruction at 0x%04x (%s) (0x%02x)\n",
@@ -21,10 +21,16 @@ int                 unimplemented_instruction(t_game *game)
   return RETURN_FAILURE;
 }
 
-int                 i_prefix(t_game *game)
+t_instruction               *decode_instruction(t_game *game, uint16_t pc)
+{
+  return &g_instructions[game->state.memory.start[pc]];
+}
+
+int                         i_prefix(t_game *game)
 {
   t_instruction     i = g_instructions_cb[game->state.memory.start[game->state.pc + 1]];
   printf("[+] Triggering CB instruction (%s)\n", i.operation);
   return g_instructions_cb[(int)game->state.op8].handler(game);
 }
+
 
