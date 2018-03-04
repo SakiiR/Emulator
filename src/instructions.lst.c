@@ -76,7 +76,7 @@ t_instruction     g_instructions[] = {
   [0x73] = { "LD (HL), E",      &i_ld8_hl_e , 8, 1},
   [0x74] = { "LD (HL), H",      &i_ld8_hl_h , 8, 1},
   [0x75] = { "LD (HL), L",      &i_ld8_hl_l , 8, 1},
-  [0x36] = { "LD (HL), n",      &i_ld8_hl_n , 12, 2},
+  [0x36] = { "LD (HL), 0x%02x", &i_ld8_hl_n , 12, 2},
 
   /* 3. LD A, n */
   /* Description: Put value n into A */
@@ -102,13 +102,13 @@ t_instruction     g_instructions[] = {
   [0x02] = { "LD (BC), A",      &i_ld8_bc_a, 8, 1},
   [0x12] = { "LD (DE), A",      &i_ld8_de_a, 8, 1},
   [0x77] = { "LD (HL), A",      &i_ld8_hl_a, 8, 1},
-  [0xea] = { "LD (nn), A",      &i_ld8_nn_a, 16, 1},
+  [0xea] = { "LD (0x%04x), A",  &i_ld8_nn_a, 16, 3},
 
   /* 5. LD A, (C) */
   [0xf2] = { "LD A, ($FF00 + C)",       &i_ld8_a_cp, 8, 1},
 
   /* 6. LD (C), A */
-  [0xe2] = { "LD ($FF00+C), A", &i_ld8_cp_a, 8, 1},
+  [0xe2] = { "LD ($FF00 + C), A", &i_ld8_cp_a, 8, 1},
 
   /* 7. LD A, (HLD) */
   /* Description: Same as: LDD A, (HL) */
@@ -196,7 +196,7 @@ t_instruction     g_instructions[] = {
   /*     N - Reset. */
   /*     H - Set or reset according to operation. */
   /*     C - Set or reset according to operation. */
-  [0xf8] = { "LDHL SP, 0x%02x", &i_ld16_hl_sp_n, 12, 1},
+  [0xf8] = { "LDHL SP, 0x%02x", &i_ld16_hl_sp_n, 12, 2},
  
 
   /* 5. LD (nn), SP */
@@ -204,7 +204,7 @@ t_instruction     g_instructions[] = {
   /*     Put Stack Pointer (SP) at address n. */
   /* Use with: */
   /*     nn = two byte immediate address. */
-  [0x08] = { "LD (0x%04x) SP", &i_ld16_nn_sp, 20, 1},
+  [0x08] = { "LD (0x%04x) SP", &i_ld16_nn_sp, 20, 3},
 
   /* 6. PUSH nn */
   /* Description: */
@@ -658,7 +658,7 @@ t_instruction     g_instructions[] = {
   /*     Push address of next instruction onto stack and then jump to address nn. */
   /* Use with: */
   /*     nn = two byte immediate value. (LS byte first). */
-  [0xcd] = { "CALL 0x%02x", &i_call_nn, 12, 3},
+  [0xcd] = { "CALL 0x%04x", &i_call_nn, 12, 3},
 
 
   /* 2. CALL cc, nn */
@@ -670,10 +670,10 @@ t_instruction     g_instructions[] = {
   /*     cc = C, Call if C flag is set */
   /* Use with: */
   /*     nn = two byte immediate value. (LS byte first). */
-  [0xc4] = { "CALL NZ, 0x%02x", &i_call_nz_nn, 12, 3},
-  [0xcc] = { "CALL Z, 0x%02x",  &i_call_z_nn , 12, 3},
-  [0xd4] = { "CALL NC, 0x%02x", &i_call_nc_nn, 12, 3},
-  [0xdc] = { "CALL C, 0x%02x",  &i_call_c_nn , 12, 3},
+  [0xc4] = { "CALL NZ, 0x%02x", &i_call_nz_nn, 12, 2},
+  [0xcc] = { "CALL Z, 0x%02x",  &i_call_z_nn , 12, 2},
+  [0xd4] = { "CALL NC, 0x%02x", &i_call_nc_nn, 12, 2},
+  [0xdc] = { "CALL C, 0x%02x",  &i_call_c_nn , 12, 2},
 
 
   /* 3.3.10 - Restarts */
@@ -908,13 +908,13 @@ t_instruction     g_instructions_cb[] = {
   /*     H - Set. */
   /*     C - Not affected. */
 
-  [0x47] = {"BIT 0x%02x, A",       &i_bit_a , 8, 2},
-  [0x40] = {"BIT 0x%02x, B",       &i_bit_b , 8, 2},
-  [0x41] = {"BIT 0x%02x, C",       &i_bit_c , 8, 2},
-  [0x42] = {"BIT 0x%02x, D",       &i_bit_d , 8, 2},
-  [0x43] = {"BIT 0x%02x, E",       &i_bit_e , 8, 2},
-  [0x44] = {"BIT 0x%02x, H",       &i_bit_h , 8, 2},
-  [0x45] = {"BIT 0x%02x, L",       &i_bit_l , 8, 2},
+  [0x47] = {"BIT 0x%02x, A",       &i_bit_a , 8,  2},
+  [0x40] = {"BIT 0x%02x, B",       &i_bit_b , 8,  2},
+  [0x41] = {"BIT 0x%02x, C",       &i_bit_c , 8,  2},
+  [0x42] = {"BIT 0x%02x, D",       &i_bit_d , 8,  2},
+  [0x43] = {"BIT 0x%02x, E",       &i_bit_e , 8,  2},
+  [0x44] = {"BIT 0x%02x, H",       &i_bit_h , 8,  2},
+  [0x45] = {"BIT 0x%02x, L",       &i_bit_l , 8,  2},
   [0x46] = {"BIT 0x%02x, (HL)",    &i_bit_hl, 16, 2},
 
   /* SET b, r */
@@ -923,14 +923,14 @@ t_instruction     g_instructions_cb[] = {
   /* Use with: */
   /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
 
-  [0xc7] = {"SET 0x%02x, A",       &i_set_a , 8, 1},
-  [0xc0] = {"SET 0x%02x, B",       &i_set_b , 8, 1},
-  [0xc1] = {"SET 0x%02x, C",       &i_set_c , 8, 1},
-  [0xc2] = {"SET 0x%02x, D",       &i_set_d , 8, 1},
-  [0xc3] = {"SET 0x%02x, E",       &i_set_e , 8, 1},
-  [0xc4] = {"SET 0x%02x, H",       &i_set_h , 8, 1},
-  [0xc5] = {"SET 0x%02x, L",       &i_set_l , 8, 1},
-  [0xc6] = {"SET 0x%02x, (HL)",    &i_set_hl, 16, 1},
+  [0xc7] = {"SET 0x%02x, A",       &i_set_a , 8,  2},
+  [0xc0] = {"SET 0x%02x, B",       &i_set_b , 8,  2},
+  [0xc1] = {"SET 0x%02x, C",       &i_set_c , 8,  2},
+  [0xc2] = {"SET 0x%02x, D",       &i_set_d , 8,  2},
+  [0xc3] = {"SET 0x%02x, E",       &i_set_e , 8,  2},
+  [0xc4] = {"SET 0x%02x, H",       &i_set_h , 8,  2},
+  [0xc5] = {"SET 0x%02x, L",       &i_set_l , 8,  2},
+  [0xc6] = {"SET 0x%02x, (HL)",    &i_set_hl, 16, 2},
 
   /* RES b, r */
   /* Description: */
@@ -938,12 +938,12 @@ t_instruction     g_instructions_cb[] = {
   /* Use with: */
   /*     b = 0 - 7, r = A, B, C, D, E, H, L, (HL) */
 
-  [0x87] = {"RES 0x%02x, A",       &i_res_a , 8, 1},
-  [0x80] = {"RES 0x%02x, B",       &i_res_b , 8, 1},
-  [0x81] = {"RES 0x%02x, C",       &i_res_c , 8, 1},
-  [0x82] = {"RES 0x%02x, D",       &i_res_d , 8, 1},
-  [0x83] = {"RES 0x%02x, E",       &i_res_e , 8, 1},
-  [0x84] = {"RES 0x%02x, H",       &i_res_h , 8, 1},
-  [0x85] = {"RES 0x%02x, L",       &i_res_l , 8, 1},
-  [0x86] = {"RES 0x%02x, (HL)",    &i_res_hl, 16, 1},
+  [0x87] = {"RES 0x%02x, A",       &i_res_a , 8,  2},
+  [0x80] = {"RES 0x%02x, B",       &i_res_b , 8,  2},
+  [0x81] = {"RES 0x%02x, C",       &i_res_c , 8,  2},
+  [0x82] = {"RES 0x%02x, D",       &i_res_d , 8,  2},
+  [0x83] = {"RES 0x%02x, E",       &i_res_e , 8,  2},
+  [0x84] = {"RES 0x%02x, H",       &i_res_h , 8,  2},
+  [0x85] = {"RES 0x%02x, L",       &i_res_l , 8,  2},
+  [0x86] = {"RES 0x%02x, (HL)",    &i_res_hl, 16, 2},
 };
