@@ -2,6 +2,7 @@
 #include "game.h"
 #include "cpu.h"
 #include "video.h"  
+#include "utils.h"
 
 SDL_Surface                     *setup_SDL()
 { 

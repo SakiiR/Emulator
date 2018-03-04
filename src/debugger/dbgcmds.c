@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "resource.h"
+#include "utils.h"
 #include "instructions.h"
 #include "cpu.h"
 #include "game.h"
@@ -27,6 +28,9 @@ t_dbgcmd                g_dbgcmds[] = {
   {"r",               &dbgcmd_reset,            "Reset the gameboy"},
   {"reset",           &dbgcmd_reset,            "Reset the gameboy"},
   {"x",               &dbgcmd_x,                "Display N byte from the gameboy memory"},
+  {"vram",            &dbgcmd_dump_vram,        "Dump video memory to file"},
+  {"tiles",           &dbgcmd_dump_tiles,       "Dump tiles to stdout"},
+  {"i",               &dbgcmd_i,                "Execute n instructions"},
   {NULL,              NULL,                     NULL},
 };
 
@@ -185,6 +189,56 @@ static void             hex_dump(const uint8_t *memory, uint16_t address, unsign
     printf("\n");
     i += j;
   }
+}
+
+int                     dbgcmd_dump_vram(t_game *game, const char **argv)
+{
+  (void)argv;
+  dump_vram(game);
+  return RETURN_SUCCESS;
+}
+
+int                     dbgcmd_dump_tiles(t_game *game, const char **argv)
+{
+  unsigned int          argc = tokens_length(argv);
+  size_t                n = 0;
+  FILE                  *out = stdout;
+
+  if (!(argc > 1 && atoi(argv[1]) >= 0))
+  {
+    printf("[~] tiles <count (>= 1)> <out>\n");
+    return RETURN_SUCCESS;
+  }
+  n = (size_t)atoi(argv[1]);
+  if (argc > 2)
+  {
+    if ((out = fopen(argv[2], "w")) == NULL)
+    {
+      fprintf(stderr, "[-] Failed to open '%s' for writing\n", argv[2]);
+      out = stdout;
+    }
+  }
+  dump_tiles(game, n, out);
+  if (argc > 2)
+    fclose(out);
+  return RETURN_SUCCESS;
+}
+
+int                     dbgcmd_i(t_game *game, const char **argv)
+{
+  unsigned int          argc = tokens_length(argv);
+  unsigned long long    count = 0;
+
+  if (argc < 2)
+  {
+    printf("[~] i <count (>= 1)>\n");
+    return RETURN_SUCCESS;
+  }
+  count = strtoull(argv[1], NULL, 10);
+  for (unsigned long long i = 0 ; i < count - 1; ++i)
+    gameboy_step(game, 0);
+  gameboy_step(game, 1);
+  return RETURN_SUCCESS;
 }
 
 int                     dbgcmd_x(t_game *game, const char **argv)
