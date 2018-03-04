@@ -6,6 +6,9 @@
 # define SDL_WINDOW_X                     (640)
 # define SDL_WINDOW_Y                     (480)
 
+# define VRAM_START                       (0x8000)
+# define VRAM_END                         (0x9FFF)
+
 # define SCREEN_WIDTH                     (160)
 # define SCREEN_HEIGHT                    (144)
 
@@ -20,9 +23,9 @@
 
 enum                                      e_stat_screen_mode
 {
-  MODE_HBLANK = 0,
-  MODE_VBLANK = 1,
-  MODE_OEM_SEARCH = 2,
+  MODE_HBLANK         = 0,
+  MODE_VBLANK         = 1,
+  MODE_OEM_SEARCH     = 2,
   MODE_PIXEL_TRANSFER = 3
 };
 
