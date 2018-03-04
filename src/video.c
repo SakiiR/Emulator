@@ -17,7 +17,8 @@ SDL_Surface             *setup_SDL()
 
 void                    refresh(t_game *game)
 {
-  SDL_Flip(game->gpu.screen);
+  // SDL_Flip(game->gpu.screen);
+  (void)game;
 }
 
 void                    destroy_SDL(SDL_Surface *screen)
