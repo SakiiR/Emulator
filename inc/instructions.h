@@ -21,6 +21,7 @@ extern t_instruction	    g_instructions[0xFF + 1];
 extern t_instruction	    g_instructions_cb[0xFF + 1];
 
 int                         unimplemented_instruction(t_game *game);
+t_instruction               *decode_instruction(t_game *game, uint16_t pc);
 
 t_ihandler                  i_prefix;
 t_ihandler                  i_nop;
