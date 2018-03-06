@@ -71,7 +71,7 @@ static void                     mode_h_pixel_transfer(t_game *game)
   (void)game;
 }
 
-static void                     process(t_game *game)
+int                             gpu_step(t_game *game)
 {
   uint8_t                       gpu_mode = *game->state.hregisters.STAT & 3;
   const t_mode_handler          *mode_handler = NULL;
@@ -90,10 +90,5 @@ static void                     process(t_game *game)
     mode_handler->handler(game);
     game->gpu.cycles -= mode_handler->cycle_count;
   }
-}
-
-int                             gpu_step(t_game *game)
-{
-  process(game);
   return RETURN_SUCCESS;
 }

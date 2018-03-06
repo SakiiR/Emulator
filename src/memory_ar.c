@@ -1,53 +1,48 @@
+#include "game.h"
 #include "memory_ar.h"
-void                    push_byte(t_cpustate *state, uint8_t byte)
+
+void                    push_byte(t_game *game, uint8_t byte)
 {
-  state->memory.start[--state->sp] = byte;
+  game->state.memory.start[--game->state.sp] = byte;
 }
 
-uint8_t                 pop_byte(t_cpustate *state)
+uint8_t                 pop_byte(t_game *game)
 {
-  return (state->memory.start[state->sp++]);
+  return (game->state.memory.start[game->state.sp++]);
 }
 
-void                    push_word(t_cpustate *state, uint16_t word)
+void                    push_word(t_game *game, uint16_t word)
 {
-  push_byte(state, (word & 0xFF00) >> 8);
-  push_byte(state, word & 0x00FF);
+  push_byte(game, (word & 0xFF00) >> 8);
+  push_byte(game, word & 0x00FF);
 }
 
-uint16_t                 pop_word(t_cpustate *state)
+uint16_t                pop_word(t_game *game)
 {
-  return ((pop_byte(state) & 0x00FF) | (pop_byte(state) << 8));
+  return ((pop_byte(game) & 0x00FF) | (pop_byte(game) << 8));
 }
 
-
-uint8_t                 read_8(uint8_t *memory)
+uint8_t                 read_byte(t_game *game, uint16_t address)
 {
-  return memory[0];
+  /* Check for access control stat mode */
+  return game->state.memory.start[address];
 }
 
-uint16_t                read_16(uint8_t *memory)
+uint16_t                read_word(t_game *game, uint16_t address)
 {
-  return memory[1] << 8 | memory[0];
+  uint8_t               a = read_byte(game, address);
+  uint8_t               b = read_byte(game, address + 1);
+
+  return b << 8 | a;
 }
 
-uint32_t                read_32(uint8_t *memory)
+void                    write_byte(t_game *game, uint16_t address, uint8_t byte)
 {
-  return memory[0] | (memory[1] << 8) | (memory[2] << 16) | (memory[3] << 24);
+  game->state.memory.start[address] = byte;
 }
 
-uint8_t                 read_byte(t_cpustate *state, uint16_t address)
+void                    write_word(t_game *game, uint16_t address, uint16_t word)
 {
-  return state->memory.start[address];
-}
-
-void                    write_byte(t_cpustate *state, uint16_t address, uint8_t byte)
-{
-  state->memory.start[address] = byte;
-}
-
-void                    write_word(t_cpustate *state, uint16_t address, uint16_t word)
-{
-  write_byte(state, address, (uint8_t)(word & 0x00FF));
-  write_byte(state, address + 1, (uint8_t)((word & 0xFF00) >> 8));
+  write_byte(game, address, (uint8_t)(word & 0x00FF));
+  write_byte(game, address + 1, (uint8_t)((word & 0xFF00) >> 8));
 }

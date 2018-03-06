@@ -98,7 +98,7 @@ int                 i_or_l(t_game *game)
 int                 i_or_hl(t_game *game)
 {
   uint8_t           op1 = game->state.a;
-  uint8_t           op2 = read_byte(&game->state, game->state.hl);
+  uint8_t           op2 = read_byte(game, game->state.hl);
 
   game->state.a = op1 | op2;
   zero_flag_check(&game->state.f, game->state.a);

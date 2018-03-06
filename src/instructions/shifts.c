@@ -113,11 +113,11 @@ int                 i_sla_l(t_game *game)
 
 int                 i_sla_hl(t_game *game)
 {
-  uint8_t           value = read_byte(&game->state, game->state.hl);
+  uint8_t           value = read_byte(game, game->state.hl);
   char			    bit = IS_NEG(value);
   uint8_t           result = (value << 1);
 
-  write_byte(&game->state, game->state.hl, result);
+  write_byte(game, game->state.hl, result);
   zero_flag_check(&game->state.f, result);
   reset_N(&game->state.f);
   reset_H(&game->state.f);
@@ -127,8 +127,6 @@ int                 i_sla_hl(t_game *game)
     reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
-
-
 
 int                 i_sra_a(t_game *game)
 {
@@ -237,11 +235,11 @@ int                 i_sra_l(t_game *game)
 
 int                 i_sra_hl(t_game *game)
 {
-  uint8_t           value = read_byte(&game->state, game->state.hl);
+  uint8_t           value = read_byte(game, game->state.hl);
   char			    bit = value & 1;
   uint8_t           result = (value >> 1) | (IS_NEG(value) << 7);
 
-  write_byte(&game->state, game->state.hl, result);
+  write_byte(game, game->state.hl, result);
   zero_flag_check(&game->state.f, result);
   reset_N(&game->state.f);
   reset_H(&game->state.f);
@@ -360,11 +358,11 @@ int                 i_srl_l(t_game *game)
 
 int                 i_srl_hl(t_game *game)
 {
-  uint8_t           value = read_byte(&game->state, game->state.hl);
+  uint8_t           value = read_byte(game, game->state.hl);
   char			    bit = value & 1;
   uint8_t           result = value >> 1;
 
-  write_byte(&game->state, game->state.hl, result);
+  write_byte(game, game->state.hl, result);
   zero_flag_check(&game->state.f, result);
   reset_N(&game->state.f);
   reset_H(&game->state.f);

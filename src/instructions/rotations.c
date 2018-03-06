@@ -173,12 +173,12 @@ int                 i_rlc_l(t_game *game)
 
 int                 i_rlc_hl(t_game *game)
 {
-  uint8_t           value = read_byte(&game->state, game->state.hl);
+  uint8_t           value = read_byte(game, game->state.hl);
   char			    bit = IS_NEG(value);
   uint8_t           result = 0;
 
   result = value << 1 | bit;
-  write_byte(&game->state, game->state.hl, value);
+  write_byte(game, game->state.hl, value);
   zero_flag_check(&game->state.f, result);
   reset_N(&game->state.f);
   reset_H(&game->state.f);
@@ -423,11 +423,11 @@ int                 i_rrc_l(t_game *game)
 
 int                 i_rrc_hl(t_game *game)
 {
-  uint8_t           value = read_byte(&game->state, game->state.hl);
+  uint8_t           value = read_byte(game, game->state.hl);
   char			    bit = (value & 1);
   uint8_t           result = (value >> 1) | (bit << 7);
 
-  write_byte(&game->state, game->state.hl, result);
+  write_byte(game, game->state.hl, result);
   reset_N(&game->state.f);
   reset_H(&game->state.f);
   zero_flag_check(&game->state.f, result);
@@ -547,11 +547,11 @@ int                 i_rr_l(t_game *game)
 
 int                 i_rr_hl(t_game *game)
 {
-  uint8_t           value = read_byte(&game->state, game->state.hl);
+  uint8_t           value = read_byte(game, game->state.hl);
   char			    bit = (value & 1);
   uint8_t           result = (value >> 1) | (get_C(&game->state.f) << 7);
 
-  write_byte(&game->state, game->state.hl, result);
+  write_byte(game, game->state.hl, result);
   reset_N(&game->state.f);
   reset_H(&game->state.f);
   zero_flag_check(&game->state.f, result);
