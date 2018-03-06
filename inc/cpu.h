@@ -7,7 +7,7 @@
 # include "memory.h"
 # include "card.h"
 
-# define MEMORY_SIZE                  (0xFFFF)
+# define MEMORY_SIZE        (0xFFFF)
 
 struct                      s_instruction;
 
@@ -41,11 +41,11 @@ typedef struct              s_hregisters
   uint8_t                   *LYC;
   uint8_t                   *LY;
   uint8_t                   *STAT;
-  uint8_t                   *BGP;
-  uint8_t                   *OBP0;
-  uint8_t                   *OBP1;
-  uint8_t                   *WY;
-  uint8_t                   *WX;
+  uint8_t                   *BGP; /* Background Palette Data */
+  uint8_t                   *OBP0; /* Sprite Palette 0 */
+  uint8_t                   *OBP1; /* Sprite Palette 1 */
+  uint8_t                   *WY;   /* Window Y Position */
+  uint8_t                   *WX;   /* Window X Position */
   uint8_t                   *IE;
 }                           t_hregisters;
 

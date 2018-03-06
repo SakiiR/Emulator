@@ -120,7 +120,7 @@ int                 i_cp_l(t_game *game)
 int                 i_cp_hl(t_game *game)
 {
     uint8_t         op1 = game->state.a;
-    uint8_t         op2 = read_byte(&game->state, game->state.hl);
+    uint8_t         op2 = read_byte(game, game->state.hl);
 
     if (op1 < op2)
       set_C(&game->state.f);

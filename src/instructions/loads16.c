@@ -37,6 +37,6 @@ int                 i_ld16_sp_hl(t_game *game)
 
 int                 i_ld16_nn_sp(t_game *game)
 {
-  write_word(&game->state, game->state.op16, game->state.sp);
+  write_word(game, game->state.op16, game->state.sp);
   return RETURN_SUCCESS;
 }

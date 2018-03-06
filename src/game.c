@@ -61,11 +61,6 @@ int                 game_loop(t_game *game)
     timing_step(game);
     if (parse_event(&event, game) == RETURN_FAILURE)
       return RETURN_FAILURE;
-    // if (game->state.pc == 0x282a)
-    // {
-    //   dump_tiles(game, 10);
-    //   return RETURN_FAILURE;
-    // }
   }
   return RETURN_SUCCESS;
 }

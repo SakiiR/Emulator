@@ -5,28 +5,16 @@
 # include "card.h"
 # include "cpu.h"
 
-void                    push_byte(t_cpustate *state, uint8_t byte);
-uint8_t                 pop_byte(t_cpustate *state);
-void                    push_word(t_cpustate *state, uint16_t word);
-uint16_t                pop_word(t_cpustate *state);
+typedef struct s_game   t_game;
 
-uint8_t                 read_byte(t_cpustate *state, uint16_t address);
-void                    write_byte(t_cpustate *state, uint16_t address, uint8_t byte);
-void                    write_word(t_cpustate *state, uint16_t address, uint16_t word);
+void                    push_byte(t_game *game, uint8_t byte);
+uint8_t                 pop_byte(t_game *game);
+void                    push_word(t_game *game, uint16_t word);
+uint16_t                pop_word(t_game *game);
 
-void                    fill_bc(t_cpustate *state, uint16_t word);
-void                    fill_de(t_cpustate *state, uint16_t word);
-void                    fill_hl(t_cpustate *state, uint16_t word);
-
-void                    dec_hl(t_cpustate *state);
-void                    inc_hl(t_cpustate *state);
-
-uint16_t                get_bc(t_cpustate *state);
-uint16_t                get_de(t_cpustate *state);
-uint16_t                get_hl(t_cpustate *state);
-
-uint8_t                 read_8(uint8_t *memory);
-uint16_t                read_16(uint8_t *memory);
-uint32_t                read_32(uint8_t *memory);
+uint8_t                 read_byte(t_game *game, uint16_t address);
+uint16_t                read_word(t_game *game, uint16_t address);
+void                    write_byte(t_game *game, uint16_t address, uint8_t byte);
+void                    write_word(t_game *game, uint16_t address, uint16_t word);
 
 #endif /* !MEMORY_AR_H_ */

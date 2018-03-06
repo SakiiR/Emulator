@@ -7,24 +7,24 @@
 
 int                 i_push_af(t_game *game)
 {
-    push_word(&game->state, game->state.af);
+    push_word(game, game->state.af);
     return RETURN_SUCCESS;
 }
 
 int                 i_push_bc(t_game *game)
 {
-    push_word(&game->state, game->state.bc);
+    push_word(game, game->state.bc);
     return RETURN_SUCCESS;
 }
 
 int                 i_push_de(t_game *game)
 {
-    push_word(&game->state, game->state.de);
+    push_word(game, game->state.de);
     return RETURN_SUCCESS;
 }
 
 int                 i_push_hl(t_game *game)
 {
-    push_word(&game->state, game->state.hl);
+    push_word(game, game->state.hl);
     return RETURN_SUCCESS;
 }

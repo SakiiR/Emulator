@@ -35,7 +35,7 @@ char                        interrupts_step(t_game *game)
       *game->state.hregisters.IF &= (0xFF ^ (1 << i));
       game->interrupts.enabled = INTERRUPTS_DISABLED;
       /* Save PC and jump to interrupt handler */
-      push_word(&game->state, game->state.pc);
+      push_word(game, game->state.pc);
       game->state.pc = interrupts[i];
     }
   }

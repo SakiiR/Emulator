@@ -134,9 +134,9 @@ void                verb_state(t_cpustate *state)
   printf("\n");
 }
 
-static void         get_operands(t_cpustate *state)
+static void         get_operands(t_game *game)
 {
-  state->op16 = (short)read_16(&state->memory.start[state->pc + 1]);
+  game->state.op16 = (short)read_word(game, game->state.pc + 1);
 }
 
 int                 init_cpu(t_cpustate *state, t_card *card)
@@ -155,7 +155,7 @@ int                 cpu_step(t_game *game, char verbose)
 {
   uint8_t           opcode = game->state.memory.start[game->state.pc];
 
-  get_operands(&game->state);
+  get_operands(game);
   game->state.instruction = &g_instructions[opcode];
   if (verbose)
     verb_state(&game->state);

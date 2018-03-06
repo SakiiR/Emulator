@@ -63,7 +63,7 @@ int                 i_bit_l(t_game *game)
 
 int                 i_bit_hl(t_game *game)
 {
-  zero_flag_check(&game->state.f, read_byte(&game->state, game->state.hl) & 0x80);
+  zero_flag_check(&game->state.f, read_byte(game, game->state.hl) & 0x80);
   reset_N(&game->state.f);
   set_H(&game->state.f);
   return RETURN_SUCCESS;
@@ -116,10 +116,10 @@ int                 i_set_l(t_game *game)
 
 int                 i_set_hl(t_game *game)
 {
-  uint8_t           value = read_byte(&game->state, game->state.hl);
+  uint8_t           value = read_byte(game, game->state.hl);
 
   value |= 1;
-  write_byte(&game->state, game->state.hl, value);
+  write_byte(game, game->state.hl, value);
   return RETURN_SUCCESS;
 }
 
@@ -168,9 +168,9 @@ int                 i_res_l(t_game *game)
 
 int                 i_res_hl(t_game *game)
 {
-  uint8_t           value = read_byte(&game->state, game->state.hl);
+  uint8_t           value = read_byte(game, game->state.hl);
 
   value &= ~1; // keep only first 7 bits
-  write_byte(&game->state, game->state.hl, value);
+  write_byte(game, game->state.hl, value);
   return RETURN_SUCCESS;
 }

@@ -78,11 +78,11 @@ int                 i_swap_l(t_game *game)
 
 int                 i_swap_hl(t_game *game)
 {
-  uint8_t           value = read_byte(&game->state, game->state.hl);
+  uint8_t           value = read_byte(game, game->state.hl);
 
   SWAP_N(value);
   zero_flag_check(&game->state.f, value);
-  write_byte(&game->state, game->state.hl, value);
+  write_byte(game, game->state.hl, value);
   reset_N(&game->state.f);
   reset_H(&game->state.f);
   reset_C(&game->state.f);

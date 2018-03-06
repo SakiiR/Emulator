@@ -115,7 +115,7 @@ int                         i_add8_a_l(t_game *game)
 int                         i_add8_a_hl(t_game *game)
 {
   const uint8_t           op1 = game->state.a;
-  const uint8_t           op2 = read_8(&game->state.memory.start[game->state.hl]);
+  const uint8_t           op2 = read_byte(game, game->state.hl);
 
   game->state.a = op1 + op2;
 
@@ -251,7 +251,7 @@ int                         i_adc8_a_l(t_game *game)
 int                         i_adc8_a_hl(t_game *game)
 {
   const uint8_t           op1 = game->state.a;
-  const uint8_t           op2 = read_8(&game->state.memory.start[game->state.hl]);
+  const uint8_t           op2 = read_byte(game, game->state.hl);
 
   game->state.a = op1 + op2;
 
@@ -358,10 +358,10 @@ int                 i_inc_l(t_game *game)
 
 int                 i_inc_hl(t_game *game)
 {
-  uint8_t           result = read_byte(&game->state, game->state.hl);
+  uint8_t           result = read_byte(game, game->state.hl);
 
   ++result;
-  write_byte(&game->state, game->state.hl, result);
+  write_byte(game, game->state.hl, result);
   half_carry_check(&game->state.f, result - 1, 1);
   zero_flag_check(&game->state.f, result);
   reset_N(&game->state.f);
@@ -443,10 +443,10 @@ int                 i_dec_l(t_game *game)
 
 int                 i_dec_hl(t_game *game)
 {
-  uint8_t           result = read_byte(&game->state, game->state.hl);
+  uint8_t           result = read_byte(game, game->state.hl);
 
   --result;
-  write_byte(&game->state, game->state.hl, result);
+  write_byte(game, game->state.hl, result);
   check_no_borrow_half_carry(&game->state.f, result + 1, 1);
   zero_flag_check(&game->state.f, result);
   set_N(&game->state.f);
@@ -555,7 +555,7 @@ int                 i_sub8_a_l(t_game *game)
 int                 i_sub8_a_hl(t_game *game)
 {
   uint8_t 			op1 = game->state.a;
-  uint8_t 			op2 = read_byte(&game->state, game->state.hl);
+  uint8_t 			op2 = read_byte(game, game->state.hl);
   uint8_t 			res = op1 - op2;
 
   game->state.a = res;
@@ -683,7 +683,7 @@ int                 i_sbc8_a_l(t_game *game)
 int                 i_sbc8_a_hl(t_game *game)
 {
   uint8_t 			op1 = game->state.a;
-  uint8_t 			op2 = read_byte(&game->state, game->state.hl) + get_C(&game->state.f);
+  uint8_t 			op2 = read_byte(game, game->state.hl) + get_C(&game->state.f);
   uint8_t 			res = op1 - op2;
 
   game->state.a = res;

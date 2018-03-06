@@ -88,7 +88,7 @@ int                 i_ld8_a_l(t_game *game)
 
 int                 i_ld8_a_hl(t_game *game)
 {
-  game->state.a = read_byte(&game->state, game->state.hl);
+  game->state.a = read_byte(game, game->state.hl);
   return RETURN_SUCCESS;
 }
 
@@ -130,7 +130,7 @@ int                 i_ld8_b_l(t_game *game)
 
 int                 i_ld8_b_hl(t_game *game)
 {
-  game->state.b = read_byte(&game->state, game->state.hl);
+  game->state.b = read_byte(game, game->state.hl);
   return RETURN_SUCCESS;
 }
 
@@ -172,7 +172,7 @@ int                 i_ld8_c_l(t_game *game)
 
 int                 i_ld8_c_hl(t_game *game)
 {
-  game->state.c = read_byte(&game->state, game->state.hl);
+  game->state.c = read_byte(game, game->state.hl);
   return RETURN_SUCCESS;
 }
 
@@ -214,7 +214,7 @@ int                 i_ld8_d_l(t_game *game)
 
 int                 i_ld8_d_hl(t_game *game)
 {
-  game->state.d = read_byte(&game->state, game->state.hl);
+  game->state.d = read_byte(game, game->state.hl);
   return RETURN_SUCCESS;
 }
 
@@ -256,7 +256,7 @@ int                 i_ld8_e_l(t_game *game)
 
 int                 i_ld8_e_hl(t_game *game)
 {
-  game->state.e = read_byte(&game->state, game->state.hl);
+  game->state.e = read_byte(game, game->state.hl);
   return RETURN_SUCCESS;
 }
 
@@ -298,7 +298,7 @@ int                 i_ld8_h_l(t_game *game)
 
 int                 i_ld8_h_hl(t_game *game)
 {
-  game->state.h = read_byte(&game->state, game->state.hl);
+  game->state.h = read_byte(game, game->state.hl);
   return RETURN_SUCCESS;
 }
 
@@ -340,50 +340,49 @@ int                 i_ld8_l_l(t_game *game)
 
 int                 i_ld8_l_hl(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.l);
+  write_byte(game, game->state.hl, game->state.l);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_b(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.b);
+  write_byte(game, game->state.hl, game->state.b);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_c(t_game *game)
 {
-
-  write_byte(&game->state, game->state.hl, game->state.c);
+  write_byte(game, game->state.hl, game->state.c);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_d(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.d);
+  write_byte(game, game->state.hl, game->state.d);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_e(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.e);
+  write_byte(game, game->state.hl, game->state.e);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_h(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.h);
+  write_byte(game, game->state.hl, game->state.h);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_l(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.l);
+  write_byte(game, game->state.hl, game->state.l);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_n(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.op8);
+  write_byte(game, game->state.hl, game->state.op8);
   return RETURN_SUCCESS;
 }
 
@@ -391,19 +390,19 @@ int                 i_ld8_hl_n(t_game *game)
 
 int                 i_ld8_a_bc(t_game *game)
 {
-  game->state.a = read_byte(&game->state, game->state.bc);
+  game->state.a = read_byte(game, game->state.bc);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_a_de(t_game *game)
 {
-  game->state.a = read_byte(&game->state, game->state.de);
+  game->state.a = read_byte(game, game->state.de);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_a_nn(t_game *game)
 {
-  game->state.a = read_byte(&game->state, game->state.op16) ;
+  game->state.a = read_byte(game, game->state.op16) ;
   return RETURN_SUCCESS;
 }
 
@@ -453,77 +452,77 @@ int                 i_ld8_l_a(t_game *game)
 
 int                 i_ld8_bc_a(t_game *game)
 {
-  write_byte(&game->state, game->state.bc, game->state.a);
+  write_byte(game, game->state.bc, game->state.a);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_de_a(t_game *game)
 {
-  write_byte(&game->state, game->state.de, game->state.a);
+  write_byte(game, game->state.de, game->state.a);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_hl_a(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.a);
+  write_byte(game, game->state.hl, game->state.a);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_nn_a(t_game *game)
 {
-  write_byte(&game->state, game->state.op16, game->state.a);
+  write_byte(game, game->state.op16, game->state.a);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_a_cp(t_game *game)
 {
-  game->state.a = read_byte(&game->state, 0xFF00 + game->state.c);
+  game->state.a = read_byte(game, 0xFF00 + game->state.c);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld8_cp_a(t_game *game)
 {
-  write_byte(&game->state, game->state.c + 0xFF00, game->state.a);
+  write_byte(game, game->state.c + 0xFF00, game->state.a);
   return RETURN_SUCCESS;
 }
 
 int                 i_ldd8_a_hl(t_game *game)
 {
-  game->state.a = read_byte(&game->state, game->state.hl);
+  game->state.a = read_byte(game, game->state.hl);
   --game->state.hl;
   return RETURN_SUCCESS;
 }
 
 int                 i_ldd8_hl_a(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.a);
+  write_byte(game, game->state.hl, game->state.a);
   --game->state.hl;
   return RETURN_SUCCESS;
 }
 
 int                 i_ldi8_a_hl(t_game *game)
 {
-  game->state.a = read_byte(&game->state, game->state.hl);
+  game->state.a = read_byte(game, game->state.hl);
   ++game->state.hl;
   return RETURN_SUCCESS;
 }
 
 int                 i_ldi8_hl_a(t_game *game)
 {
-  write_byte(&game->state, game->state.hl, game->state.a);
+  write_byte(game, game->state.hl, game->state.a);
   ++game->state.hl;
   return RETURN_SUCCESS;
 }
 
 int                 i_ld_ff00_n_a(t_game *game)
 {
-  write_byte(&game->state, 0xFF00 + game->state.op8, game->state.a);
+  write_byte(game, 0xFF00 + game->state.op8, game->state.a);
   return RETURN_SUCCESS;
 }
 
 int                 i_ld_a_ff00_n(t_game *game)
 {
-  game->state.a = read_byte(&game->state, 0xFF00 + game->state.op8);
+  game->state.a = read_byte(game, 0xFF00 + game->state.op8);
   return RETURN_SUCCESS;
 }
 
