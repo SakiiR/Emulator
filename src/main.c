@@ -6,7 +6,7 @@
 #include "opts.h"
 #include "card.h"
 #include "cpu.h"
-#include "video.h"
+#include "video/video.h"
 
 int             main(int argc, char **argv)
 {

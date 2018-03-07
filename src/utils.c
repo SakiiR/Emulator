@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include "resource.h"
 #include "game.h"
-#include "video.h"
+#include "video/video.h"
 #include "utils.h"
 
 int                         dump_memory(t_game *game)
