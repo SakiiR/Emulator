@@ -4,7 +4,7 @@
 # include "cpu.h"
 # include "card.h"
 # include "opts.h"
-# include "video.h"
+# include "video/video.h"
 # include "debugger/debugger.h"
 # include "interrupts.h"
 # include "timer.h"

@@ -4,7 +4,7 @@
 #include "resource.h"
 #include "game.h"
 #include "cpu.h"
-#include "video.h"
+#include "video/video.h"
 #include "utils.h"
 #include "interrupts.h"
 #include "timer.h"

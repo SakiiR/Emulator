@@ -2,7 +2,7 @@
 # define OPTS_H_
 
 # include <unistd.h>
-# include "video.h"
+# include "video/video.h"
 
 typedef struct      s_opts
 {
