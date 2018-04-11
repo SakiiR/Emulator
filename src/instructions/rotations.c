@@ -30,7 +30,7 @@ int                 i_rla(t_game *game)
   zero_flag_check(&game->state.f, game->state.a);
   if (bit)
     set_C(&game->state.f);
-  else 
+  else
     reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
@@ -45,7 +45,7 @@ int                 i_rrca(t_game *game)
   zero_flag_check(&game->state.f, game->state.a);
   if (bit)
     set_C(&game->state.f);
-  else 
+  else
     reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
@@ -60,7 +60,7 @@ int                 i_rra(t_game *game)
   zero_flag_check(&game->state.f, game->state.a);
   if (bit)
     set_C(&game->state.f);
-  else 
+  else
     reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
@@ -196,7 +196,7 @@ int                 i_rlc_hl(t_game *game)
 
 int                 i_rl_a(t_game *game)
 {
-  char			    bit = IS_NEG(game->state.a);
+  char              bit = IS_NEG(game->state.a);
 
   game->state.a = (game->state.a << 1) | get_C(&game->state.f);
   reset_N(&game->state.f);
@@ -204,7 +204,7 @@ int                 i_rl_a(t_game *game)
   zero_flag_check(&game->state.f, game->state.a);
   if (bit)
     set_C(&game->state.f);
-  else 
+  else
     reset_C(&game->state.f);
   return RETURN_SUCCESS;
 }
