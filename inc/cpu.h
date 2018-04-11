@@ -13,7 +13,7 @@ struct                      s_instruction;
 
 typedef struct              s_hregisters
 {
-  uint8_t		            *DIV;
+  uint8_t                   *DIV;
   uint8_t                   *TIMA;
   uint8_t                   *TMA;
   uint8_t                   *TAC;
@@ -49,67 +49,67 @@ typedef struct              s_hregisters
   uint8_t                   *IE;
 }                           t_hregisters;
 
-typedef struct              s_cpustate {    
+typedef struct              s_cpustate {
   union {
     struct {
-#ifdef M_LITTLE_ENDIAN 
-      uint8_t               a;    
-      uint8_t               f;    
+#ifdef M_LITTLE_ENDIAN
+      uint8_t               a;
+      uint8_t               f;
 #else
-      uint8_t               f;    
-      uint8_t               a;    
+      uint8_t               f;
+      uint8_t               a;
 #endif
     };
     uint16_t                af; /* F is the 8 bits flags register */
   };
   union {
     struct {
-#ifdef M_LITTLE_ENDIAN 
-      uint8_t               b;    
-      uint8_t               c;    
+#ifdef M_LITTLE_ENDIAN
+      uint8_t               b;
+      uint8_t               c;
 #else
-      uint8_t               c;    
-      uint8_t               b;    
+      uint8_t               c;
+      uint8_t               b;
 #endif
     };
     uint16_t                bc;
   };
   union {
     struct {
-#ifdef M_LITTLE_ENDIAN 
-      uint8_t               d;    
-      uint8_t               e;    
+#ifdef M_LITTLE_ENDIAN
+      uint8_t               d;
+      uint8_t               e;
 #else
-      uint8_t               e;    
-      uint8_t               d;    
+      uint8_t               e;
+      uint8_t               d;
 #endif
     };
     uint16_t                de;
   };
   union {
     struct {
-#ifdef M_LITTLE_ENDIAN 
-      uint8_t               h;    
-      uint8_t               l;    
+#ifdef M_LITTLE_ENDIAN
+      uint8_t               h;
+      uint8_t               l;
 #else
-      uint8_t               l;    
-      uint8_t               h;    
+      uint8_t               l;
+      uint8_t               h;
 #endif
     };
     uint16_t                hl;
   };
-  uint16_t                  sp;    
-  uint16_t                  old_pc;    
-  uint16_t                  pc;    
-  struct s_memory           memory;    
-  uint8_t                   int_enable;    
+  uint16_t                  sp;
+  uint16_t                  old_pc;
+  uint16_t                  pc;
+  struct s_memory           memory;
+  uint8_t                   int_enable;
   union {
     int8_t                  op8;
     int16_t                 op16;
   };
   struct s_hregisters       hregisters;
   struct s_instruction      *instruction;
-}                           t_cpustate;    
+}                           t_cpustate;
 
 void                        verb_state(t_cpustate *state);
 int                         cpu_step(t_game *game, char verbose);

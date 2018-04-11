@@ -6,6 +6,8 @@
 #include "instructions.h"
 #include "cpu.h"
 #include "game.h"
+#include "timer.h"
+#include "timing.h"
 #include "debugger/debugger.h"
 
 t_dbgcmd                g_dbgcmds[] = {
@@ -40,6 +42,7 @@ static void             gameboy_step(t_game *game, char verbose)
   gpu_step(game);
   timer_step(game);
   interrupts_step(game);
+  timing_step(game);
 }
 
 static unsigned int     tokens_length(const char **tokens)

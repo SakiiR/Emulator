@@ -45,7 +45,7 @@ int                 game_loop(t_game *game)
 {
   SDL_Event         event;
 
-  if (init_cpu(&game->state, &game->card) == RETURN_FAILURE) 
+  if (init_cpu(&game->state, &game->card) == RETURN_FAILURE)
     return RETURN_FAILURE;
   init_interrupts(&game->interrupts);
   init_timer(&game->timer);

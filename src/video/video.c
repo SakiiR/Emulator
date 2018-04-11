@@ -1,15 +1,15 @@
 #include "resource.h"
 #include "game.h"
 #include "cpu.h"
-#include "video/video.h"  
+#include "video/video.h"
 #include "utils.h"
 
 SDL_Surface                     *setup_SDL()
-{ 
+{
   SDL_Surface                   *screen = NULL;
 
   SDL_Init(SDL_INIT_EVERYTHING);
-  if ((screen = SDL_SetVideoMode( 640, 480, 32, SDL_SWSURFACE )) == NULL)
+  if ((screen = SDL_SetVideoMode(640, 480, 32, SDL_SWSURFACE)) == NULL)
   {
     fprintf(stderr, "[-] Failed to setup SDL\n");
     return NULL;
@@ -26,7 +26,7 @@ void                            init_gpu(t_gpu *gpu)
 
 void                            refresh(t_game *game)
 {
-   SDL_Flip(game->gpu.screen);
+  SDL_Flip(game->gpu.screen);
 }
 
 void                            destroy_SDL(SDL_Surface *screen)
@@ -56,19 +56,16 @@ static void                     mode_h_vblank(t_game *game)
     *game->state.hregisters.STAT = SET_STAT_SCREEN_MODE(*game->state.hregisters.STAT, MODE_OEM_SEARCH);
     trigger_interrupt(game, VBLANK);
   }
-  (void)game;
 }
 
 static void                     mode_h_oem_search(t_game *game)
 {
   *game->state.hregisters.STAT = SET_STAT_SCREEN_MODE(*game->state.hregisters.STAT, MODE_PIXEL_TRANSFER);
-  (void)game;
 }
 
 static void                     mode_h_pixel_transfer(t_game *game)
 {
   *game->state.hregisters.STAT = SET_STAT_SCREEN_MODE(*game->state.hregisters.STAT, MODE_HBLANK);
-  (void)game;
 }
 
 int                             gpu_step(t_game *game)

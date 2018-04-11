@@ -1,3 +1,4 @@
+#include <signal.h>
 #include <stdlib.h>
 #include <string.h>
 #include "debugger/debugger.h"
@@ -5,6 +6,9 @@
 #include "game.h"
 #include "cpu.h"
 
+#define SIGNAL          (SIGINT)
+
+struct s_game           *g_game = NULL;
 
 static void             free_split(const char **tab)
 {
@@ -86,25 +90,48 @@ static void             init_dbg(t_game *game)
   game->dbg.last_command = NULL;
 }
 
-int                     debugger(t_game *game)
+
+static int              debug_step(t_game *game)
 {
   size_t                size;
   char                  *line = NULL;
+  t_game                *current_game = game;
 
+  printf("> ");
+  if (getline(&line, &size, stdin) == -1)
+  {
+    fprintf(stderr, "[-] Failed to read stdin, Exiting\n");
+    return RETURN_FAILURE;
+  }
+  if (current_game == NULL)
+    current_game = g_game;
+  if (parse_command(current_game, line) == RETURN_FAILURE)
+    return RETURN_FAILURE;
+  return RETURN_SUCCESS;
+}
+
+static void             signal_handler(int sig)
+{
+  if (sig == SIGNAL)
+  {
+    signal(SIGNAL, &signal_handler);
+    printf("\n");
+    debug_step(NULL);
+  }
+}
+
+int                     debugger(t_game *game)
+{
   if (init_cpu(&game->state, &game->card) == RETURN_FAILURE) 
     return RETURN_FAILURE;
+  init_gpu(&game->gpu);
+  init_timer(&game->timer);
   init_interrupts(&game->interrupts);
   init_dbg(game);
+  g_game = game;
+  signal(SIGNAL, &signal_handler);
   while (1)
-  {
-    printf("> ");
-    if (getline(&line, &size, stdin) == -1)
-    {
-      fprintf(stderr, "[-] Failed to read stdin, Exiting\n");
+    if (debug_step(game) == RETURN_FAILURE)
       return RETURN_FAILURE;
-    }
-    if (parse_command(game, line) == RETURN_FAILURE)
-      return RETURN_FAILURE;
-  }
   return RETURN_SUCCESS;
 }
