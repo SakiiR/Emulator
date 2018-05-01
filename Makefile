@@ -1,10 +1,10 @@
-CC = gcc
+CC = clang
 
 RM = rm -rf
 
 LDFLAGS += -lSDL
 
-CFLAGS += -Iinc -W -Werror -Wall -g3
+CFLAGS += -Iinc -W -Werror -Wall
 
 SRCS = $(shell find src/ -type f -name "*.c")
 
