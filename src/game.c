@@ -12,7 +12,6 @@
 
 static char         parse_event(SDL_Event *event, t_game *game)
 {
-  (void)game;
   if (event != NULL)
   {
     if (event->type ==SDL_QUIT)
